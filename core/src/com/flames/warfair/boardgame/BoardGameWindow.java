@@ -1,0 +1,385 @@
+package com.flames.warfair.boardgame;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.flames.warfair.MyGdxGame;
+import com.flames.warfair.PopUpMessage;
+import com.flames.warfair.Window;
+import com.flames.warfair.WindowManager;
+import com.flames.warfair.buttons.Button;
+import com.flames.warfair.startmenu.StartMenuWindow;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * Created by Flames on 31/7/16.
+ */
+public class BoardGameWindow extends Window {
+
+    public static Announcer announcer;
+    public static ArrayList<Player> players;
+    static int playerTurn;
+    static Random random;
+    static int numOfPlayers;
+    static ArrayList<Block> blocks;
+    static boolean gameOver;
+    static Card card;
+    static int winnerPtr; //used when all players reach less than 0 points except 1, the winner
+    static int nextRank; //when a player gets disqualified he gets ranked
+    static GlyphLayout rollGlyphLayout;
+    private static int minPoints;
+    private static int minPtr;
+    private static int min2Points;
+    private static int min2Ptr;
+    private static boolean nextTurn;
+    private ArrayList<Button> playerBtns;
+    private Dice dice;
+    private long timerMillis;
+    private int goalPoints;
+    private boolean doOnceDice;
+    private String goalString;
+    private PauseMenuWindow pauseMenuWindow;
+    private PopUpMessage gameOverPopUp;
+
+    public BoardGameWindow(ArrayList<Player> loadedPlayers, int numOfPlayers, int goalPoints, WindowManager wm) {
+        this.wm = wm;
+        BoardGameWindow.numOfPlayers = numOfPlayers;
+        this.goalPoints = goalPoints;
+        Loader.loadBoardGame();
+        StartMenuWindow.startMenuSound.play();
+        players = new ArrayList<Player>();
+        blocks = new ArrayList<Block>();
+        playerBtns = new ArrayList<Button>();
+        random = new Random();
+        rollGlyphLayout = new GlyphLayout();
+        doOnceDice = true;
+        minPoints = 10000;
+        min2Points = 10000;
+        minPtr = 0;
+        min2Ptr = 0;
+        dice = new Dice(new Rectangle(MyGdxGame.WIDTH - 3 * MyGdxGame.WIDTH / 10, 2 * MyGdxGame.HEIGHT / 9, 100, 100));
+        announcer = new Announcer(new Rectangle(MyGdxGame.WIDTH / 7 + 15, MyGdxGame.HEIGHT / 6 + 15, 435, 150));
+        goalString = String.valueOf(goalPoints);
+        if(goalPoints==-5123)
+            goalString = "UNLIMITED";
+
+        playerTurn = 0;
+        initializeBlocks();
+        initializePlayers(loadedPlayers, numOfPlayers);
+        card = new Card(new Rectangle(MyGdxGame.WIDTH / 2 - 125, MyGdxGame.HEIGHT/2 - 150, 252, 309));
+        nextTurn = true;
+        gameOver = false;
+        winnerPtr = -1;
+        timerMillis = TimeUtils.millis();
+        nextRank = numOfPlayers;
+
+        rollGlyphLayout.setText(MyGdxGame.smallFont, BoardGameWindow.players.get((BoardGameWindow.playerTurn)).getName() + " roll");
+    }
+
+    @Override
+    public void update(float dt) {
+        if (!gameOver) {
+            dice.update(dt);
+            card.update(dt);
+            timerMillis = TimeUtils.millis();
+            if (Dice.roll != -1) {//rolled
+                players.get(BoardGameWindow.playerTurn).update(dt);
+            }
+            handleDicer();
+        } else {
+            for (int i = 0; i < players.size(); i++) {
+                if (players.get(i).getPoints() >= goalPoints) {
+                    if (gameOverPopUp == null) {
+                        Loader.getVictoryS().play(MyGdxGame.soundVolume);
+                        gameOverPopUp = new PopUpMessage(1, 1, "GAME OVER", "The winner is " + players.get(i).getName() + "!!!", wm);
+                        announcer.addAnnouncement("GAME OVER! The winner is " + players.get(i).getName() + "!!");
+                        wm.setPopUp(gameOverPopUp);
+                    } else {
+                        if (gameOverPopUp.getButtonPressed() == 1) {
+                            gameOverPopUp.setButtonPressed(0);
+                            StartMenuWindow.startMenuSound.stop();
+                            wm.pop();
+                            wm.pop();
+                            StartMenuWindow.startMenuSound.play();
+                        }
+                    }
+                }
+            }
+            if (winnerPtr != -1) { //noone surpassed the point cap but there is only one survivor
+                if (gameOverPopUp == null) {
+                    Loader.getVictoryS().play(MyGdxGame.soundVolume);
+                    gameOverPopUp = new PopUpMessage(1, 1, "GAME OVER", "The winner is " + (players.get(winnerPtr)).getName() + "!!!", wm);
+                    wm.setPopUp(gameOverPopUp);
+                } else {
+                    if (gameOverPopUp.getButtonPressed() == 1) {
+                        StartMenuWindow.startMenuSound.stop();
+                        wm.pop();
+                        wm.pop();
+                    }
+                }
+            }
+        }
+    }
+
+    private void handleDicer() {
+        if (Block.dicerPopUpMsg != null) {
+            if (Block.dicerPopUpMsg.getButtonPressed() == 1) {
+                Block.dicerPopUpMsg = null;
+                if (Math.abs(random.nextInt() % 2) == 0) {
+                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " is feeling lucky and has won 300 points on the Dicer!");
+                    players.get(BoardGameWindow.playerTurn).alterPoints(300);
+                } else {
+                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " run out of luck and lost 300 points on the Dicer..");
+                    players.get(BoardGameWindow.playerTurn).alterPoints(-300);
+                }
+                setNextPlayersTurn();
+            } else if (Block.dicerPopUpMsg.getButtonPressed() == 2) {
+                Block.dicerPopUpMsg = null;
+                announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " chickens out of the Dicer..");
+                setNextPlayersTurn();
+            }
+        }
+    }
+
+    public static void setNextPlayersTurn() {
+        nextTurn = true;
+        Dice.setDice0TR();
+
+        for (int i = 0; i < players.size(); i++) {
+            BoardGameWindow.playerTurn++;
+            if (BoardGameWindow.playerTurn == BoardGameWindow.numOfPlayers)
+                BoardGameWindow.playerTurn = 0;
+            if (players.get(BoardGameWindow.playerTurn).isAlive()) {
+                if(!gameOver) {
+                    for (int j = 0; j < BoardGameWindow.players.size(); j++) {
+                        if (BoardGameWindow.players.get(j).isAlive()) {
+                            if (BoardGameWindow.players.get(j).getPoints() < minPoints) {
+                                min2Points = minPoints;
+                                min2Ptr = minPtr;
+                                minPoints = BoardGameWindow.players.get(j).getPoints();
+                                minPtr = j;
+                            } else if (BoardGameWindow.players.get(j).getPoints() < min2Points) {
+                                min2Points = BoardGameWindow.players.get(j).getPoints();
+                                min2Ptr = j;
+                            }
+                        }
+                    }
+                    if (players.get(playerTurn).getPoints() == minPoints) {
+                        if (players.get(min2Ptr).getPoints() >= players.get(playerTurn).getPoints() + 500) {
+                            if (players.get(playerTurn).getOnThaPit() <= 0) {
+                                players.get(playerTurn).alterPoints(150);
+                                announcer.addAnnouncement(players.get(playerTurn).getName() + " receives an allowance of 150 points for being weak!");
+                            }
+                        }
+                    }
+                }
+                minPoints = 10000;
+                min2Points = 10000;
+                minPtr = 0;
+                min2Ptr = 0;
+                rollGlyphLayout.setText(MyGdxGame.smallFont, BoardGameWindow.players.get((BoardGameWindow.playerTurn)).getName() + " roll");
+                players.get(BoardGameWindow.playerTurn).setPointsInBank((int) (players.get(BoardGameWindow.playerTurn).getPointsInBank() * 1.1f));
+                break;
+            }
+        }
+    }
+
+    public static void setPlayerReroll() {
+        nextTurn = true;
+        Dice.setDice0TR();
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(cam.combined);
+        sr.setProjectionMatrix(sb.getProjectionMatrix());
+
+        //drawBackground
+        sb.begin();
+        sb.draw(Loader.getBackgroundT(), 0, 0, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
+        for (Player player : players) {
+            if (player.isAlive())
+                player.drawImage(sb);
+        }
+        sb.end();
+
+        //drawHighlights
+        //enable opacity
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        sr.begin(ShapeRenderer.ShapeType.Filled);
+        sr.setColor(new Color(0, 0, 0, 0.6f)); // last argument is alpha channel
+        sr.rect(announcer.getRect().x, announcer.getRect().y, announcer.getRect().width, announcer.getRect().height);
+        sr.end();
+
+        //drawShapes
+        sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(Color.RED);
+        sr.rect(announcer.getRect().x, announcer.getRect().y, announcer.getRect().width, announcer.getRect().height);
+        for(int i=0; i<playerBtns.size(); i++) {
+            if(!players.get(i).isNameSet()) {
+                sr.setColor(players.get(i).getColor());
+                playerBtns.get(i).drawShape(sr);
+            }
+        }
+        sr.end();
+
+        //drawFonts
+        sb.begin();
+        MyGdxGame.smallFont.setColor(Color.GRAY);
+        for (int i = 0; i < announcer.getStrings().size() - 1; i++) {
+            if (announcer.getyScrolls().get(i) < announcer.getRect().height - 25 && announcer.getRect().y + 10 + announcer.getyScrolls().get(i) > announcer.getRect().y) {
+                if (i == announcer.getStrings().size() - 2 && announcer.getChangeLinePtr() == -1) //last entry is 2 lines long
+                    MyGdxGame.smallFont.setColor(Color.WHITE);
+                MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 30 + announcer.getyScrolls().get(i));
+            }
+        }
+        if (announcer.getRect().y + 10 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1) > announcer.getRect().y) {
+            MyGdxGame.smallFont.setColor(Color.WHITE);
+            MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(announcer.getStrings().size() - 1), announcer.getRect().x + 8, announcer.getRect().y + 30 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1));
+        }
+        for(int i=0; i<playerBtns.size(); i++) {
+            MyGdxGame.mediumFont.setColor(players.get(i).getColor());
+            playerBtns.get(i).drawMediumFont(sb, players.get(i).getName());
+            MyGdxGame.mediumFont.draw(sb, players.get(i).getPoints() + "", playerBtns.get(i).getRect().x + 163, playerBtns.get(i).getRect().y + playerBtns.get(i).getRect().height/2 + playerBtns.get(i).getGlyphLayout().height/2);
+        }
+        MyGdxGame.smallFont.setColor(Color.CYAN);
+        MyGdxGame.smallFont.draw(sb, "Goal: " + goalString, announcer.getRect().x + 5,  announcer.getRect().y + announcer.getRect().height + 23);
+
+        if (!dice.isClicked() && Dice.roll == -1) {
+            if (timerMillis % 500 < 250) {
+                if (nextTurn) {
+                    timerMillis = 0;
+                    MyGdxGame.smallFont.setColor(players.get(BoardGameWindow.playerTurn).getColor());
+                    MyGdxGame.smallFont.draw(sb, BoardGameWindow.players.get((BoardGameWindow.playerTurn)).getName() + " roll", dice.getRect().x + dice.getRect().width/2 - rollGlyphLayout.width/2, dice.getRect().y + dice.getRect().height + 25);
+                }
+            }
+        }
+        sb.draw(dice.getCurrentFrame(), dice.getRect().x, dice.getRect().y, dice.getRect().width, dice.getRect().height);
+        sb.draw(card.getCurrentFrame(), card.getRect().x, card.getRect().y, card.getRect().width, card.getRect().height);
+        sb.end();
+    }
+
+    @Override
+    public void dispose() {
+        Loader.disposeBoardGame();
+        sr.dispose();
+        dice.dispose();
+        card.dispose();
+        for (Player player : players)
+            player.dispose();
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
+            pauseMenuWindow = new PauseMenuWindow(wm);
+            wm.setPopUp(pauseMenuWindow);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if (button == 0) {
+            clickVector.set(screenX, screenY, 0);
+            clickVector = cam.unproject(clickVector);
+            clickCoords.set(clickVector.x, clickVector.y, 1, 1);
+
+            if (clickCoords.overlaps(dice.getRect())) {
+                if (nextTurn) {
+                    Loader.getDiceS().play(MyGdxGame.soundVolume);
+                    dice.setClicked(true);
+                    nextTurn = false;
+                }
+            }
+            else {
+                for(int i=0; i<playerBtns.size(); i++) {
+                    if(clickCoords.overlaps(playerBtns.get(i).getRect())) {
+                        if(!players.get(i).isNameSet())
+                            wm.setPopUp(new RenamePlayerWindow(i, playerBtns.get(i), wm));
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        announcer.scroll(amount);
+        return false;
+    }
+
+    private void initializeBlocks() {
+        for (int i = 1; i <= 7; i++)
+            blocks.add(new Block(i - 1, new Rectangle(MyGdxGame.WIDTH - (MyGdxGame.WIDTH / 7 * i), 0, MyGdxGame.WIDTH / 7, MyGdxGame.HEIGHT / 6), wm));
+        for (int i = 1; i <= 4; i++)
+            blocks.add(new Block(6 + i, new Rectangle(2, MyGdxGame.HEIGHT / 6 * i, MyGdxGame.WIDTH / 7, MyGdxGame.HEIGHT / 6), wm));
+        for (int i = 0; i < 7; i++)
+            blocks.add(new Block(11 + i, new Rectangle(2 + (MyGdxGame.WIDTH / 7 * i), MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 2, MyGdxGame.WIDTH / 7, MyGdxGame.HEIGHT / 6), wm));
+        for (int i = 2; i <= 5; i++)
+            blocks.add(new Block(16 + i, new Rectangle(MyGdxGame.WIDTH - MyGdxGame.WIDTH / 7, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 * i, MyGdxGame.WIDTH / 7, MyGdxGame.HEIGHT / 6), wm));
+    }
+
+    private void initializePlayers(ArrayList<Player> loadedPlayers, int numOfPlayers) {
+        if(loadedPlayers==null) {
+            announcer.addAnnouncement("THE GAME HAS STARTED!");
+            announcer.addAnnouncement("You can click on player buttons to change names.");
+            players.add(new Player(1, goalPoints, new Rectangle(blocks.get(0).getRect().x + 15, blocks.get(0).getRect().y + 45, 40, 40)));
+            playerBtns.add(new Button("Player1", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+            players.add(new Player(2, goalPoints, new Rectangle(blocks.get(0).getRect().x + 65, blocks.get(0).getRect().y + 45, 40, 40)));
+            playerBtns.add(new Button("Player2", new Rectangle(MyGdxGame.WIDTH / 7 + 305, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+            if (numOfPlayers >= 3) {
+                players.add(new Player(3, goalPoints, new Rectangle(blocks.get(0).getRect().x + 15, blocks.get(0).getRect().y + 3, 40, 40)));
+                playerBtns.add(new Button("Player3", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 115, 160, 45)));
+                if (numOfPlayers >= 4) {
+                    players.add(new Player(4, goalPoints, new Rectangle(blocks.get(0).getRect().x + 65, blocks.get(0).getRect().y + 3, 40, 40)));
+                    playerBtns.add(new Button("Player4", new Rectangle(MyGdxGame.WIDTH / 7 + 305, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 115, 160, 45)));
+                }
+            }
+        }
+        else {
+            players = loadedPlayers;
+            BoardGameWindow.playerTurn = loadedPlayers.get(0).getPlayerTurn();
+            for(String announcement: loadedPlayers.get(0).getAnnouncements())
+                BoardGameWindow.announcer.addLoadedAnnouncement(announcement);
+            BoardGameWindow.announcer.addAnnouncement("THE GAME HAS BEEN LOADED!");
+            players.get(0).setTexture(Loader.getPlayer1T());
+            playerBtns.add(new Button("Player1", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+            players.get(0).setColor(Color.RED);
+            if(!players.get(0).isAlive())
+                players.get(0).setColor(Color.LIGHT_GRAY);
+            players.get(1).setTexture(Loader.getPlayer2T());
+            playerBtns.add(new Button("Player2", new Rectangle(MyGdxGame.WIDTH / 7 + 305, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+            players.get(1).setColor(Color.BLUE);
+            if(!players.get(1).isAlive())
+                players.get(1).setColor(Color.LIGHT_GRAY);
+            if (numOfPlayers >= 3) {
+                players.get(2).setTexture(Loader.getPlayer3T());
+                playerBtns.add(new Button("Player3", new Rectangle(MyGdxGame.WIDTH / 7 + 585, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+                players.get(2).setColor(Color.GREEN);
+                if(!players.get(2).isAlive())
+                    players.get(2).setColor(Color.LIGHT_GRAY);
+                if (numOfPlayers >= 4) {
+                    players.get(3).setTexture(Loader.getPlayer4T());
+                    playerBtns.add(new Button("Player4", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 115, 160, 45)));
+                    players.get(3).setColor(Color.ORANGE);
+                    if(!players.get(3).isAlive())
+                        players.get(3).setColor(Color.LIGHT_GRAY);
+                }
+            }
+        }
+        for(Button btn: playerBtns) {
+            btn.getGlyphLayout().setText(MyGdxGame.mediumFont, btn.getText());
+        }
+    }
+}

@@ -1,0 +1,51 @@
+package com.flames.warfair.minigames.pigeonRevenge;
+
+import com.badlogic.gdx.math.Rectangle;
+import com.flames.warfair.MyGdxGame;
+import com.flames.warfair.buttons.Button;
+
+/**
+ * Created by Flames on 1/8/16.
+ */
+public class Dropping extends Button {
+
+    private boolean doOnce;
+    private boolean active;
+
+    public Dropping(Rectangle rect) {
+        super(Loader.getDroppingT(), rect);
+        doOnce = false;
+        active = true;
+    }
+
+    public void update(float dt) {
+        if(rect.y - dt*500 > -10) {
+            rect.y -= dt*500;
+        }
+        else {
+            if(doOnce) {
+                doOnce = false;
+                //Loader.getSplatS().play(MyGdxGame.soundVolume);
+                texture = Loader.getSplatterT();
+                active = false;
+            }
+        }
+    }
+
+    public void setDoOnce(boolean b) {
+        doOnce = b;
+        texture = Loader.getDroppingT();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void dispose() {
+        texture.dispose();
+    }
+}

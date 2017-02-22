@@ -1,0 +1,25 @@
+perasa apo to start k crashare
+
+TEST LOAD	otan kaneis load de krataei to goal, otan kaneis load na mh stamataei h mousikh
+na ftiaksw to load game screen
+
+??? sta minigame p exou timer na akougetai allh mia fora to beep sthn arxh
+??? soundVolume
+
+pingVpong + handicap
+
+na ftiaksw to scroll sto help, announcer, load
+
+minigames pio megales apostaseis metaksu twn sprites
+
+otan teleiwnei to board game na sou bgazei na kanei save ta apotelesmata k to announcer
+k otan to kaneis load na sou bgazei ena screen me ta apotelesmata k ton announcer!
+
+OTAN PSOFAEI NA MHN PAIZEI STA MULTIPLAYER MINIGAMES
+
+RESOLUTION
+oles tis pics sto idio screen ratio x2 apo oso exw thn eikona
+
+
+MIKROPIPES:
+na mh borei na valei keno onoma sto save file
