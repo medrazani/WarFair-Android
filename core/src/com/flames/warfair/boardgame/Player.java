@@ -63,7 +63,7 @@ public class Player extends Button implements java.io.Serializable {
         disqualifiedCounter = 0;
         alive = true;
 
-        if(id==1) {
+        /*if(id==1) {
             points = 20;
         }
         else if(id==2) {
@@ -75,7 +75,7 @@ public class Player extends Button implements java.io.Serializable {
         }
         else if(id==4) {
             points = 1200;
-        }
+        }*/
     }
 
     public void update(float dt) {
