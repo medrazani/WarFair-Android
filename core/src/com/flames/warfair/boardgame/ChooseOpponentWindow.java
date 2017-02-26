@@ -27,9 +27,9 @@ public class ChooseOpponentWindow extends Window {
     private Texture background;
     private ArrayList<Integer> handicapPoints;
 
-    public ChooseOpponentWindow(String miniGame, int challengerID, WindowManager wm) {
-        this.WIDTH = 599;
-        this.HEIGHT = 400;
+    ChooseOpponentWindow(String miniGame, int challengerID, WindowManager wm) {
+        this.WIDTH = 1000;
+        this.HEIGHT = 600;
         xZero = cam.position.x - WIDTH / 2;
         yZero = cam.position.y - HEIGHT / 2;
         this.miniGame = miniGame;
@@ -109,9 +109,9 @@ public class ChooseOpponentWindow extends Window {
                     y = - 200;
                 else {
                     i++;
-                    y = yZero + HEIGHT / 2 + 45 - (70 * (i));
+                    y = yZero + HEIGHT / 2 + 45 - (90 * (i));
                 }
-                playerBtns.add(new Button(BoardGameWindow.players.get(j).getName() + ", Points: " + BoardGameWindow.players.get(j).getPoints() + "  (" + handicapText + ")", new Rectangle(xZero + WIDTH / 2 - 240, y, 480, 40)));
+                playerBtns.add(new Button(BoardGameWindow.players.get(j).getName() + ", Points: " + BoardGameWindow.players.get(j).getPoints() + "  (" + handicapText + ")", new Rectangle(xZero + WIDTH / 2 - 460, y, 920, 60)));
             }
 
         }

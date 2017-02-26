@@ -25,16 +25,16 @@ public class PauseMenuWindow extends Window {
 
 
     public PauseMenuWindow(WindowManager wm) {
-        this.WIDTH = 600;
-        this.HEIGHT = 400;
+        this.WIDTH = 800;
+        this.HEIGHT = 550;
         xZero = cam.position.x - WIDTH/2;
         yZero = cam.position.y - HEIGHT/2;
         this.wm = wm;
 
-        resumeBtn = new Button("Resume", new Rectangle(xZero + WIDTH/2 - 85, yZero + HEIGHT - 140, 170, 40));
-        saveGameBtn = new Button("Save Game", new Rectangle(resumeBtn.getRect().x, resumeBtn.getRect().y - 50, 170, 40));
-        helpBtn = new Button("Help", new Rectangle(resumeBtn.getRect().x, resumeBtn.getRect().y - 100, 170, 40));
-        exitBtn = new Button("Exit", new Rectangle(resumeBtn.getRect().x, yZero + 40, 170, 40));
+        resumeBtn = new Button("Resume", new Rectangle(xZero + WIDTH/2 - 120, yZero + HEIGHT - 175, 240, 70));
+        saveGameBtn = new Button("Save Game", new Rectangle(resumeBtn.getRect().x, resumeBtn.getRect().y - 100, 240, 70));
+        helpBtn = new Button("Help", new Rectangle(resumeBtn.getRect().x, saveGameBtn.getRect().y - 100, 240, 70));
+        exitBtn = new Button("Exit", new Rectangle(resumeBtn.getRect().x, yZero + 25, 240, 70));
 
         addString("GAME PAUSED", 2);
         StartMenuWindow.soundBtn.setRect(new Rectangle(xZero+WIDTH - 50, yZero + 10, 39, 40));

@@ -18,7 +18,7 @@ public class WindowManager {
         windows = new Stack<com.flames.warfair.Window>();
     }
 
-    public void push(com.flames.warfair.Window state) {
+    void push(com.flames.warfair.Window state) {
         windows.push(state);
     }
 

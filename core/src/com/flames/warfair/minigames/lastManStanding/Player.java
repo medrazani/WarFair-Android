@@ -106,11 +106,11 @@ public class Player extends Button {
         return animation.getFrameRegion();
     }
 
-    public int getLives() {
+    int getLives() {
         return lives;
     }
 
-    public void spawnWall(int width, int height) {
+    void spawnWall(int width, int height) {
         if(walls.size()>0) {
             walls.get(wallSpawnPointer).setX(MyGdxGame.WIDTH + 0f);
             walls.get(wallSpawnPointer).setHeight(height * 10);
@@ -121,27 +121,27 @@ public class Player extends Button {
         }
     }
 
-    public ArrayList<Rectangle> getWalls() {
+    ArrayList<Rectangle> getWalls() {
         return walls;
     }
 
-    public void setStartJumping() {
+    void setStartJumping() {
         canJump = false;
     }
 
-    public boolean getCanJump() {
+    boolean getCanJump() {
         return canJump;
     }
 
-    public int getRank() {
+    int getRank() {
         return rank;
     }
 
-    public int getID() {
+    int getID() {
         return id;
     }
 
-    public void setLives(int lives) {
+    void setLives(int lives) {
         this.lives = lives;
     }
 
@@ -150,31 +150,27 @@ public class Player extends Button {
         animation.dispose();
     }
 
-    public boolean isAlive() {
+    boolean isAlive() {
         return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
     }
 
     public Color getColor() {
         return color;
     }
 
-    public Texture getPlayerIcon() {
+    Texture getPlayerIcon() {
         return playerIcon;
     }
 
-    public Rectangle getTouchRect() {
+    Rectangle getTouchRect() {
         return touchRect;
     }
 
-    public void setTouchRect(Rectangle touchRect) {
+    void setTouchRect(Rectangle touchRect) {
         this.touchRect = touchRect;
     }
 
-    public void setRect(int x, int y, int width, int height) {
+    void setRect(int x, int y, int width, int height) {
         rect.x = x;
         rect.y = y;
         rect.width = width;

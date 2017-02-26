@@ -1,7 +1,6 @@
 package com.flames.warfair.boardgame;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -41,7 +40,7 @@ public class Loader {
     private static Sound diceS;
     private static Sound victoryS;
 
-    public static void loadBoardGame() {
+    static void loadBoardGame() {
         backgroundT = new Texture("images/boardGame/gameBoard.png");
         bankBackgroundT = new Texture("images/boardGame/bankBackground.png");
         chooseOpp1T = new Texture("images/boardGame/chooseOpponentBackground.png");
@@ -75,7 +74,7 @@ public class Loader {
         diceS = Gdx.audio.newSound(Gdx.files.internal("sounds/dice.wav"));
     }
 
-    public static void disposeBoardGame() {
+    static void disposeBoardGame() {
         backgroundT.dispose();
         bankBackgroundT.dispose();
         chooseOpp1T.dispose();
@@ -109,51 +108,51 @@ public class Loader {
         coinS.dispose();
     }
 
-    public static Texture getBackgroundT() {
+    static Texture getBackgroundT() {
         return backgroundT;
     }
 
-    public static Texture getBankBackgroundT() {
+    static Texture getBankBackgroundT() {
         return bankBackgroundT;
     }
 
-    public static Texture getChooseOpp1T() {
+    static Texture getChooseOpp1T() {
         return chooseOpp1T;
     }
 
-    public static Texture getChooseOpp2T() {
+    static Texture getChooseOpp2T() {
         return chooseOpp2T;
     }
 
-    public static Texture getDice0HoverT() {
+    static Texture getDice0HoverT() {
         return dice0HoverT;
     }
 
-    public static Texture getDice0T() {
+    static Texture getDice0T() {
         return dice0T;
     }
 
-    public static Texture getDice1HoverT() {
+    static Texture getDice1HoverT() {
         return dice1HoverT;
     }
 
-    public static Texture getDice2HoverT() {
+    static Texture getDice2HoverT() {
         return dice2HoverT;
     }
 
-    public static Texture getDice3HoverT() {
+    static Texture getDice3HoverT() {
         return dice3HoverT;
     }
 
-    public static Texture getDice4HoverT() {
+    static Texture getDice4HoverT() {
         return dice4HoverT;
     }
 
-    public static Texture getDice5HoverT() {
+    static Texture getDice5HoverT() {
         return dice5HoverT;
     }
 
-    public static Texture getDice6HoverT() {
+    static Texture getDice6HoverT() {
         return dice6HoverT;
     }
 
@@ -173,59 +172,59 @@ public class Loader {
         return player4T;
     }
 
-    public static Texture getGoToBankCardT() {
+    static Texture getGoToBankCardT() {
         return goToBankCardT;
     }
 
-    public static Texture getFlipCardT() {
+    static Texture getFlipCardT() {
         return flipCardT;
     }
 
-    public static Texture getDiceAnimT() {
+    static Texture getDiceAnimT() {
         return diceAnimT;
     }
 
-    public static Texture getCardsT() {
+    static Texture getCardsT() {
         return cardsT;
     }
 
-    public static Texture getGoToPitCardT() {
+    static Texture getGoToPitCardT() {
         return goToPitCardT;
     }
 
-    public static Texture getGoToStartCardT() {
+    static Texture getGoToStartCardT() {
         return goToStartCardT;
     }
 
-    public static Texture getJokerCardT() {
+    static Texture getJokerCardT() {
         return jokerCardT;
     }
 
-    public static Texture getLosePointsCardT() {
+    static Texture getLosePointsCardT() {
         return losePointsCardT;
     }
 
-    public static Texture getRerollCardT() {
+    static Texture getRerollCardT() {
         return rerollCardT;
     }
 
-    public static Texture getWinPointsCardT() {
+    static Texture getWinPointsCardT() {
         return winPointsCardT;
     }
 
-    public static Sound getBlockS() {
+    static Sound getBlockS() {
         return blockS;
     }
 
-    public static Sound getCoinS() {
+    static Sound getCoinS() {
         return coinS;
     }
 
-    public static Sound getDiceS() {
+    static Sound getDiceS() {
         return diceS;
     }
 
-    public static Sound getVictoryS() {
+    static Sound getVictoryS() {
         return victoryS;
     }
 }

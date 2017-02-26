@@ -6,7 +6,6 @@ import com.flames.warfair.MyGdxGame;
 import com.flames.warfair.buttons.Button;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 /**
  * Created by Flames on 31/7/16.
@@ -16,7 +15,7 @@ public class Player extends Button implements java.io.Serializable {
     private int id;
     private String name;
     private boolean nameSet;
-    private int rank;
+    //private int rank;
     private static int goalPoints; //needed for the serialization to load the game score aswell
     private int playerTurn; //needed for the serialization to load the player's turn
     private ArrayList<String> announcements; //needed for the serialization to load the announcements
@@ -34,11 +33,11 @@ public class Player extends Button implements java.io.Serializable {
     public Player(int id, int goalPoints, Rectangle rect) {
         super(Loader.getPlayer1T(), rect);
         playerTurn = 0;
-        this.goalPoints = goalPoints;
+        Player.goalPoints = goalPoints;
         name = "Player"+id;
         nameSet = false;
         color = Color.RED;
-        rank = -1;
+        //rank = -1;
         if (id == 2) {
             texture = Loader.getPlayer2T();
             color = Color.BLUE;
@@ -67,14 +66,13 @@ public class Player extends Button implements java.io.Serializable {
             points = 20;
         }
         else if(id==2) {
-            points = 600;
-            setDisqualified();
-        }
-        else if(id==3) {
             points = 800;
         }
+        else if(id==3) {
+            points = 2000;
+        }
         else if(id==4) {
-            points = 1200;
+            points = 2800;
         }*/
     }
 
@@ -93,17 +91,21 @@ public class Player extends Button implements java.io.Serializable {
                     rect.x += 350 * dt;
                     if (rect.x > BoardGameWindow.blocks.get(nextBlock).getRect().x + initX)
                         move();
-                } else if (nextBlock - 1 < 22) {
+                } else if (nextBlock - 1 < 21) {
                     rect.y -= 350 * dt;
-                    if (rect.y <= BoardGameWindow.blocks.get(nextBlock).getRect().y + initY) {
+                    if (rect.y <= BoardGameWindow.blocks.get(nextBlock).getRect().y + initY)
                         move();
-                    }
                 }
-            } else { //last block
-                rect.y -= 350 * dt;
-                if (rect.y <= BoardGameWindow.blocks.get(nextBlock).getRect().y + initY) {
-                    move();
+                else {
+                    rect.y -= 350 * dt;
+                    if (rect.y <= BoardGameWindow.blocks.get(0).getRect().y + initY)
+                        move();
                 }
+                /*else { //last block
+                    rect.y -= 350 * dt;
+                    if (rect.y <= BoardGameWindow.blocks.get(nextBlock-1).getRect().y + initY)
+                        move(nextBlock-1);
+                }*/
             }
         }
         else { //on thaPit
@@ -157,12 +159,17 @@ public class Player extends Button implements java.io.Serializable {
     }
 
     private void move() {
-        rect.x = BoardGameWindow.blocks.get(nextBlock).getRect().x + initX;
-        rect.y = BoardGameWindow.blocks.get(nextBlock).getRect().y + initY;
+        if(nextBlock!=22) {
+            rect.x = BoardGameWindow.blocks.get(nextBlock).getRect().x + initX;
+            rect.y = BoardGameWindow.blocks.get(nextBlock).getRect().y + initY;
+        } else {
+            rect.x = BoardGameWindow.blocks.get(0).getRect().x + initX;
+            rect.y = BoardGameWindow.blocks.get(0).getRect().y + initY;
+        }
         nextBlock++;
         blockCounter++;
         if (nextBlock == 23) {
-            nextBlock = 0;
+            nextBlock = 1;
             passByStartBlock();
         }
         if (blockCounter == Dice.roll) { //landed on block
@@ -175,7 +182,7 @@ public class Player extends Button implements java.io.Serializable {
         }
     }
 
-    public void passByStartBlock() {
+    void passByStartBlock() {
         BoardGameWindow.announcer.addAnnouncement(name+" has passed by the Start block receiving 300 points.");
         alterPoints(300);
     }
@@ -216,26 +223,26 @@ public class Player extends Button implements java.io.Serializable {
         }
     }
 
-    public int getID() {
+    int getID() {
         return id;
     }
 
-    public void goToBlock(int k) {
+    void goToBlock(int k) {
         nextBlock = k+1;
         rect.x = BoardGameWindow.blocks.get(k).getRect().x + initX;
         rect.y = BoardGameWindow.blocks.get(k).getRect().y + initY;
         BoardGameWindow.blocks.get(k).startBlockEvent(this);
     }
 
-    public void startThaPit() {
+    void startThaPit() {
         onThaPit=0;
     }
 
-    public int getPointsInBank() {
+    int getPointsInBank() {
         return pointsInBank;
     }
 
-    public void setPointsInBank(int pointsInBank) {
+    void setPointsInBank(int pointsInBank) {
         this.pointsInBank = pointsInBank;
     }
 
@@ -255,23 +262,23 @@ public class Player extends Button implements java.io.Serializable {
         return goalPoints;
     }
 
-    public int getPlayerTurn() {
+    int getPlayerTurn() {
         return playerTurn;
     }
 
-    public void setPlayerTurn(int playerTurn) {
+    void setPlayerTurn(int playerTurn) {
         this.playerTurn = playerTurn;
     }
 
-    public ArrayList<String> getAnnouncements() {
+    ArrayList<String> getAnnouncements() {
         return announcements;
     }
 
-    public void setAnnouncements(ArrayList<String> announcements) {
+    void setAnnouncements(ArrayList<String> announcements) {
         this.announcements = announcements;
     }
 
-    public int getOnThaPit() {
+    int getOnThaPit() {
         return onThaPit;
     }
 
@@ -283,19 +290,11 @@ public class Player extends Button implements java.io.Serializable {
         this.name = name;
     }
 
-    public boolean isNameSet() {
+    boolean isNameSet() {
         return nameSet;
     }
 
-    public void setNameSet(boolean nameSet) {
+    void setNameSet(boolean nameSet) {
         this.nameSet = nameSet;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
     }
 }

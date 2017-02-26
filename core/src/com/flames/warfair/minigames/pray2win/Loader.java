@@ -24,7 +24,7 @@ public class Loader {
     private static Sound gongS;
     private static Sound hallelujahS;
 
-    public static void loadPray2Win() {
+    static void loadPray2Win() {
         backgroundT = new Texture("images/pray2Win/monastery.png");
         monkWinT = new Texture("images/pray2Win/monkWin.png");
         monkTs = new ArrayList<Texture>();
@@ -40,7 +40,7 @@ public class Loader {
         hallelujahS = Gdx.audio.newSound(Gdx.files.internal("sounds/pray2Win/hallelujah.wav"));
     }
 
-    public static void disposePray2Win() {
+    static void disposePray2Win() {
         backgroundT.dispose();
         for(Texture texture: monkTs)
             texture.dispose();
@@ -55,15 +55,15 @@ public class Loader {
         hallelujahS.dispose();
     }
 
-    public static Texture getBackgroundT() {
+    static Texture getBackgroundT() {
         return backgroundT;
     }
 
-    public static Texture getMonkWinT() {
+    static Texture getMonkWinT() {
         return monkWinT;
     }
 
-    public static ArrayList<Texture> getMonkTs() {
+    static ArrayList<Texture> getMonkTs() {
         return monkTs;
     }
 
@@ -87,15 +87,15 @@ public class Loader {
         return backgroundS;
     }
 
-    public static Sound getBeepS() {
+    static Sound getBeepS() {
         return beepS;
     }
 
-    public static Sound getGongS() {
+    static Sound getGongS() {
         return gongS;
     }
 
-    public static Sound getHallelujahS() {
+    static Sound getHallelujahS() {
         return hallelujahS;
     }
 }

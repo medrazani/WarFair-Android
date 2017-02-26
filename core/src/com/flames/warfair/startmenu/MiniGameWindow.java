@@ -13,23 +13,23 @@ import com.flames.warfair.buttons.Button;
 /**
  * Created by Flames on 31/7/16.
  */
-public class MiniGameWindow extends com.flames.warfair.Window {
+class MiniGameWindow extends com.flames.warfair.Window {
 
     private Texture background;
     private Button pingVpongBtn, pigeonRevengeBtn, pray2WinBtn, lastManStandingBtn, skillshotBtn, backBtn;
     private int numOfPlayers;
 
-    public MiniGameWindow(int numOfPlayers, WindowManager wm) {
+    MiniGameWindow(int numOfPlayers, WindowManager wm) {
         this.wm = wm;
         this.numOfPlayers = numOfPlayers;
 
         background = new Texture("images/startMenuBackground.png");
-        lastManStandingBtn = new Button("LastManStanding", new Rectangle(MyGdxGame.WIDTH / 2 - BTNWIDTH -20, MyGdxGame.HEIGHT - 180, BTNWIDTH, 50));
-        skillshotBtn = new Button("Skillshot", new Rectangle(lastManStandingBtn.getRect().x + lastManStandingBtn.getRect().width + 40, lastManStandingBtn.getRect().y, BTNWIDTH, 50));
+        lastManStandingBtn = new Button("LastManStanding", new Rectangle(MyGdxGame.WIDTH / 2 - BTNWIDTH - 90, MyGdxGame.HEIGHT - 280, BTNWIDTH + 60, 90));
+        skillshotBtn = new Button("Skillshot", new Rectangle(lastManStandingBtn.getRect().x + lastManStandingBtn.getRect().width + 40, lastManStandingBtn.getRect().y, BTNWIDTH + 60, 90));
         if (numOfPlayers == 2) {
-            pingVpongBtn = new Button("pingVpong", new Rectangle(lastManStandingBtn.getRect().x, lastManStandingBtn.getRect().y - 80, BTNWIDTH, 50));
-            pigeonRevengeBtn = new Button("PigeonRevenge", new Rectangle(skillshotBtn.getRect().x, lastManStandingBtn.getRect().y - 80, BTNWIDTH, 50));
-            pray2WinBtn = new Button("Pray2Win", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH/2, lastManStandingBtn.getRect().y - 160, BTNWIDTH, 50));
+            pingVpongBtn = new Button("pingVpong", new Rectangle(lastManStandingBtn.getRect().x, lastManStandingBtn.getRect().y - 120, BTNWIDTH + 60, 90));
+            pigeonRevengeBtn = new Button("PigeonRevenge", new Rectangle(skillshotBtn.getRect().x, lastManStandingBtn.getRect().y - 120, BTNWIDTH + 60, 90));
+            pray2WinBtn = new Button("Pray2Win", new Rectangle(MyGdxGame.WIDTH/2 - (BTNWIDTH+60)/2, lastManStandingBtn.getRect().y - 240, BTNWIDTH + 60, 90));
             pingVpongBtn.setShapeColor(Color.GREEN);
             pigeonRevengeBtn.setShapeColor(Color.GREEN);
             pray2WinBtn.setShapeColor(Color.GREEN);

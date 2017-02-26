@@ -65,8 +65,8 @@ public class BoardGameWindow extends Window {
         min2Points = 10000;
         minPtr = 0;
         min2Ptr = 0;
-        dice = new Dice(new Rectangle(MyGdxGame.WIDTH - 3 * MyGdxGame.WIDTH / 10, 2 * MyGdxGame.HEIGHT / 9, 100, 100));
-        announcer = new Announcer(new Rectangle(MyGdxGame.WIDTH / 7 + 15, MyGdxGame.HEIGHT / 6 + 15, 435, 150));
+        dice = new Dice(new Rectangle(MyGdxGame.WIDTH - 2 * MyGdxGame.WIDTH / 7 + (MyGdxGame.WIDTH / 7)/2 - 70, 2 * MyGdxGame.HEIGHT / 6 - (MyGdxGame.HEIGHT/6)/2 - 40, 140, 140));
+        announcer = new Announcer(new Rectangle(MyGdxGame.WIDTH / 7 + 15, MyGdxGame.HEIGHT / 6 + 10, 720, 280));
         goalString = String.valueOf(goalPoints);
         if(goalPoints==-5123)
             goalString = "UNLIMITED";
@@ -74,7 +74,7 @@ public class BoardGameWindow extends Window {
         playerTurn = 0;
         initializeBlocks();
         initializePlayers(loadedPlayers, numOfPlayers);
-        card = new Card(new Rectangle(MyGdxGame.WIDTH / 2 - 125, MyGdxGame.HEIGHT/2 - 150, 252, 309));
+        card = new Card(new Rectangle(MyGdxGame.WIDTH / 2 - 125, MyGdxGame.HEIGHT/2 - 150, 300, 350));
         nextTurn = true;
         gameOver = false;
         winnerPtr = -1;
@@ -192,7 +192,7 @@ public class BoardGameWindow extends Window {
         }
     }
 
-    public static void setPlayerReroll() {
+    static void setPlayerReroll() {
         nextTurn = true;
         Dice.setDice0TR();
     }
@@ -239,27 +239,27 @@ public class BoardGameWindow extends Window {
             if (announcer.getyScrolls().get(i) < announcer.getRect().height - 25 && announcer.getRect().y + 10 + announcer.getyScrolls().get(i) > announcer.getRect().y) {
                 if (i == announcer.getStrings().size() - 2 && announcer.getChangeLinePtr() == -1) //last entry is 2 lines long
                     MyGdxGame.smallFont.setColor(Color.WHITE);
-                MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 30 + announcer.getyScrolls().get(i));
+                MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(i));
             }
         }
         if (announcer.getRect().y + 10 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1) > announcer.getRect().y) {
             MyGdxGame.smallFont.setColor(Color.WHITE);
-            MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(announcer.getStrings().size() - 1), announcer.getRect().x + 8, announcer.getRect().y + 30 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1));
+            MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(announcer.getStrings().size() - 1), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1));
         }
         for(int i=0; i<playerBtns.size(); i++) {
             MyGdxGame.mediumFont.setColor(players.get(i).getColor());
             playerBtns.get(i).drawMediumFont(sb, players.get(i).getName());
-            MyGdxGame.mediumFont.draw(sb, players.get(i).getPoints() + "", playerBtns.get(i).getRect().x + 163, playerBtns.get(i).getRect().y + playerBtns.get(i).getRect().height/2 + playerBtns.get(i).getGlyphLayout().height/2);
+            MyGdxGame.mediumFont.draw(sb, players.get(i).getPoints() + "", playerBtns.get(i).getRect().x + 280, playerBtns.get(i).getRect().y + playerBtns.get(i).getRect().height/2 + playerBtns.get(i).getGlyphLayout().height/2);
         }
         MyGdxGame.smallFont.setColor(Color.CYAN);
-        MyGdxGame.smallFont.draw(sb, "Goal: " + goalString, announcer.getRect().x + 5,  announcer.getRect().y + announcer.getRect().height + 23);
+        MyGdxGame.smallFont.draw(sb, "Goal: " + goalString, announcer.getRect().x + 5,  announcer.getRect().y + announcer.getRect().height + 34);
 
         if (!dice.isClicked() && Dice.roll == -1) {
             if (timerMillis % 500 < 250) {
                 if (nextTurn) {
                     timerMillis = 0;
                     MyGdxGame.smallFont.setColor(players.get(BoardGameWindow.playerTurn).getColor());
-                    MyGdxGame.smallFont.draw(sb, BoardGameWindow.players.get((BoardGameWindow.playerTurn)).getName() + " roll", dice.getRect().x + dice.getRect().width/2 - rollGlyphLayout.width/2, dice.getRect().y + dice.getRect().height + 25);
+                    MyGdxGame.smallFont.draw(sb, BoardGameWindow.players.get((BoardGameWindow.playerTurn)).getName() + " roll", dice.getRect().x + dice.getRect().width/2 - rollGlyphLayout.width/2, dice.getRect().y + dice.getRect().height + 40);
                 }
             }
         }
@@ -334,16 +334,16 @@ public class BoardGameWindow extends Window {
         if(loadedPlayers==null) {
             announcer.addAnnouncement("THE GAME HAS STARTED!");
             announcer.addAnnouncement("You can click on player buttons to change names.");
-            players.add(new Player(1, goalPoints, new Rectangle(blocks.get(0).getRect().x + 15, blocks.get(0).getRect().y + 45, 40, 40)));
-            playerBtns.add(new Button("Player1", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
-            players.add(new Player(2, goalPoints, new Rectangle(blocks.get(0).getRect().x + 65, blocks.get(0).getRect().y + 45, 40, 40)));
-            playerBtns.add(new Button("Player2", new Rectangle(MyGdxGame.WIDTH / 7 + 305, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+            players.add(new Player(1, goalPoints, new Rectangle(blocks.get(0).getRect().x + 30, blocks.get(0).getRect().y + 60, 55, 55)));
+            playerBtns.add(new Button("Player1", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 95, 240, 65)));
+            players.add(new Player(2, goalPoints, new Rectangle(blocks.get(0).getRect().x + 100, blocks.get(0).getRect().y + 60, 55, 55)));
+            playerBtns.add(new Button("Player2", new Rectangle(MyGdxGame.WIDTH / 7 + 460, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 95, 240, 65)));
             if (numOfPlayers >= 3) {
-                players.add(new Player(3, goalPoints, new Rectangle(blocks.get(0).getRect().x + 15, blocks.get(0).getRect().y + 3, 40, 40)));
-                playerBtns.add(new Button("Player3", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 115, 160, 45)));
+                players.add(new Player(3, goalPoints, new Rectangle(blocks.get(0).getRect().x + 30, blocks.get(0).getRect().y + 3, 55, 55)));
+                playerBtns.add(new Button("Player3", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 175, 240, 65)));
                 if (numOfPlayers >= 4) {
-                    players.add(new Player(4, goalPoints, new Rectangle(blocks.get(0).getRect().x + 65, blocks.get(0).getRect().y + 3, 40, 40)));
-                    playerBtns.add(new Button("Player4", new Rectangle(MyGdxGame.WIDTH / 7 + 305, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 115, 160, 45)));
+                    players.add(new Player(4, goalPoints, new Rectangle(blocks.get(0).getRect().x + 100, blocks.get(0).getRect().y + 3, 55, 55)));
+                    playerBtns.add(new Button("Player4", new Rectangle(MyGdxGame.WIDTH / 7 + 460, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 175, 240, 65)));
                 }
             }
         }

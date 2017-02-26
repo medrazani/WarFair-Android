@@ -9,7 +9,7 @@ import com.flames.warfair.buttons.Button;
 /**
  * Created by Flames on 7/8/16.
  */
-public class Block extends Button {
+class Block extends Button {
 
     private int id;
     private ChooseOpponentWindow chooseOpponentWindow;
@@ -19,14 +19,14 @@ public class Block extends Button {
     private int propertyOwnerID;
 
 
-    public Block(int id, Rectangle rect, WindowManager wm) {
+    Block(int id, Rectangle rect, WindowManager wm) {
         super("", rect);
         this.id = id;
-        this.wm = wm;
+        Block.wm = wm;
         propertyOwnerID = -1;
     }
 
-    public void startBlockEvent(Player player) {
+    void startBlockEvent(Player player) {
         switch (id) {
             case 0: //start
                 BoardGameWindow.setNextPlayersTurn();

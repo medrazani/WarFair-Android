@@ -20,8 +20,8 @@ public class PopUpMessage extends Window{
     private float yZero;
 
     public PopUpMessage(int overlapN, int buttonN, String title, String message, WindowManager wm) {
-        this.WIDTH = 400;
-        this.HEIGHT = 240;
+        this.WIDTH = 700;
+        this.HEIGHT = 300;
         buttonPressed = 0;
         this.overlapN = overlapN;
         xZero = cam.position.x - WIDTH/2;
@@ -61,12 +61,12 @@ public class PopUpMessage extends Window{
         }
 
         if(buttonN==2) {
-            confirmBtn = new Button("Yes",new Rectangle(xZero + WIDTH/2 - 140 - 10, yZero + 20, 140, 50));
-            backBtn = new Button("No", new Rectangle(xZero + WIDTH / 2 + 10, yZero + 20, 140, 50));
+            confirmBtn = new Button("Yes",new Rectangle(xZero + WIDTH/2 - 140 - 10, yZero + 10, 140, 60));
+            backBtn = new Button("No", new Rectangle(xZero + WIDTH / 2 + 10, yZero + 10, 140, 60));
         }
         else {
-            confirmBtn = new Button("ΟΚ",new Rectangle(xZero + WIDTH/2 - 70, yZero + 30, 140, 50));
-            backBtn = new Button("Back", new Rectangle(xZero + WIDTH / 2 + 10, MyGdxGame.HEIGHT, 140, 50));
+            confirmBtn = new Button("ΟΚ",new Rectangle(xZero + WIDTH/2 - 70, yZero + 10, 140, 60));
+            backBtn = new Button("Back", new Rectangle(xZero + WIDTH / 2 + 10, MyGdxGame.HEIGHT, 140, 60));
         }
 
 
@@ -113,10 +113,10 @@ public class PopUpMessage extends Window{
         MyGdxGame.smallFont.setColor(Color.RED);
         MyGdxGame.smallFont.draw(sb, strings.get(0), xZero + WIDTH/2 - glyphLayouts.get(0).width/2, yZero - 20 + HEIGHT);
         MyGdxGame.smallFont.setColor(Color.WHITE);
-        MyGdxGame.smallFont.draw(sb, strings.get(1), xZero + WIDTH/2 - glyphLayouts.get(1).width/2, yZero - 45 + HEIGHT);
-        MyGdxGame.smallFont.draw(sb, strings.get(2), xZero + WIDTH/2 - glyphLayouts.get(2).width/2, yZero - 65 + HEIGHT);
-        MyGdxGame.smallFont.draw(sb, strings.get(3), xZero + WIDTH/2 - glyphLayouts.get(3).width/2, yZero - 85 + HEIGHT);
-        MyGdxGame.smallFont.draw(sb, strings.get(4), xZero + WIDTH/2 - glyphLayouts.get(4).width/2, yZero - 105 + HEIGHT);
+        MyGdxGame.smallFont.draw(sb, strings.get(1), xZero + WIDTH/2 - glyphLayouts.get(1).width/2, yZero - 60 + HEIGHT);
+        MyGdxGame.smallFont.draw(sb, strings.get(2), xZero + WIDTH/2 - glyphLayouts.get(2).width/2, yZero - 103 + HEIGHT);
+        MyGdxGame.smallFont.draw(sb, strings.get(3), xZero + WIDTH/2 - glyphLayouts.get(3).width/2, yZero - 147 + HEIGHT);
+        MyGdxGame.smallFont.draw(sb, strings.get(4), xZero + WIDTH/2 - glyphLayouts.get(4).width/2, yZero - 192 + HEIGHT);
         confirmBtn.drawFont(sb);
         backBtn.drawFont(sb);
         sb.end();

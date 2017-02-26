@@ -52,7 +52,7 @@ public class Player extends Button{
         }
     }
 
-    public void addHeight() {
+    void addHeight() {
         height = (height+1)%8;
         if(height==7)
             prays++;
@@ -64,20 +64,16 @@ public class Player extends Button{
         return height;
     }
 
-    public int getPrays() {
+    int getPrays() {
         return prays;
     }
 
-    public Button getTapBar() {
+    Button getTapBar() {
         return  tapBar;
     }
 
-    public Rectangle getHighlightBar() {
+    Rectangle getHighlightBar() {
         return highlightBar;
-    }
-
-    public void setHighlightBarHeight(int n) {
-        highlightBar.height = n;
     }
 
     public void dispose() {
@@ -90,23 +86,23 @@ public class Player extends Button{
         return color;
     }
 
-    public Texture getPlayerIcon() {
+    Texture getPlayerIcon() {
         return playerIcon;
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
-    public void setPrays(int prays) {
+    void setPrays(int prays) {
         this.prays = prays;
     }
 
-    public Rectangle getTouchRect() {
+    Rectangle getTouchRect() {
         return touchRect;
     }
 
-    public void setTouchRect(Rectangle touchRect) {
+    void setTouchRect(Rectangle touchRect) {
         this.touchRect = touchRect;
     }
 }

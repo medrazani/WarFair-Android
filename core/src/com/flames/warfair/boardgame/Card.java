@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by Flames on 9/8/16.
  */
-public class Card extends Button {
+class Card extends Button {
 
     private Animation animation;
     private TextureRegion currentTR, cardTR;
@@ -23,7 +23,7 @@ public class Card extends Button {
     private Player player;
 
 
-    public Card(Rectangle rect) {
+    Card(Rectangle rect) {
         super(Loader.getCardsT(), rect);
         cardsTR = new ArrayList<TextureRegion>();
 
@@ -136,7 +136,7 @@ public class Card extends Button {
         return currentTR;
     }
 
-    public void startAnimation(Player player) {
+    void startAnimation(Player player) {
         this.player = player;
         cycle = 0;
     }

@@ -94,7 +94,7 @@ public class HelpWindow extends com.flames.warfair.Window {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.BACK) {
+        if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             wm.pop();
             if (calledFromBoardGame)
                 wm.setPopUp(new PauseMenuWindow(wm));

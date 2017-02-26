@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by Flames on 5/8/16.
  */
-public class Dice extends Button {
+class Dice extends Button {
 
     private Animation animation;
     private static TextureRegion currentFrame;
@@ -22,7 +22,7 @@ public class Dice extends Button {
     private int randomNumber;
     static int roll;
 
-    public Dice(Rectangle rect) {
+    Dice(Rectangle rect) {
         super(Loader.getDice0T(), rect);
         animation = new Animation(Loader.getDiceAnimT(), 6, 0.4f);
         currentFrame = new TextureRegion(texture);
@@ -49,7 +49,7 @@ public class Dice extends Button {
                 currentFrame = diceHover.get(randomNumber);
                 if(TimeUtils.timeSinceMillis(timerMillis) > 1500) {
                     roll = randomNumber + 1;
-                    //roll = 7; //DEBUGGING
+                    //roll = 21; //DEBUGGING
                     clicked = false;
                     randomNumber = Math.abs(BoardGameWindow.random.nextInt()%6);
                 }
@@ -61,20 +61,16 @@ public class Dice extends Button {
         return currentFrame;
     }
 
-    public static void setDice0TR() {
+    static void setDice0TR() {
         currentFrame = dice0TR;
     }
 
-    public void setDice0HoverTR() {
-        currentFrame = dice0HoverTR;
-    }
-
-    public void setClicked(boolean b) {
+    void setClicked(boolean b) {
         timerMillis = TimeUtils.millis();
         clicked = b;
     }
 
-    public boolean isClicked() {
+    boolean isClicked() {
         return clicked;
     }
 

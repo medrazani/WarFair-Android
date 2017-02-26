@@ -15,7 +15,7 @@ import com.flames.warfair.buttons.Button;
 /**
  * Created by Flames on 31/7/16.
  */
-public class NewGameWindow extends com.flames.warfair.Window {
+class NewGameWindow extends com.flames.warfair.Window {
 
     private Texture background;
     private Button classicGameBtn, miniGameBtn;
@@ -28,7 +28,7 @@ public class NewGameWindow extends com.flames.warfair.Window {
     private int numOfPlayers;
     private int goalPoints;
 
-    public NewGameWindow(WindowManager wm) {
+    NewGameWindow(WindowManager wm) {
         this.wm = wm;
 
         addString("Choose game mode:",1);
@@ -36,14 +36,14 @@ public class NewGameWindow extends com.flames.warfair.Window {
         addString("Choose points goal:",1);
 
         background = new Texture("images/newGameBackground.png");
-        classicGameBtn = new Button("Classic (Board)", new Rectangle(MyGdxGame.WIDTH/2 - 50, MyGdxGame.HEIGHT - 130,200,50));
-        miniGameBtn = new Button("Mini Games", new Rectangle(classicGameBtn.getRect().x + classicGameBtn.getRect().width + 20, classicGameBtn.getRect().y,200,50));
-        p2Btn = new Button("2", new Rectangle(classicGameBtn.getRect().x, classicGameBtn.getRect().y - 70,100,50));
-        p3Btn = new Button("3", new Rectangle(classicGameBtn.getRect().x + 100 + 20, classicGameBtn.getRect().y - 70,100,50));
-        p4Btn = new Button("4", new Rectangle(classicGameBtn.getRect().x + 200 + 40, classicGameBtn.getRect().y - 70,100,50));
-        g1Btn = new Button("3000", new Rectangle(classicGameBtn.getRect().x, classicGameBtn.getRect().y - 140,130,50));
-        g2Btn = new Button("7000", new Rectangle(classicGameBtn.getRect().x + 130 + 20, classicGameBtn.getRect().y - 140,130,50));
-        g3Btn = new Button("10000", new Rectangle(classicGameBtn.getRect().x + 260 + 40, classicGameBtn.getRect().y - 140,130,50));
+        classicGameBtn = new Button("Classic (Board)", new Rectangle(MyGdxGame.WIDTH/2 - 64, MyGdxGame.HEIGHT - 150,360,70));
+        miniGameBtn = new Button("Mini Games", new Rectangle(classicGameBtn.getRect().x + classicGameBtn.getRect().width + 35, classicGameBtn.getRect().y,260,70));
+        p2Btn = new Button("2", new Rectangle(classicGameBtn.getRect().x, classicGameBtn.getRect().y - 100,100,70));
+        p3Btn = new Button("3", new Rectangle(p2Btn.getX() + p2Btn.getRect().width + 40, classicGameBtn.getRect().y - 100,100,70));
+        p4Btn = new Button("4", new Rectangle(p3Btn.getX() + p3Btn.getRect().width + 40, classicGameBtn.getRect().y - 100,100,70));
+        g1Btn = new Button("3000", new Rectangle(classicGameBtn.getRect().x, p2Btn.getRect().y - 100,130,70)); //change from update method
+        g2Btn = new Button("7000", new Rectangle(g1Btn.getX() +  g1Btn.getRect().width + 40, g1Btn.getRect().y,130,70)); // -//-
+        g3Btn = new Button("10000", new Rectangle(g2Btn.getX() + g2Btn.getRect().width + 40, g1Btn.getRect().y,130,70)); // -//-
         confirmBtn = new Button("Confirm", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH - 20, 60, BTNWIDTH, BTNHEIGHT));
         backBtn = new Button("Back", new Rectangle(confirmBtn.getRect().x + confirmBtn.getRect().width + 20, 60, BTNWIDTH, BTNHEIGHT));
         scratchS = Gdx.audio.newSound(Gdx.files.internal("sounds/scratch.wav"));
@@ -66,9 +66,9 @@ public class NewGameWindow extends com.flames.warfair.Window {
         }
         else {
             strings.set(2, "Choose points goal:");
-            g1Btn.getRect().setY(classicGameBtn.getRect().y - 140);
-            g2Btn.getRect().setY(classicGameBtn.getRect().y - 140);
-            g3Btn.getRect().setY(classicGameBtn.getRect().y - 140);
+            g1Btn.getRect().setY(p2Btn.getRect().y - 100);
+            g2Btn.getRect().setY(g1Btn.getRect().y);
+            g3Btn.getRect().setY(g1Btn.getRect().y);
         }
     }
 

@@ -17,14 +17,12 @@ import com.flames.warfair.buttons.Button;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 /**
  * Created by Flames on 13/8/16.
  */
-public class SaveGameWindow extends Window {
+class SaveGameWindow extends Window {
 
     private float xZero;
     private float yZero;
@@ -36,18 +34,18 @@ public class SaveGameWindow extends Window {
     private PopUpMessage overwriteSaveMsg;
     private boolean saved;
 
-    public SaveGameWindow(WindowManager wm) {
+    SaveGameWindow(WindowManager wm) {
         this.wm = wm;
-        WIDTH = 390;
-        HEIGHT = 200;
+        WIDTH = 800;
+        HEIGHT = 240;
         xZero = MyGdxGame.WIDTH / 2 - WIDTH / 2;
-        yZero = MyGdxGame.HEIGHT / 2 - HEIGHT / 2 + 135;
+        yZero = MyGdxGame.HEIGHT / 2 - HEIGHT / 2 + 160;
 
         addString("Please give a name for the match:", 1);
 
-        confirmBtn = new Button("Confirm", new Rectangle(xZero + WIDTH / 2 - 120 - 10, yZero + 25, 120, 30));
-        backBtn = new Button("Back", new Rectangle(xZero + WIDTH / 2 + 10, yZero + 25, 120, 30));
-        nameField = new Button("", new Rectangle(xZero + WIDTH / 2 - 125, yZero + 92, 250, 30));
+        confirmBtn = new Button("Confirm", new Rectangle(xZero + WIDTH / 2 - 170 - 20, yZero + 10, 170, 60));
+        backBtn = new Button("Back", new Rectangle(xZero + WIDTH / 2 + 20, yZero + 10, 170, 60));
+        nameField = new Button("", new Rectangle(xZero + WIDTH / 2 - 125, yZero + 92, 250, 60));
         nameField.setHighlighted(true);
 
         cursorTimer = TimeUtils.millis();
@@ -88,7 +86,7 @@ public class SaveGameWindow extends Window {
         if (TimeUtils.timeSinceMillis(cursorTimer) > 400) {
             if (TimeUtils.timeSinceMillis(cursorTimer) > 800)
                 cursorTimer = TimeUtils.millis();
-            sr.line(nameField.getRect().x + cursorX, nameField.getRect().y + 5, nameField.getRect().x + cursorX, nameField.getRect().y + 25);
+            sr.line(nameField.getRect().x + cursorX, nameField.getRect().y + 5, nameField.getRect().x + cursorX, nameField.getRect().y + nameField.getRect().getHeight() - 5);
         }
         sr.end();
 
@@ -172,17 +170,13 @@ public class SaveGameWindow extends Window {
 
     private boolean saveExists() {
         File f = new File("saves/" + nameField.getText() + ".ser");
-        if (f.exists() && !f.isDirectory()) {
-            return true;
-        }
-        return false;
+        return(f.exists() && !f.isDirectory());
     }
 
-    public boolean serializeSave() {
+    boolean serializeSave() {
         BoardGameWindow.players.get(0).setPlayerTurn(BoardGameWindow.playerTurn);
         BoardGameWindow.players.get(0).setAnnouncements(BoardGameWindow.announcer.getStrings());
-        System.out.println(nameField.getText().trim()+ " EDWWWWWWWWWWWWWWWWWW");
-        if(nameField.getText().trim().isEmpty()) {
+        if(!nameField.getText().trim().isEmpty()) {
             try {
                 FileHandle file = Gdx.files.local("saves/" + nameField.getText() + ".ser");
                 ByteArrayOutputStream b = new ByteArrayOutputStream();
@@ -199,19 +193,19 @@ public class SaveGameWindow extends Window {
         return false;
     }
 
-    public boolean isSaved() {
+    boolean isSaved() {
         return saved;
     }
 
-    public void setSaved(boolean b) {
+    void setSaved(boolean b) {
         saved = b;
     }
 
-    public PopUpMessage getOverwriteSaveMsg() {
+    PopUpMessage getOverwriteSaveMsg() {
         return overwriteSaveMsg;
     }
 
-    public Button getNameField() {
+    Button getNameField() {
         return nameField;
     }
 

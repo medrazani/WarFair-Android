@@ -1,6 +1,5 @@
 package com.flames.warfair.minigames.pigeonRevenge;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -79,7 +78,7 @@ public class PigeonRevengeWindow extends Window {
             if(forfeitPopUpMsg.getButtonPressed()==1) {
                 if(challengerID!=-1) {
                     StartMenuWindow.startMenuSound.play();
-                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has forfeited a match of pigeonRevenge against "+BoardGameWindow.players.get(opponentID-1).getName()+".");
+                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has forfeited a match of Pigeon Revenge against "+BoardGameWindow.players.get(opponentID-1).getName()+".");
                     BoardGameWindow.setNextPlayersTurn();
                 }
                 wm.pop();
@@ -138,7 +137,7 @@ public class PigeonRevengeWindow extends Window {
                     if (winPopUpMsg.getButtonPressed() != 0) {
                         if(challengerID!=-1) {
                             StartMenuWindow.startMenuSound.play();
-                            BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " scored " + player.getScore() + " points against " + BoardGameWindow.players.get(opponentID-1).getName() + " on a match of pigeonRevenge!");
+                            BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " scored " + player.getScore() + " points against " + BoardGameWindow.players.get(opponentID-1).getName() + " on a match of Pigeon Revenge!");
                             BoardGameWindow.players.get(challengerID-1).alterPoints(player.getScore());
                             BoardGameWindow.setNextPlayersTurn();
                         }
@@ -170,7 +169,7 @@ public class PigeonRevengeWindow extends Window {
         //drawHighlights
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.LIGHT_GRAY);
-        sr.rect(10, 248, 170, 40);
+        sr.rect(10, 238, 270, 50);
         sr.end();
 
         sr.begin(ShapeRenderer.ShapeType.Line);
@@ -186,7 +185,7 @@ public class PigeonRevengeWindow extends Window {
         MyGdxGame.smallFont.draw(sb, "POINTS: " + player.getScore(), 17, 277);
         MyGdxGame.bigFont.draw(sb, seconds + "", 30, MyGdxGame.HEIGHT - 30);
         sb.draw(player.getPlayerIcon(), 40, 300, 40 ,40);
-        sb.draw(getOpponentTexture(), 100, MyGdxGame.HEIGHT - 65, 40, 40);
+        sb.draw(getOpponentTexture(), 100, MyGdxGame.HEIGHT - 72, 40, 40);
         sb.end();
     }
 

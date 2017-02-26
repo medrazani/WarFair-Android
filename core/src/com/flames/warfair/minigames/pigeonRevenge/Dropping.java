@@ -1,18 +1,17 @@
 package com.flames.warfair.minigames.pigeonRevenge;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.flames.warfair.MyGdxGame;
 import com.flames.warfair.buttons.Button;
 
 /**
  * Created by Flames on 1/8/16.
  */
-public class Dropping extends Button {
+class Dropping extends Button {
 
     private boolean doOnce;
     private boolean active;
 
-    public Dropping(Rectangle rect) {
+    Dropping(Rectangle rect) {
         super(Loader.getDroppingT(), rect);
         doOnce = false;
         active = true;
@@ -32,16 +31,16 @@ public class Dropping extends Button {
         }
     }
 
-    public void setDoOnce(boolean b) {
+    void setDoOnce(boolean b) {
         doOnce = b;
         texture = Loader.getDroppingT();
     }
 
-    public boolean isActive() {
+    boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    void setActive(boolean active) {
         this.active = active;
     }
 

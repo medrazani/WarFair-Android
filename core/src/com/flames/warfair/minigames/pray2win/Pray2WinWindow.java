@@ -85,7 +85,7 @@ public class Pray2WinWindow extends Window {
             if (forfeitPopUpMsg.getButtonPressed() == 1) {
                 if (challengerID != -1) {
                     StartMenuWindow.startMenuSound.play();
-                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has forfeited a match of pray2Win against " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
+                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has forfeited a match of Pray2Win against " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
                     BoardGameWindow.setNextPlayersTurn();
                 }
                 wm.pop();
@@ -123,7 +123,7 @@ public class Pray2WinWindow extends Window {
                                     winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
                                 } else {
                                     winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(opponentID - 1).getName() + " wins!", wm);
-                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of pray2Win from " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
+                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of Pray2Win from " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
                                 }
                             } else
                                 winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player1 wins!", wm);
@@ -134,7 +134,7 @@ public class Pray2WinWindow extends Window {
                                     winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
                                 } else {
                                     winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player" + opponentID + " wins!", wm);
-                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of pray2Win from " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
+                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of Pray2Win from " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
                                 }
                             } else
                                 winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player2 wins!", wm);
@@ -143,7 +143,7 @@ public class Pray2WinWindow extends Window {
                             player1.setTexture(Loader.getMonkWinT());
                             player2.setTexture(Loader.getMonkWinT());
                             if (challengerID != -1)
-                                BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has come to a tie with " + BoardGameWindow.players.get(opponentID - 1).getName() + " on a match of pray2Win!");
+                                BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has come to a tie with " + BoardGameWindow.players.get(opponentID - 1).getName() + " on a match of Pray2Win!");
                         }
                         wm.setPopUp(winPopUpMsg);
                     }
@@ -154,13 +154,13 @@ public class Pray2WinWindow extends Window {
                             StartMenuWindow.startMenuSound.play();
                             if (player1.getPrays() > player2.getPrays()) {
                                 if (challengerID == player1.getId()) {
-                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has stolen 300 points from " + BoardGameWindow.players.get(opponentID - 1).getName() + " on a match of pray2Win!");
+                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has stolen 300 points from " + BoardGameWindow.players.get(opponentID - 1).getName() + " on a match of Pray2Win!");
                                     BoardGameWindow.players.get(challengerID - 1).alterPoints(300);
                                     BoardGameWindow.players.get(opponentID - 1).alterPoints(-300);
                                 }
                             } else if (player2.getPrays() > player1.getPrays()) {
                                 if (challengerID == player2.getId()) {
-                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has stolen 300 points from " + BoardGameWindow.players.get(opponentID - 1).getName() + " on a match of pray2Win!");
+                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has stolen 300 points from " + BoardGameWindow.players.get(opponentID - 1).getName() + " on a match of Pray2Win!");
                                     BoardGameWindow.players.get(challengerID - 1).alterPoints(300);
                                     BoardGameWindow.players.get(opponentID - 1).alterPoints(-300);
                                 }

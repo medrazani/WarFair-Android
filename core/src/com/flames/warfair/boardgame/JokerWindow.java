@@ -13,25 +13,26 @@ import com.flames.warfair.buttons.Button;
 /**
  * Created by Flames on 9/8/16.
  */
-public class JokerWindow extends Window {
+class JokerWindow extends Window {
 
     private float xZero;
     private float yZero;
     private Button pingVpongBtn, pigeonRevengeBtn, pray2WinBtn, lastManStandingBtn, skillshotBtn;
 
-    public JokerWindow(WindowManager wm) {
-        this.WIDTH = 600;
-        this.HEIGHT = 400;
+    JokerWindow(WindowManager wm) {
+        this.WIDTH = 700;
+        this.HEIGHT = 500;
         xZero = cam.position.x - WIDTH / 2;
         yZero = cam.position.y - HEIGHT / 2;
         this.wm = wm;
 
-        pingVpongBtn = new Button("pingVpong", new Rectangle(xZero + WIDTH / 2 - 100, yZero + HEIGHT - 120, 200, 40));
-        pigeonRevengeBtn = new Button("PigeonRevenge", new Rectangle(pingVpongBtn.getRect().x, pingVpongBtn.getRect().y - 60, 200, 40));
-        pray2WinBtn = new Button("Pray2Win", new Rectangle(pingVpongBtn.getRect().x, pingVpongBtn.getRect().y - 120, 200, 40));
-        lastManStandingBtn = new Button("LastManStanding", new Rectangle(pingVpongBtn.getRect().x, pingVpongBtn.getRect().y - 180, 200, 40));
-        skillshotBtn = new Button("Skillshot", new Rectangle(pingVpongBtn.getRect().x, pingVpongBtn.getRect().y - 240, 200, 40));
+        pingVpongBtn = new Button("pingVpong", new Rectangle(xZero + WIDTH / 2 - 190, yZero + HEIGHT - 155, 380, 60));
+        pigeonRevengeBtn = new Button("PigeonRevenge", new Rectangle(pingVpongBtn.getRect().x, pingVpongBtn.getRect().y - 80, 380, 60));
+        pray2WinBtn = new Button("Pray2Win", new Rectangle(pingVpongBtn.getRect().x, pigeonRevengeBtn.getRect().y - 80, 380, 60));
+        lastManStandingBtn = new Button("LastManStanding", new Rectangle(pingVpongBtn.getRect().x, pray2WinBtn.getRect().y - 80, 380, 60));
+        skillshotBtn = new Button("Skillshot", new Rectangle(pingVpongBtn.getRect().x, lastManStandingBtn.getRect().y - 80, 380, 60));
 
+        addString("Choose a mini-game!", 1);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class JokerWindow extends Window {
         lastManStandingBtn.drawFont(sb);
         skillshotBtn.drawFont(sb);
         MyGdxGame.mediumFont.setColor(Color.RED);
-        MyGdxGame.mediumFont.draw(sb, "Choose a mini-game!", xZero+WIDTH/2 - 170, yZero+HEIGHT-30);
+        MyGdxGame.mediumFont.draw(sb, strings.get(0), xZero+WIDTH/2 - glyphLayouts.get(0).width/2, yZero+HEIGHT-30);
         sb.end();
     }
 

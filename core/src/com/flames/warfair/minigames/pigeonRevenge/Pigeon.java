@@ -9,17 +9,17 @@ import com.flames.warfair.buttons.Button;
 /**
  * Created by Flames on 1/8/16.
  */
-public class Pigeon extends Button {
+class Pigeon extends Button {
 
     private Animation animation;
     private Dropping dropping;
     private int dir;
 
-    public Pigeon(Rectangle rect) {
+    Pigeon(Rectangle rect) {
         super(Loader.getAngryBirdT(), rect);
 
         animation = new Animation(Loader.getAngryBirdT(), 2, 0.15f);
-        dropping = new Dropping(new Rectangle(-100, -100, 30, 30));
+        dropping = new Dropping(new Rectangle(-100, -100, 40, 40));
         dir = -1;
     }
 
@@ -46,11 +46,11 @@ public class Pigeon extends Button {
         return animation.getFrameRegion();
     }
 
-    public void setDir(int dir) {
+    void setDir(int dir) {
         this.dir = dir;
     }
 
-    public Dropping getDropping() {
+    Dropping getDropping() {
         return dropping;
     }
 

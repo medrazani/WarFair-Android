@@ -23,7 +23,7 @@ public class Announcer {
     private String tempString;
     private int changeLinePtr;
 
-    public Announcer(Rectangle rect) {
+    Announcer(Rectangle rect) {
         this.rect = rect;
         strings = new ArrayList<String>();
         yScrolls = new ArrayList<Integer>();
@@ -38,7 +38,7 @@ public class Announcer {
 
     public void addAnnouncement(String s) {
         for (int i=0; i<yScrolls.size(); i++)
-            yScrolls.set(i, yScrolls.get(i) + 26);
+            yScrolls.set(i, yScrolls.get(i) + 45);
         yScrolls.add(0);
         calendar = Calendar.getInstance();
         changeLinePtr = 0;
@@ -61,7 +61,7 @@ public class Announcer {
             strings.add("["+sdf.format(calendar.getTime())+"]: " + tempString);
 
             for (int i=0; i<yScrolls.size(); i++)
-                yScrolls.set(i, yScrolls.get(i) + 26);
+                yScrolls.set(i, yScrolls.get(i) + 45);
             yScrolls.add(0);
             tempString = "";
             for(int i=changeLinePtr-1; i<tempArray.length; i++)
@@ -73,7 +73,7 @@ public class Announcer {
             strings.add("[" + sdf.format(calendar.getTime()) + "]: " + s);
     }
 
-    public void addLoadedAnnouncement(String s) {
+    void addLoadedAnnouncement(String s) {
         for (int i=0; i<yScrolls.size(); i++)
             yScrolls.set(i, yScrolls.get(i) + 26);
         yScrolls.add(0);
@@ -113,11 +113,11 @@ public class Announcer {
         return strings;
     }
 
-    public ArrayList<Integer> getyScrolls() {
+    ArrayList<Integer> getyScrolls() {
         return yScrolls;
     }
 
-    public void scroll(int amount) {
+    void scroll(int amount) {
         if(amount==-1) { //scroll up
             if(rect.y + 30 + yScrolls.get(0) > rect.y + rect.height) {
                 for (int i = 0; i < yScrolls.size(); i++)
@@ -133,7 +133,7 @@ public class Announcer {
 
     }
 
-    public int getChangeLinePtr() {
+    int getChangeLinePtr() {
         return changeLinePtr;
     }
 }

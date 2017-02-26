@@ -13,7 +13,7 @@ import com.flames.warfair.buttons.Button;
 /**
  * Created by Flames on 9/8/16.
  */
-public class BankWindow extends Window {
+class BankWindow extends Window {
 
     private Player player;
     private float xZero;
@@ -24,8 +24,8 @@ public class BankWindow extends Window {
     private PopUpMessage exitPopUp;
 
     public BankWindow(Player player, WindowManager wm) {
-        this.WIDTH = 600;
-        this.HEIGHT = 400;
+        this.WIDTH = 800;
+        this.HEIGHT = 600;
         xZero = cam.position.x - WIDTH / 2;
         yZero = cam.position.y - HEIGHT / 2;
         this.wm = wm;
@@ -39,11 +39,11 @@ public class BankWindow extends Window {
         addString(depositValue+"",2);
         addString("(10% interest per round)",2);
 
-        withdrawBtn = new Button("Withdraw", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 165, 160,35));
-        depositBtn = new Button("Deposit", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 305, 160,35));
-        leftBtn = new Button("<", new Rectangle(xZero + WIDTH/2 + 135, yZero + HEIGHT - 220, 30,30));
-        rightBtn = new Button(">", new Rectangle(xZero + WIDTH - 30 - 5, yZero + HEIGHT - 220, 30,30));
-        exitBtn = new Button("Exit", new Rectangle(xZero + WIDTH - 120 - 20, yZero + HEIGHT - 390, 120,35));
+        withdrawBtn = new Button("Withdraw", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 230, 200,60));
+        depositBtn = new Button("Deposit", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 440, 200,60));
+        leftBtn = new Button("<", new Rectangle(xZero + WIDTH/2 + 140, yZero + HEIGHT - 320, 50,50));
+        rightBtn = new Button(">", new Rectangle(xZero + WIDTH - 60 - 5, yZero + HEIGHT - 320, 50,50));
+        exitBtn = new Button("Exit", new Rectangle(xZero + WIDTH - 180 - 20, yZero + 10, 180,60));
         withdrawBtn.setHighlighted(true);
         depositBtn.setHighlighted(true);
         leftBtn.setHighlighted(true);
@@ -96,10 +96,10 @@ public class BankWindow extends Window {
         MyGdxGame.mediumFont.setColor(player.getColor());
         MyGdxGame.mediumFont.draw(sb, strings.get(0), xZero + WIDTH/2 - glyphLayouts.get(0).width/2, yZero + HEIGHT - 25);
         MyGdxGame.mediumFont.setColor(Color.CYAN);
-        MyGdxGame.mediumFont.draw(sb, strings.get(1), xZero + WIDTH/2 - glyphLayouts.get(1).width/2, yZero + HEIGHT - 90);
-        MyGdxGame.mediumFont.draw(sb, strings.get(2), xZero + WIDTH/2 - glyphLayouts.get(2).width/2, yZero + HEIGHT - 190);
-        MyGdxGame.mediumFont.draw(sb, strings.get(3), xZero + WIDTH/2 + 215 - glyphLayouts.get(3).width/2, yZero + HEIGHT - 190);
-        MyGdxGame.mediumFont.draw(sb, strings.get(4), xZero + WIDTH/2 - glyphLayouts.get(4).width/2, yZero + HEIGHT - 230);
+        MyGdxGame.mediumFont.draw(sb, strings.get(1), xZero + WIDTH/2 - glyphLayouts.get(1).width/2, yZero + HEIGHT - 120);
+        MyGdxGame.mediumFont.draw(sb, strings.get(2), xZero + WIDTH/2 - glyphLayouts.get(2).width/2 - 80, yZero + HEIGHT - 280);
+        MyGdxGame.mediumFont.draw(sb, strings.get(3), xZero + WIDTH/2 + 260 - glyphLayouts.get(3).width/2, yZero + HEIGHT - 280);
+        MyGdxGame.mediumFont.draw(sb, strings.get(4), xZero + WIDTH/2 - glyphLayouts.get(4).width/2, yZero + HEIGHT - 330);
         MyGdxGame.smallFont.setColor(Color.WHITE);
         withdrawBtn.drawFont(sb);
         depositBtn.drawFont(sb);
@@ -197,6 +197,11 @@ public class BankWindow extends Window {
                 wm.popPopUp();
         }
 
+        withdrawBtn.setShapeColor(Color.RED);
+        depositBtn.setShapeColor(Color.RED);
+        leftBtn.setShapeColor(Color.RED);
+        rightBtn.setShapeColor(Color.RED);
+        exitBtn.setShapeColor(Color.RED);
         return false;
     }
 }

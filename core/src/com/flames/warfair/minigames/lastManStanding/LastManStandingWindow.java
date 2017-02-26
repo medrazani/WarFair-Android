@@ -76,7 +76,7 @@ public class LastManStandingWindow extends Window {
     public void update(float dt) {
         if (forfeitPopUpMsg != null) {
             if (forfeitPopUpMsg.getButtonPressed() == 1) {
-                BoardGameWindow.announcer.addAnnouncement("A match of LastManStanding has been forfeited.");
+                BoardGameWindow.announcer.addAnnouncement("A match of Last Man Standing has been forfeited.");
                 if (!miniGameMode) {
                     StartMenuWindow.startMenuSound.play();
                     BoardGameWindow.setNextPlayersTurn();
@@ -108,7 +108,7 @@ public class LastManStandingWindow extends Window {
                             for (Player player : players) {
                                 if (player.getRank() == 1) {
                                     BoardGameWindow.players.get(player.getID() - 1).alterPoints(200);
-                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(player.getID() - 1).getName() + " has won 200 points on a match of LastManStanding!");
+                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(player.getID() - 1).getName() + " has won 200 points on a match of Last Man Standing!");
                                     break;
                                 }
                             }
@@ -148,7 +148,7 @@ public class LastManStandingWindow extends Window {
         sr.setColor(Color.LIGHT_GRAY);
         for (int i = 1; i <= players.size(); i++) {
             if (players.get(i - 1).isAlive())
-                sr.rect(5, players.get(i-1).getTouchRect().y + players.get(i-1).getTouchRect().height - 50, 120, 35);
+                sr.rect(5, players.get(i-1).getTouchRect().y + players.get(i-1).getTouchRect().height - 60, 180, 45);
         }
         sr.setColor(Color.BLACK);
         for (int i = 1; i <= players.size(); i++) {
@@ -265,7 +265,7 @@ public class LastManStandingWindow extends Window {
                 }
         }
         for(Player player: players) {
-            player.setRect(130, (int)player.getTouchRect().y + 1, 30, 30);
+            player.setRect(130, (int)player.getTouchRect().y + 1, 40, 40);
         }
         Player.nextRank = numOfPlayers - deadCounter;
     }

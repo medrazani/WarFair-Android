@@ -19,7 +19,7 @@ public class Loader {
     private static Sound collideS;
     private static Sound victoryS;
 
-    public static void loadLastManStanding() {
+    static void loadLastManStanding() {
         playerT = new Texture("images/lastManStanding/stickman.png");
         player1T = new Texture("images/boardGame/player1.png");
         player2T = new Texture("images/boardGame/player2.png");
@@ -30,7 +30,7 @@ public class Loader {
         victoryS = Gdx.audio.newSound(Gdx.files.internal("sounds/victory.wav"));
     }
 
-    public static void disposeLastManStanding() {
+    static void disposeLastManStanding() {
         playerT.dispose();
         player1T.dispose();
         player2T.dispose();
@@ -41,7 +41,7 @@ public class Loader {
         victoryS.dispose();
     }
 
-    public static Texture getPlayerT() {
+    static Texture getPlayerT() {
         return playerT;
     }
 
@@ -61,7 +61,7 @@ public class Loader {
         return player4T;
     }
 
-    public static Sound getCollideS() {
+    static Sound getCollideS() {
         return collideS;
     }
 
@@ -69,7 +69,7 @@ public class Loader {
         return backgroundS;
     }
 
-    public static Sound getVictoryS() {
+    static Sound getVictoryS() {
         return victoryS;
     }
 }

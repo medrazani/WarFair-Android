@@ -14,8 +14,8 @@ import com.flames.warfair.MyGdxGame;
 public class Button implements java.io.Serializable{
 
     protected Rectangle rect;
-    protected GlyphLayout glyphLayout;
-    protected transient Color shapeColor;
+    private GlyphLayout glyphLayout;
+    private transient Color shapeColor;
 
     private String text;
     protected transient Texture texture;
@@ -64,7 +64,7 @@ public class Button implements java.io.Serializable{
     }
 
     public void drawFieldFont(SpriteBatch sb) {
-        MyGdxGame.smallFont.draw(sb, text, rect.x + 5, rect.y+21);
+        MyGdxGame.smallFont.draw(sb, text, rect.x + 5, rect.y+40);
     }
 
     public Rectangle getRect() {

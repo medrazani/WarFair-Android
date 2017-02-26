@@ -11,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.flames.warfair.startmenu.StartMenuWindow;
 
 public class MyGdxGame extends ApplicationAdapter {
-	public static final int WIDTH = 854; //1185
-	public static final int HEIGHT = 480; //600
+	public static final int WIDTH = 1280; //1185, 854, 1920, 1280
+	public static final int HEIGHT = 768; //600, 480,  1080, 768
 	public static final String TITLE = "WarFair";
 	public static BitmapFont smallFont;
 	public static BitmapFont mediumFont;
@@ -21,7 +21,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static Sound hoverSound;
 	public static float soundVolume;
 
-	SpriteBatch batch;
+	private SpriteBatch batch;
 
 	private WindowManager wm;
 	
@@ -36,7 +36,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		FileHandle fontFile = Gdx.files.internal("arimo.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 22;
+		parameter.size = 42;
 		parameter.characters = "1234567890" +
 				"αβγδεζηθικλμνξοπρστυφχψως" +
 				"ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ" +
@@ -45,9 +45,9 @@ public class MyGdxGame extends ApplicationAdapter {
 				"abcdefghijklmnopqrstuvwxyz" +
 				"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		smallFont = generator.generateFont(parameter);
-		parameter.size = 40;
+		parameter.size = 60;
 		bigFont = generator.generateFont(parameter);
-		parameter.size = 30;
+		parameter.size = 50;
 		mediumFont = generator.generateFont(parameter);
 		generator.dispose();
 

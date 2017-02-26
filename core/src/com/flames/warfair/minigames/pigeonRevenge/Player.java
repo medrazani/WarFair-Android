@@ -83,11 +83,11 @@ public class Player extends Button {
         }
     }
 
-    public void setLeft(boolean b) {
+    void setLeft(boolean b) {
         left = b;
     }
 
-    public void setRight(boolean b) {
+    void setRight(boolean b) {
         right = b;
     }
 
@@ -99,15 +99,15 @@ public class Player extends Button {
             return playStandingTexture;
     }
 
-    public Rectangle getCollisonRect() {
+    Rectangle getCollisonRect() {
         return collisonRect;
     }
 
-    public void subtractScore() {
+    void subtractScore() {
         score -= 10;
     }
 
-    public int getScore() {
+    int getScore() {
         return score;
     }
 
@@ -121,11 +121,11 @@ public class Player extends Button {
         return color;
     }
 
-    public Texture getPlayerIcon() {
+    Texture getPlayerIcon() {
         return playerIcon;
     }
 
-    public void setScore(int score) {
+    void setScore(int score) {
         this.score = score;
     }
 }

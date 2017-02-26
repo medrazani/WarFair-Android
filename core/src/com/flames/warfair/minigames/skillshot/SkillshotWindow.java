@@ -36,7 +36,7 @@ public class SkillshotWindow extends Window {
         this.miniGameMode = miniGameMode;
 
         Loader.loadSkillshot();
-        target = new Target(new Rectangle(-100, MyGdxGame.HEIGHT - 200, 200, 200));
+        target = new Target(new Rectangle(-100, MyGdxGame.HEIGHT - 250, 240, 240));
         initializePlayers(numOfPlayers);
         startCounter = 3;
         Loader.getBeepS().play(MyGdxGame.soundVolume - 0.8f);
@@ -68,6 +68,7 @@ public class SkillshotWindow extends Window {
                     players.get(minPtr).setScore(10);
             }
         }
+        addString("GET READY", 3);
     }
 
     @Override
@@ -144,8 +145,8 @@ public class SkillshotWindow extends Window {
         MyGdxGame.bigFont.setColor(Color.RED);
         if (winner == 0) {
             if (startCounter != 0) {
-                MyGdxGame.bigFont.draw(sb, "GET READY", MyGdxGame.WIDTH / 2 - 140, MyGdxGame.HEIGHT - 40);
-                MyGdxGame.bigFont.draw(sb, startCounter + "", MyGdxGame.WIDTH / 2 - 20, MyGdxGame.HEIGHT - 100);
+                MyGdxGame.bigFont.draw(sb, strings.get(0), MyGdxGame.WIDTH / 2 - glyphLayouts.get(0).width / 2, MyGdxGame.HEIGHT - 40);
+                MyGdxGame.bigFont.draw(sb, startCounter + "", MyGdxGame.WIDTH / 2 - 40, MyGdxGame.HEIGHT - 100);
             }
         } else {
             Loader.getBackgroundS().stop();
@@ -160,8 +161,8 @@ public class SkillshotWindow extends Window {
         for (Player player : players) {
             MyGdxGame.bigFont.setColor(player.getColor());
             if (player.isAlive()) {
-                sb.draw(player.getPlayerIcon(), player.getRect().x + 10, 1, 40, 40);
-                MyGdxGame.bigFont.draw(sb, player.getScore() + "", player.getRect().x + 60, 37);
+                sb.draw(player.getPlayerIcon(), player.getRect().x + 10, 4, 40, 40);
+                MyGdxGame.bigFont.draw(sb, player.getScore() + "", player.getRect().x + 60, 45);
             }
         }
         sb.end();
@@ -218,23 +219,23 @@ public class SkillshotWindow extends Window {
         if (!miniGameMode) {
             if (numOfPlayers == 2)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(70 + 284 * i, 20, 182, 200)));
+                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(450 + 284 * i, 20, 182, 200)));
             else if (numOfPlayers == 3)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(70 + 284 * i, 20, 182, 200)));
+                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(200 + 284 * i, 20, 182, 200)));
             else if (numOfPlayers == 4)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(70 + 225 * i, 20, 182, 200)));
+                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(140 + 225 * i, 20, 182, 200)));
         } else {
             if (numOfPlayers == 2)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, true, new Rectangle(70 + 284 * i, 20, 182, 200)));
+                    players.add(new Player(i, true, new Rectangle(450 + 284 * i, 20, 182, 200)));
             else if (numOfPlayers == 3)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, true, new Rectangle(70 + 284 * i, 20, 182, 200)));
+                    players.add(new Player(i, true, new Rectangle(200 + 284 * i, 20, 182, 200)));
             else if (numOfPlayers == 4)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, true, new Rectangle(70 + 225 * i, 20, 182, 200)));
+                    players.add(new Player(i, true, new Rectangle(140 + 225 * i, 20, 182, 200)));
         }
         for(Player player: players) {
             player.setTouchRect(new Rectangle(player.getRect().x - 15, -2, player.getRect().width+30, MyGdxGame.HEIGHT+2));

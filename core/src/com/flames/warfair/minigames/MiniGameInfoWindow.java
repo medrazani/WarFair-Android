@@ -74,7 +74,7 @@ public class MiniGameInfoWindow extends Window {
             chosenSides = true;
         }
 
-        addString("Slide up or down to begin!", 1);
+        addString("Slide up/down to begin!", 1);
         addString("Choose sides!", 1);
         addString("Player" + (challengerPtr + 1), 1);
         addString("Player" + (opponentPtr + 1), 1);
@@ -92,8 +92,8 @@ public class MiniGameInfoWindow extends Window {
         player1X = MyGdxGame.WIDTH / 2 - glyphLayouts.get(2).width / 2;
         player2X = MyGdxGame.WIDTH / 2 - glyphLayouts.get(3).width / 2;
 
-        leftBtn = new Button("<", new Rectangle(player1X - 25 - 20, 215, 25, 25));
-        rightBtn = new Button(">", new Rectangle(player1X + glyphLayouts.get(2).width + 20, 215, 25, 25));
+        leftBtn = new Button("<", new Rectangle(player1X - 40 - 20, 300, 40, 50));
+        rightBtn = new Button(">", new Rectangle(player1X + glyphLayouts.get(2).width + 20, 300, 40, 50));
     }
 
     @Override
@@ -105,8 +105,8 @@ public class MiniGameInfoWindow extends Window {
             chosenSides = true;
         } else {
             chosenSides = false;
-            leftBtn.setY(215);
-            rightBtn.setY(215);
+            leftBtn.setY(330);
+            rightBtn.setY(330);
             if (player1Pos == 1) {
                 rightBtn.setY(-210);
                 chosenSides = true;
@@ -128,14 +128,14 @@ public class MiniGameInfoWindow extends Window {
             if (timerMillis % 200 < 100) {
                 timerMillis = 0;
                 sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.rect(MyGdxGame.WIDTH / 2 - 200, 180, 400, 70);
+                sr.rect(MyGdxGame.WIDTH / 2 - 250, 250, 500, 140);
                 sr.end();
             }
         } else { //draw game start button
             if (timerMillis % 200 < 100) {
                 timerMillis = 0;
                 sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.rect(10, MyGdxGame.HEIGHT - 50, 320, 40);
+                sr.rect(10, MyGdxGame.HEIGHT - 60, 510, 50);
                 sr.end();
             }
 
@@ -158,16 +158,16 @@ public class MiniGameInfoWindow extends Window {
                 rightBtn.drawShape(sr);
                 if (chosenSides) {
                     sr.setColor(Color.RED);
-                    sr.rect(MyGdxGame.WIDTH / 2 - 200, 180, 400, 70);
+                    sr.rect(MyGdxGame.WIDTH / 2 - 250, 250, 500, 140);
                 }
                 sr.end();
                 sb.begin();
                 MyGdxGame.smallFont.setColor(Color.CYAN);
-                MyGdxGame.smallFont.draw(sb, strings.get(1), MyGdxGame.WIDTH / 2 - glyphLayouts.get(1).width / 2, 270);
+                MyGdxGame.smallFont.draw(sb, strings.get(1), MyGdxGame.WIDTH / 2 - glyphLayouts.get(1).width / 2, 430);
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(challengerPtr).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, 235);
+                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, 370);
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(opponentPtr).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(3), player2X, 205);
+                MyGdxGame.smallFont.draw(sb, strings.get(3), player2X, 310);
                 MyGdxGame.smallFont.setColor(Color.CYAN);
                 leftBtn.drawFont(sb);
                 rightBtn.drawFont(sb);
@@ -176,9 +176,9 @@ public class MiniGameInfoWindow extends Window {
             else if(miniGame.equals("pigeonRevenge")) {
                 sb.begin();
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(challengerPtr).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(2), 250, 210);
+                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, 290);
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(opponentPtr).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(3), MyGdxGame.WIDTH - 250 - glyphLayouts.get(3).width, 210);
+                MyGdxGame.smallFont.draw(sb, strings.get(3), player2X, 350);
                 sb.end();
             }
         }

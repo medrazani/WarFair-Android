@@ -17,7 +17,7 @@ import com.flames.warfair.buttons.Button;
 /**
  * Created by Flames on 14/8/16.
  */
-public class RenamePlayerWindow extends Window {
+class RenamePlayerWindow extends Window {
 
     private float xZero;
     private float yZero;
@@ -31,20 +31,20 @@ public class RenamePlayerWindow extends Window {
     private Button nameBtn;
     private PopUpMessage confirmConfirmationMsg;
 
-    public RenamePlayerWindow(int playerPtr, Button nameBtn, WindowManager wm) {
+    RenamePlayerWindow(int playerPtr, Button nameBtn, WindowManager wm) {
         this.wm = wm;
-        WIDTH = 350;
-        HEIGHT = 200;
+        WIDTH = 700;
+        HEIGHT = 240;
         xZero = MyGdxGame.WIDTH/2 - WIDTH/2;
-        yZero = MyGdxGame.HEIGHT/2 - HEIGHT/2 + 135;
+        yZero = MyGdxGame.HEIGHT/2 - HEIGHT/2 + 160;
         this.playerPtr = playerPtr;
         this.nameBtn = nameBtn;
 
         addString("Please give a name for " + nameBtn.getText()+".", 1);
 
-        confirmBtn = new Button("Confirm", new Rectangle(xZero + WIDTH/2 - 120 - 10, yZero + 25, 120, 30));
-        backBtn = new Button("Back", new Rectangle(xZero + WIDTH/2 + 10, yZero + 25, 120, 30));
-        nameField = new Button("", new Rectangle(xZero + WIDTH/2 - 75, yZero + 92, 150, 30));
+        confirmBtn = new Button("Confirm", new Rectangle(xZero + WIDTH/2 - 170 - 20, yZero + 10, 170, 60));
+        backBtn = new Button("Back", new Rectangle(xZero + WIDTH/2 + 20, yZero + 10, 170, 60));
+        nameField = new Button("", new Rectangle(xZero + WIDTH/2 - 75, yZero + 92, 180, 60));
         nameField.setHighlighted(true);
 
         cursorTimer = TimeUtils.millis();
@@ -87,7 +87,7 @@ public class RenamePlayerWindow extends Window {
         if (TimeUtils.timeSinceMillis(cursorTimer) > 400) {
             if (TimeUtils.timeSinceMillis(cursorTimer) > 800)
                 cursorTimer = TimeUtils.millis();
-            sr.line(nameField.getRect().x + cursorX, nameField.getRect().y + 5, nameField.getRect().x + cursorX, nameField.getRect().y + 25);
+            sr.line(nameField.getRect().x + cursorX, nameField.getRect().y + 5, nameField.getRect().x + cursorX, nameField.getRect().y + nameField.getRect().getHeight() - 5);
         }
         sr.end();
 

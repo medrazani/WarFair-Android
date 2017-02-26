@@ -3,7 +3,6 @@ package com.flames.warfair.startmenu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -38,9 +37,9 @@ public class StartMenuWindow extends com.flames.warfair.Window {
         soundOnT = new Texture("images/soundOn.png");
         soundOffT = new Texture("images/soundOff.png");
         soundBtn = new Button(soundOnT, new Rectangle(MyGdxGame.WIDTH - 90, 10, 60, 60));
-        newGameBtn = new Button("New Game", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH/2, MyGdxGame.HEIGHT - 200, BTNWIDTH, BTNHEIGHT));
-        loadGameBtn = new Button("Load Game", new Rectangle(newGameBtn.getRect().x, newGameBtn.getRect().y - 100, BTNWIDTH, BTNHEIGHT));
-        helpBtn = new Button("Help", new Rectangle(newGameBtn.getRect().x, newGameBtn.getRect().y - 200, BTNWIDTH, BTNHEIGHT));
+        newGameBtn = new Button("New Game", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH/2, MyGdxGame.HEIGHT - 320, BTNWIDTH, BTNHEIGHT));
+        loadGameBtn = new Button("Load Game", new Rectangle(newGameBtn.getRect().x, newGameBtn.getRect().y - 160, BTNWIDTH, BTNHEIGHT));
+        helpBtn = new Button("Help", new Rectangle(newGameBtn.getRect().x, loadGameBtn.getRect().y - 160, BTNWIDTH, BTNHEIGHT));
     }
 
     @Override

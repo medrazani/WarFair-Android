@@ -24,7 +24,7 @@ public class Loader {
     private static Sound splatS;
     private static Sound victoryS;
 
-    public static void loadPigeonRevenge() {
+    static void loadPigeonRevenge() {
         backgroundT = new Texture("images/pigeonRevenge/background.png");
         droppingT = new Texture("images/pigeonRevenge/dropping.png");
         splatterT = new Texture("images/pigeonRevenge/splatter.png");
@@ -40,7 +40,7 @@ public class Loader {
         victoryS = Gdx.audio.newSound(Gdx.files.internal("sounds/victory.wav"));
     }
 
-    public static void disposePigeonRevenge() {
+    static void disposePigeonRevenge() {
         angryBirdT.dispose();
         backgroundT.dispose();
         droppingT.dispose();
@@ -56,27 +56,27 @@ public class Loader {
         victoryS.dispose();
     }
 
-    public static Texture getBackgroundT() {
+    static Texture getBackgroundT() {
         return backgroundT;
     }
 
-    public static Texture getAngryBirdT() {
+    static Texture getAngryBirdT() {
         return angryBirdT;
     }
 
-    public static Texture getDroppingT() {
+    static Texture getDroppingT() {
         return droppingT;
     }
 
-    public static Texture getSplatterT() {
+    static Texture getSplatterT() {
         return splatterT;
     }
 
-    public static Texture getPlayerStandT() {
+    static Texture getPlayerStandT() {
         return playerStandT;
     }
 
-    public static Texture getPlayerWalkT() {
+    static Texture getPlayerWalkT() {
         return playerWalkT;
     }
 
@@ -100,11 +100,11 @@ public class Loader {
         return backgroundS;
     }
 
-    public static Sound getSplatS() {
+    static Sound getSplatS() {
         return splatS;
     }
 
-    public static Sound getVictoryS() {
+    static Sound getVictoryS() {
         return victoryS;
     }
 }

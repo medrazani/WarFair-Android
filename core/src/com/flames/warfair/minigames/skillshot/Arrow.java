@@ -7,13 +7,13 @@ import com.flames.warfair.buttons.Button;
 /**
  * Created by Flames on 1/8/16.
  */
-public class Arrow extends Button {
+class Arrow extends Button {
 
     private static final int SPEED = 1000;
     private boolean bindToTarget;
     private float impactXdist;
 
-    public Arrow(Rectangle rect) {
+    Arrow(Rectangle rect) {
         super(Loader.getArrowT(), rect);
         bindToTarget = false;
         impactXdist = 0;
@@ -36,7 +36,7 @@ public class Arrow extends Button {
             rect.y = -200;
     }
 
-    public void resetArrow() {
+    void resetArrow() {
         impactXdist = 0;
         bindToTarget = false;
     }
@@ -83,7 +83,7 @@ public class Arrow extends Button {
         return 0;
     }
 
-    public float getImpactXdist() {
+    float getImpactXdist() {
         return impactXdist;
     }
 

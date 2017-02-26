@@ -19,8 +19,8 @@ public abstract class Window implements InputProcessor {
 
     protected int WIDTH;
     protected int HEIGHT;
-    protected static final int BTNWIDTH = 230;
-    protected static final int BTNHEIGHT = 70;
+    protected static final int BTNWIDTH = 300;
+    protected static final int BTNHEIGHT = 120;
     protected WindowManager wm;
     protected Rectangle clickCoords;
     protected Vector3 clickVector;
@@ -101,7 +101,7 @@ public abstract class Window implements InputProcessor {
             glyphLayouts.get(glyphLayouts.size()-1).setText(MyGdxGame.bigFont, s);
     }
 
-    public void changeString(int index, String s, int size) {
+    /*void changeString(int index, String s, int size) {
         strings.set(index, s);
         if(size==1)
             glyphLayouts.get(index).setText(MyGdxGame.smallFont, strings.get(index));
@@ -109,5 +109,5 @@ public abstract class Window implements InputProcessor {
             glyphLayouts.get(index).setText(MyGdxGame.mediumFont, strings.get(index));
         else if(size==3)
             glyphLayouts.get(index).setText(MyGdxGame.bigFont, strings.get(index));
-    }
+    }*/
 }
