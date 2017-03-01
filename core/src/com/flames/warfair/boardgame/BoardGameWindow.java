@@ -52,6 +52,7 @@ public class BoardGameWindow extends Window {
     public BoardGameWindow(ArrayList<Player> loadedPlayers, int numOfPlayers, int goalPoints, WindowManager wm) {
         this.wm = wm;
         BoardGameWindow.numOfPlayers = numOfPlayers;
+        nextRank = numOfPlayers;
         this.goalPoints = goalPoints;
         Loader.loadBoardGame();
         StartMenuWindow.startMenuSound.play();
@@ -236,13 +237,13 @@ public class BoardGameWindow extends Window {
         sb.begin();
         MyGdxGame.smallFont.setColor(Color.GRAY);
         for (int i = 0; i < announcer.getStrings().size() - 1; i++) {
-            if (announcer.getyScrolls().get(i) < announcer.getRect().height - 25 && announcer.getRect().y + 10 + announcer.getyScrolls().get(i) > announcer.getRect().y) {
+            if (announcer.getyScrolls().get(i) < announcer.getRect().height - 50 && announcer.getRect().y + 5 + announcer.getyScrolls().get(i) > announcer.getRect().y) {// announcer previous lines
                 if (i == announcer.getStrings().size() - 2 && announcer.getChangeLinePtr() == -1) //last entry is 2 lines long
                     MyGdxGame.smallFont.setColor(Color.WHITE);
                 MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(i));
             }
         }
-        if (announcer.getRect().y + 10 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1) > announcer.getRect().y) {
+        if (announcer.getRect().y + 5 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1) > announcer.getRect().y) { //announcer last line
             MyGdxGame.smallFont.setColor(Color.WHITE);
             MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(announcer.getStrings().size() - 1), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1));
         }
@@ -354,24 +355,24 @@ public class BoardGameWindow extends Window {
                 BoardGameWindow.announcer.addLoadedAnnouncement(announcement);
             BoardGameWindow.announcer.addAnnouncement("THE GAME HAS BEEN LOADED!");
             players.get(0).setTexture(Loader.getPlayer1T());
-            playerBtns.add(new Button("Player1", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+            playerBtns.add(new Button(players.get(0).getName(), new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 95, 240, 65)));
             players.get(0).setColor(Color.RED);
             if(!players.get(0).isAlive())
                 players.get(0).setColor(Color.LIGHT_GRAY);
             players.get(1).setTexture(Loader.getPlayer2T());
-            playerBtns.add(new Button("Player2", new Rectangle(MyGdxGame.WIDTH / 7 + 305, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+            playerBtns.add(new Button(players.get(1).getName(), new Rectangle(MyGdxGame.WIDTH / 7 + 460, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 95, 240, 65)));
             players.get(1).setColor(Color.BLUE);
             if(!players.get(1).isAlive())
                 players.get(1).setColor(Color.LIGHT_GRAY);
             if (numOfPlayers >= 3) {
                 players.get(2).setTexture(Loader.getPlayer3T());
-                playerBtns.add(new Button("Player3", new Rectangle(MyGdxGame.WIDTH / 7 + 585, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 65, 160, 45)));
+                playerBtns.add(new Button(players.get(2).getName(), new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 175, 240, 65)));
                 players.get(2).setColor(Color.GREEN);
                 if(!players.get(2).isAlive())
                     players.get(2).setColor(Color.LIGHT_GRAY);
                 if (numOfPlayers >= 4) {
                     players.get(3).setTexture(Loader.getPlayer4T());
-                    playerBtns.add(new Button("Player4", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 115, 160, 45)));
+                    playerBtns.add(new Button(players.get(3).getName(), new Rectangle(MyGdxGame.WIDTH / 7 + 460, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 175, 240, 65)));
                     players.get(3).setColor(Color.ORANGE);
                     if(!players.get(3).isAlive())
                         players.get(3).setColor(Color.LIGHT_GRAY);

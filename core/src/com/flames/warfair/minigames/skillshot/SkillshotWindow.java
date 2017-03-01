@@ -38,8 +38,7 @@ public class SkillshotWindow extends Window {
         Loader.loadSkillshot();
         target = new Target(new Rectangle(-100, MyGdxGame.HEIGHT - 250, 240, 240));
         initializePlayers(numOfPlayers);
-        startCounter = 3;
-        Loader.getBeepS().play(MyGdxGame.soundVolume - 0.8f);
+        startCounter = 4;
         timerMillis = TimeUtils.millis();
         winner = 0;
 
@@ -94,7 +93,7 @@ public class SkillshotWindow extends Window {
                     } else {
                         Loader.getGongS().play(MyGdxGame.soundVolume);
                         Loader.getBackgroundS().setLooping(true);
-                        Loader.getBackgroundS().setVolume(MyGdxGame.soundVolume - 0.8f);
+                        Loader.getBackgroundS().setVolume(MyGdxGame.musicVolume);
                         Loader.getBackgroundS().play();
                         for (Player player : players)
                             player.setCanShoot(true);
@@ -146,9 +145,10 @@ public class SkillshotWindow extends Window {
         if (winner == 0) {
             if (startCounter != 0) {
                 MyGdxGame.bigFont.draw(sb, strings.get(0), MyGdxGame.WIDTH / 2 - glyphLayouts.get(0).width / 2, MyGdxGame.HEIGHT - 40);
-                MyGdxGame.bigFont.draw(sb, startCounter + "", MyGdxGame.WIDTH / 2 - 40, MyGdxGame.HEIGHT - 100);
+                MyGdxGame.bigFont.draw(sb, startCounter + "", MyGdxGame.WIDTH / 2 - 30, MyGdxGame.HEIGHT - 100);
             }
         } else {
+            Loader.getBackgroundS().setLooping(false);
             Loader.getBackgroundS().stop();
             Loader.getVictoryS().play(MyGdxGame.soundVolume);
             if (miniGameMode)
@@ -169,14 +169,17 @@ public class SkillshotWindow extends Window {
 
         sr.begin(ShapeRenderer.ShapeType.Line);
         for(Player player: players) {
-            sr.setColor(player.getColor());
-            sr.rect(player.getTouchRect().x, player.getTouchRect().y, player.getTouchRect().width, player.getTouchRect().height);
+            if(player.getTouchRect()!=null) {
+                sr.setColor(player.getColor());
+                sr.rect(player.getTouchRect().x, player.getTouchRect().y, player.getTouchRect().width, player.getTouchRect().height);
+            }
         }
         sr.end();
     }
 
     @Override
     public void dispose() {
+        Loader.getVictoryS().stop();
         Loader.disposeSkillshot();
         sr.dispose();
         for (Player player : players)
@@ -206,9 +209,11 @@ public class SkillshotWindow extends Window {
         clickCoords.set(clickVector.x, clickVector.y, 1, 1);
 
         for(Player player: players) {
-            if(clickCoords.overlaps(player.getTouchRect())) {
-                if(player.getCanShoot())
-                    player.setStartShoot();
+            if(player.getTouchRect()!=null) {
+                if (clickCoords.overlaps(player.getTouchRect())) {
+                    if (player.getCanShoot())
+                        player.setStartShoot();
+                }
             }
         }
         return false;
@@ -238,7 +243,8 @@ public class SkillshotWindow extends Window {
                     players.add(new Player(i, true, new Rectangle(140 + 225 * i, 20, 182, 200)));
         }
         for(Player player: players) {
-            player.setTouchRect(new Rectangle(player.getRect().x - 15, -2, player.getRect().width+30, MyGdxGame.HEIGHT+2));
+            if(player.isAlive())
+                player.setTouchRect(new Rectangle(player.getRect().x - 15, -2, player.getRect().width+30, MyGdxGame.HEIGHT+2));
         }
     }
 }

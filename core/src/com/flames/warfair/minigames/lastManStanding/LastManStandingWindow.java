@@ -34,10 +34,9 @@ public class LastManStandingWindow extends Window {
         this.wm = wm;
         players = new ArrayList<Player>();
         this.miniGameMode = miniGameMode;
-
         Loader.loadLastManStanding();
         Loader.getBackgroundS().setLooping(true);
-        Loader.getBackgroundS().setVolume(MyGdxGame.soundVolume - 0.8f);
+        Loader.getBackgroundS().setVolume(MyGdxGame.musicVolume);
         Loader.getBackgroundS().play();
         initializePlayers(numOfPlayers);
         timerMillis = TimeUtils.millis();
@@ -92,6 +91,7 @@ public class LastManStandingWindow extends Window {
                 if (winPopUpMsg == null) {
                     for (Player player : players)
                         if (player.getRank() == 1) {
+                            Loader.getBackgroundS().setLooping(false);
                             Loader.getBackgroundS().stop();
                             Loader.getVictoryS().play(MyGdxGame.soundVolume);
                             if (miniGameMode)
@@ -179,14 +179,17 @@ public class LastManStandingWindow extends Window {
 
         sr.begin(ShapeRenderer.ShapeType.Line);
         for(Player player: players) {
-            sr.setColor(player.getColor());
-            sr.rect(player.getTouchRect().x, player.getTouchRect().y, player.getTouchRect().width, player.getTouchRect().height);
+            if(player.getTouchRect() != null) {
+                sr.setColor(player.getColor());
+                sr.rect(player.getTouchRect().x, player.getTouchRect().y, player.getTouchRect().width, player.getTouchRect().height);
+            }
         }
         sr.end();
     }
 
     @Override
     public void dispose() {
+        Loader.getVictoryS().stop();
         MyGdxGame.smallFont.setColor(Color.WHITE);
         Loader.disposeLastManStanding();
         sr.dispose();
@@ -201,9 +204,11 @@ public class LastManStandingWindow extends Window {
         clickCoords.set(clickVector.x, clickVector.y, 1, 1);
 
         for(Player player: players) {
-            if(clickCoords.overlaps(player.getTouchRect())) {
-                if(player.getCanJump())
-                    player.setStartJumping();
+            if(player.getTouchRect() != null) {
+                if (clickCoords.overlaps(player.getTouchRect())) {
+                    if (player.getCanJump())
+                        player.setStartJumping();
+                }
             }
         }
         return false;
@@ -229,22 +234,26 @@ public class LastManStandingWindow extends Window {
         if (!miniGameMode) {
             if (numOfPlayers == 2)
                 for (int i = 1; i <= numOfPlayers; i++){
-                    players.add(new Player(i, true, new Rectangle()));
-                    players.get(i-1).setTouchRect(new Rectangle(1, (2-i)*MyGdxGame.HEIGHT/2+2, MyGdxGame.WIDTH-1, MyGdxGame.HEIGHT/2-1));
+                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle()));
+                    players.get(players.size()-1).setTouchRect(new Rectangle(1, (2-i)*MyGdxGame.HEIGHT/2+2, MyGdxGame.WIDTH-1, MyGdxGame.HEIGHT/2-1));
                 }
             else if (numOfPlayers == 3)
                 for (int i = 1; i <= numOfPlayers; i++) {
                     if(BoardGameWindow.players.get(i-1).isAlive()) {
-                        players.add(new Player(i, true, new Rectangle()));
-                        players.get(i - 1).setTouchRect(new Rectangle(1, (3 - i) * MyGdxGame.HEIGHT / 3 + 2, MyGdxGame.WIDTH - 1, MyGdxGame.HEIGHT / 3 - 1));
+                        players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle()));
+                        players.get(players.size()-1).setTouchRect(new Rectangle(1, (3 - i) * MyGdxGame.HEIGHT / 3 + 2, MyGdxGame.WIDTH - 1, MyGdxGame.HEIGHT / 3 - 1));
                     }
+                    else
+                        deadCounter++;
                 }
             else if (numOfPlayers == 4)
                 for (int i = 1; i <= numOfPlayers; i++) {
                     if(BoardGameWindow.players.get(i-1).isAlive()) {
-                        players.add(new Player(i, true, new Rectangle()));
-                        players.get(i - 1).setTouchRect(new Rectangle(1, (4 - i) * MyGdxGame.HEIGHT / 4 + 2, MyGdxGame.WIDTH - 1, MyGdxGame.HEIGHT / 4 - 1));
+                        players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle()));
+                        players.get(players.size()-1).setTouchRect(new Rectangle(1, (4 - i) * MyGdxGame.HEIGHT / 4 + 2, MyGdxGame.WIDTH - 1, MyGdxGame.HEIGHT / 4 - 1));
                     }
+                    else
+                        deadCounter++;
                 }
         }
         else {
@@ -264,8 +273,10 @@ public class LastManStandingWindow extends Window {
                     players.get(i-1).setTouchRect(new Rectangle(1, (4-i)*MyGdxGame.HEIGHT/4+1, MyGdxGame.WIDTH-1, MyGdxGame.HEIGHT/4-1));
                 }
         }
+
         for(Player player: players) {
-            player.setRect(130, (int)player.getTouchRect().y + 1, 40, 40);
+            if(player.getTouchRect() != null)
+                player.setRect(130, (int)player.getTouchRect().y + 1, 40, 40);
         }
         Player.nextRank = numOfPlayers - deadCounter;
     }

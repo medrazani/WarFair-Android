@@ -20,6 +20,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static boolean soundOn;
 	public static Sound hoverSound;
 	public static float soundVolume;
+	public static float musicVolume;
 
 	private SpriteBatch batch;
 
@@ -28,6 +29,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		soundVolume = 1f;
+		musicVolume = 0.2f;
 		hoverSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hover.wav"));
 		soundOn = true;
 		smallFont = new BitmapFont();

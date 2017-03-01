@@ -49,9 +49,8 @@ class Block extends Button {
                 BoardGameWindow.card.startAnimation(player);
                 break;
             case 3: //pingVpong
-                //chooseOpponentWindow = new ChooseOpponentWindow("pingVpong", player.getID(), wm);
-                //wm.setPopUp(chooseOpponentWindow);
-                BoardGameWindow.setNextPlayersTurn();
+                chooseOpponentWindow = new ChooseOpponentWindow("pingVpong", player.getID(), wm);
+                wm.setPopUp(chooseOpponentWindow);
                 break;
             case 4: //losePoints
                 player.alterPoints(-200);
@@ -94,9 +93,8 @@ class Block extends Button {
                 wm.set(new MiniGameInfoWindow("lastManStanding", -1, -1, BoardGameWindow.players.size(), 0, false, wm));
                 break;
             case 14: //pingVpong
-                //chooseOpponentWindow = new ChooseOpponentWindow("pingVpong", player.getID(), wm);
-                //wm.setPopUp(chooseOpponentWindow);
-                BoardGameWindow.setNextPlayersTurn();
+                chooseOpponentWindow = new ChooseOpponentWindow("pingVpong", player.getID(), wm);
+                wm.setPopUp(chooseOpponentWindow);
                 break;
             case 15: //drawCard
                 BoardGameWindow.card.startAnimation(player);

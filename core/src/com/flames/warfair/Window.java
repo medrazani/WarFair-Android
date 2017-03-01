@@ -101,7 +101,7 @@ public abstract class Window implements InputProcessor {
             glyphLayouts.get(glyphLayouts.size()-1).setText(MyGdxGame.bigFont, s);
     }
 
-    /*void changeString(int index, String s, int size) {
+    public void changeString(int index, String s, int size) {
         strings.set(index, s);
         if(size==1)
             glyphLayouts.get(index).setText(MyGdxGame.smallFont, strings.get(index));
@@ -109,5 +109,5 @@ public abstract class Window implements InputProcessor {
             glyphLayouts.get(index).setText(MyGdxGame.mediumFont, strings.get(index));
         else if(size==3)
             glyphLayouts.get(index).setText(MyGdxGame.bigFont, strings.get(index));
-    }*/
+    }
 }

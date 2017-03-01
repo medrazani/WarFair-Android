@@ -32,7 +32,7 @@ public class StartMenuWindow extends com.flames.warfair.Window {
         background = new Texture("images/startMenuBackground.png");
         startMenuSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/mainGameBackground.wav"));
         startMenuSound.setLooping(true);
-        startMenuSound.setVolume(MyGdxGame.soundVolume -0.8f);
+        startMenuSound.setVolume(MyGdxGame.musicVolume);
         startMenuSound.play();
         soundOnT = new Texture("images/soundOn.png");
         soundOffT = new Texture("images/soundOff.png");
@@ -114,8 +114,11 @@ public class StartMenuWindow extends com.flames.warfair.Window {
             clickVector = cam.unproject(clickVector);
             clickCoords.set(clickVector.x, clickVector.y, 1, 1);
 
-            if(clickCoords.overlaps(newGameBtn.getRect()))
-                newGameBtnListener();
+            if(clickCoords.overlaps(newGameBtn.getRect())) {
+                MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
+                wm.set(new NewGameWindow(wm));
+            }
+                //newGameBtnListener();
             else if(clickCoords.overlaps(loadGameBtn.getRect()))
                 loadGameBtnListener();
             else if(clickCoords.overlaps(helpBtn.getRect()))
@@ -124,12 +127,14 @@ public class StartMenuWindow extends com.flames.warfair.Window {
                 if (MyGdxGame.soundOn) {
                     soundBtn.setTexture(StartMenuWindow.soundOffT);
                     MyGdxGame.soundVolume = 0;
+                    MyGdxGame.musicVolume = 0;
                     StartMenuWindow.startMenuSound.setVolume(0);
                     MyGdxGame.soundOn = false;
                 } else {
                     soundBtn.setTexture(StartMenuWindow.soundOnT);
                     MyGdxGame.soundVolume = 1f;
-                    StartMenuWindow.startMenuSound.setVolume(MyGdxGame.soundVolume - 0.8f);
+                    MyGdxGame.musicVolume = 0.2f;
+                    StartMenuWindow.startMenuSound.setVolume(MyGdxGame.musicVolume);
                     MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
                     MyGdxGame.soundOn = true;
                 }

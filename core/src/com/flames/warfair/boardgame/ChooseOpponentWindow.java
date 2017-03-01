@@ -60,17 +60,17 @@ public class ChooseOpponentWindow extends Window {
 
                 if (miniGame.equals("pingVpong")) {
                     if (handicapPoints.get(i) == 1)
-                        handicapText = "you get +2 Health";
+                        handicapText = "no handicap";
                     else if (handicapPoints.get(i) == 2)
-                        handicapText = "you get +4 Health";
+                        handicapText = "you get +1 Health";
                     else if (handicapPoints.get(i) == 3)
-                        handicapText = "you get +6 Health";
+                        handicapText = "you get +2 Health";
                     else if (handicapPoints.get(i) == -1)
-                        handicapText = "you get -2 Health";
+                        handicapText = "no handicap";
                     else if (handicapPoints.get(i) == -2)
-                        handicapText = "you get -4 Health";
+                        handicapText = "you get -1 Health";
                     else if (handicapPoints.get(i) == -3)
-                        handicapText = "you get -6 Health";
+                        handicapText = "you get -2 Health";
                     else
                         handicapText = "no handicap";
                 } else if (miniGame.equals("pigeonRevenge")) {

@@ -42,7 +42,7 @@ public class PigeonRevengeWindow extends Window {
 
         Loader.loadPigeonRevenge();
         Loader.getBackgroundS().setLooping(true);
-        Loader.getBackgroundS().setVolume(MyGdxGame.soundVolume - 0.8f);
+        Loader.getBackgroundS().setVolume(MyGdxGame.musicVolume);
         Loader.getBackgroundS().play();
         player = new Player(challengerID, new Rectangle(MyGdxGame.WIDTH / 2 - 57, 20, 114, 154));
         touchRectCh = new Rectangle(1, 1, MyGdxGame.WIDTH-1, MyGdxGame.HEIGHT/2 + 49);
@@ -119,6 +119,7 @@ public class PigeonRevengeWindow extends Window {
                     timerMillis = TimeUtils.millis();
                     seconds--;
                     if(seconds==0) {
+                        Loader.getBackgroundS().setLooping(false);
                         Loader.getBackgroundS().stop();
                         Loader.getVictoryS().play(MyGdxGame.soundVolume);
                     }
@@ -191,6 +192,7 @@ public class PigeonRevengeWindow extends Window {
 
     @Override
     public void dispose() {
+        Loader.getVictoryS().stop();
         MyGdxGame.smallFont.setColor(Color.WHITE);
         Loader.disposePigeonRevenge();
         sr.dispose();

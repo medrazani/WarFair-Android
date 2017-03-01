@@ -70,8 +70,7 @@ public class Pray2WinWindow extends Window {
         player2.setTouchRect(new Rectangle(MyGdxGame.WIDTH / 2 +1, 1, MyGdxGame.WIDTH / 2, MyGdxGame.HEIGHT-1));
 
         secCounter = GAMETIME;
-        startCounter = 3;
-        Loader.getBeepS().play(MyGdxGame.soundVolume);
+        startCounter = 4;
         timerMillis = TimeUtils.millis();
 
         addString("GET READY", 3);
@@ -102,7 +101,7 @@ public class Pray2WinWindow extends Window {
                     else {
                         Loader.getGongS().play(MyGdxGame.soundVolume);
                         Loader.getBackgroundS().setLooping(true);
-                        Loader.getBackgroundS().setVolume(MyGdxGame.soundVolume - 0.8f);
+                        Loader.getBackgroundS().setVolume(MyGdxGame.musicVolume);
                         Loader.getBackgroundS().play();
                     }
                 }
@@ -114,6 +113,7 @@ public class Pray2WinWindow extends Window {
                     changeString(2, secCounter + "", 3);
                     if (secCounter == 0) { //GAME OVER
                         secCounter = -1;//setting setCounter to -1 so that the code enters this 'if' only once
+                        Loader.getBackgroundS().setLooping(false);
                         Loader.getBackgroundS().stop();
                         Loader.getHallelujahS().play(MyGdxGame.soundVolume);
                         if (player1.getPrays() > player2.getPrays()) {
@@ -226,6 +226,7 @@ public class Pray2WinWindow extends Window {
 
     @Override
     public void dispose() {
+        Loader.getHallelujahS().stop();
         Loader.disposePray2Win();
         sr.dispose();
         player1.dispose();

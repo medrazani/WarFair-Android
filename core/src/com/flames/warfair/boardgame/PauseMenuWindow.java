@@ -37,7 +37,7 @@ public class PauseMenuWindow extends Window {
         exitBtn = new Button("Exit", new Rectangle(resumeBtn.getRect().x, yZero + 25, 240, 70));
 
         addString("GAME PAUSED", 2);
-        StartMenuWindow.soundBtn.setRect(new Rectangle(xZero+WIDTH - 50, yZero + 10, 39, 40));
+        StartMenuWindow.soundBtn.setRect(new Rectangle(xZero+WIDTH - 70, yZero + 10, 60, 60));
     }
 
     @Override
@@ -86,7 +86,7 @@ public class PauseMenuWindow extends Window {
 
         if(exitPopUp!=null) {
             if(exitPopUp.getButtonPressed()==1) {
-                StartMenuWindow.soundBtn.setRect(new Rectangle(MyGdxGame.WIDTH - 50, 10, 40, 40));
+                StartMenuWindow.soundBtn.setRect(new Rectangle(MyGdxGame.WIDTH - 70, 10, 60, 60));
                 StartMenuWindow.startMenuSound.stop();
                 StartMenuWindow.startMenuSound.play();
                 wm.popPopUp();
@@ -148,7 +148,7 @@ public class PauseMenuWindow extends Window {
                     wm.setPopUp2(exitPopUp);
                 }
                 else {
-                    StartMenuWindow.soundBtn.setRect(new Rectangle(MyGdxGame.WIDTH - 50, 10, 40, 40));
+                    StartMenuWindow.soundBtn.setRect(new Rectangle(MyGdxGame.WIDTH - 70, 10, 60, 60));
                     StartMenuWindow.startMenuSound.stop();
                     StartMenuWindow.startMenuSound.play();
                     wm.popPopUp();
@@ -160,12 +160,14 @@ public class PauseMenuWindow extends Window {
                 if (MyGdxGame.soundOn) {
                     StartMenuWindow.soundBtn.setTexture(StartMenuWindow.soundOffT);
                     MyGdxGame.soundVolume = 0;
+                    MyGdxGame.musicVolume = 0;
                     StartMenuWindow.startMenuSound.setVolume(0);
                     MyGdxGame.soundOn = false;
                 } else {
                     StartMenuWindow.soundBtn.setTexture(StartMenuWindow.soundOnT);
                     MyGdxGame.soundVolume = 1f;
-                    StartMenuWindow.startMenuSound.setVolume(MyGdxGame.soundVolume - 0.8f);
+                    MyGdxGame.musicVolume = 0.2f;
+                    StartMenuWindow.startMenuSound.setVolume(MyGdxGame.musicVolume);
                     MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
                     MyGdxGame.soundOn = true;
                 }

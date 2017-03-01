@@ -223,12 +223,14 @@ class NewGameWindow extends com.flames.warfair.Window {
                 if (MyGdxGame.soundOn) {
                     StartMenuWindow.soundBtn.setTexture(StartMenuWindow.soundOffT);
                     MyGdxGame.soundVolume = 0;
+                    MyGdxGame.musicVolume = 0;
                     StartMenuWindow.startMenuSound.setVolume(0);
                     MyGdxGame.soundOn = false;
                 } else {
                     StartMenuWindow.soundBtn.setTexture(StartMenuWindow.soundOnT);
                     MyGdxGame.soundVolume = 1f;
-                    StartMenuWindow.startMenuSound.setVolume(MyGdxGame.soundVolume - 0.8f);
+                    MyGdxGame.musicVolume = 0.2f;
+                    StartMenuWindow.startMenuSound.setVolume(MyGdxGame.musicVolume);
                     MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
                     MyGdxGame.soundOn = true;
                 }

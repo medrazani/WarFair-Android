@@ -54,7 +54,7 @@ public class Player extends Button implements java.io.Serializable {
 
         initX = -MyGdxGame.WIDTH + MyGdxGame.WIDTH / 7 + rect.x;
         initY = rect.y;
-        points = 1000;
+        points = 1500;
         nextBlock = 1;
         blockCounter = 0;
         onThaPit = -1;
@@ -66,13 +66,15 @@ public class Player extends Button implements java.io.Serializable {
             points = 20;
         }
         else if(id==2) {
-            points = 800;
+            points = 2200;
+            setDisqualified();
         }
         else if(id==3) {
-            points = 2000;
+            points = 500;
         }
         else if(id==4) {
-            points = 2800;
+            points = 1030;
+            setDisqualified();
         }*/
     }
 

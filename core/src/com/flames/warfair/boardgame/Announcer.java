@@ -75,19 +75,19 @@ public class Announcer {
 
     void addLoadedAnnouncement(String s) {
         for (int i=0; i<yScrolls.size(); i++)
-            yScrolls.set(i, yScrolls.get(i) + 26);
+            yScrolls.set(i, yScrolls.get(i) + 45);
         yScrolls.add(0);
         changeLinePtr = 0;
         tempString = "";
 
         gl.setText(MyGdxGame.smallFont, s);
-        if(gl.width > rect.width -25) {
+        if(gl.width > rect.width - 10) {
             tempArray = s.split(" ");
             for(int i=0; i<tempArray.length; i++) {
                 tempString+= tempArray[i] + " ";
                 changeLinePtr++;
                 gl.setText(MyGdxGame.smallFont, tempString);
-                if(gl.width > rect.width -25)
+                if(gl.width > rect.width -115)
                     break;
             }
 
@@ -97,7 +97,7 @@ public class Announcer {
             strings.add(tempString);
 
             for (int i=0; i<yScrolls.size(); i++)
-                yScrolls.set(i, yScrolls.get(i) + 26);
+                yScrolls.set(i, yScrolls.get(i) + 45);
             yScrolls.add(0);
             tempString = "";
             for(int i=changeLinePtr-1; i<tempArray.length; i++)
@@ -119,15 +119,15 @@ public class Announcer {
 
     void scroll(int amount) {
         if(amount==-1) { //scroll up
-            if(rect.y + 30 + yScrolls.get(0) > rect.y + rect.height) {
+            if(rect.y + 50 + yScrolls.get(0) > rect.y + rect.height) {
                 for (int i = 0; i < yScrolls.size(); i++)
-                    yScrolls.set(i, yScrolls.get(i) + amount * 26);
+                    yScrolls.set(i, yScrolls.get(i) + amount * 40);
             }
         }
         else { //scroll down
             if(rect.y + 10 + yScrolls.get(yScrolls.size()-1) < rect.y) {
                 for (int i = 0; i < yScrolls.size(); i++)
-                    yScrolls.set(i, yScrolls.get(i) + amount * 26);
+                    yScrolls.set(i, yScrolls.get(i) + amount * 40);
             }
         }
 
