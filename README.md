@@ -25,3 +25,6 @@ There are 5 mini-games in the game currently. Each time a player wins over his o
 **Pigeon Revenge** - an 1v1 mini-game. The challenger trys to avoid the droppings of his opponent to keep his score high.  
 **Last Man Standing** - this is a mini-game in which all players can participate simultaneously on the same device. Each player controls a stickman and jumps to avoid walls. The last man standing wins.  
 **Skillshot** - this is a mini-game in which all players can participate simultaneously on the same device. Each player may shoot his bow to hit the moving target. The closer to the center it hits, the more points he gets. The first one to hit 100 points wins.  
+
+## EXTRA INFO
+Includes a save game function and a load game screen to display the saved games and allow the users to load a game.
