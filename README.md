@@ -15,8 +15,8 @@ This is possible because this game is turn-based. The first player to reach a pr
 There are 5 mini-games in the game currently. Each time a player wins over his opponent, he steals some of his points. If the players have a big difference in points, the weaker player gets a handicap to make it easier for him. Some of the mini-games are 1v1 and in others, all the players can participate simultaneously. 
 
 ## CURRENT MINI-GAMES: 
-pingVpong - a classic pong game between 2 players. (the player that landed on the block chooses his opponent)
-Pray2Win - a classic 'tap faster to win' game between 2 players. (again a 1v1 mini-game)
-Pigeon Revenge - an 1v1 mini-game. The challenger trys to avoid the droppings of his opponent to keep his score high.
-Last Man Standing - this is a mini-game in which all players can participate simultaneously on the same device. Each player controls a stickman and jumps to avoid walls. The last man standing wins.
-Skillshot - this is a mini-game in which all players can participate simultaneously on the same device. Each player may shoot his bow to hit the moving target. The closer to the center it hits, the more points he gets. The first one to hit 100 points wins.
+pingVpong - a classic pong game between 2 players. (the player that landed on the block chooses his opponent)  
+Pray2Win - a classic 'tap faster to win' game between 2 players. (again a 1v1 mini-game)  
+Pigeon Revenge - an 1v1 mini-game. The challenger trys to avoid the droppings of his opponent to keep his score high.  
+Last Man Standing - this is a mini-game in which all players can participate simultaneously on the same device. Each player controls a stickman and jumps to avoid walls. The last man standing wins.  
+Skillshot - this is a mini-game in which all players can participate simultaneously on the same device. Each player may shoot his bow to hit the moving target. The closer to the center it hits, the more points he gets. The first one to hit 100 points wins.  
