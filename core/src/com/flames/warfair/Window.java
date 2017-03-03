@@ -13,7 +13,8 @@ import com.badlogic.gdx.math.Vector3;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 31/7/16.
+ * This class is extended from every window in this project.
+ * Represents a window including coordinates, camera, labels and more.
  */
 public abstract class Window implements InputProcessor {
 
@@ -24,11 +25,11 @@ public abstract class Window implements InputProcessor {
     protected WindowManager wm;
     protected Rectangle clickCoords;
     protected Vector3 clickVector;
-    protected ShapeRenderer sr;
+    protected ShapeRenderer sr; //used to render shapes
 
-    protected ArrayList<String> strings;
-    protected ArrayList<GlyphLayout> glyphLayouts;
-    protected static OrthographicCamera cam;
+    protected ArrayList<String> strings;    //the on-screen strings
+    protected ArrayList<GlyphLayout> glyphLayouts; //the string's glyph layouts
+    protected static OrthographicCamera cam; //the static (shared) camera
 
     protected Window() {
         Gdx.input.setCatchBackKey(true);
@@ -45,9 +46,21 @@ public abstract class Window implements InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
-
+    /**
+     * Updates the window's parameters. Each window has an update method.
+     * @param dt -> delta time
+     */
     public abstract void update(float dt);
+
+    /**
+     * Renders on-screen images, fonts and shapes. Each window has a render method.
+     * @param sb -> sprite batch used to render on the window
+     */
     public abstract void render(SpriteBatch sb);
+
+    /**
+     * Dispose the unused variables.
+     */
     public abstract void dispose();
 
     @Override
@@ -90,6 +103,12 @@ public abstract class Window implements InputProcessor {
         return false;
     }
 
+    /**
+     * Add a string to the window. For the string to be shown, it has
+     * to be rendered.
+     * @param s -> the string
+     * @param size -> the size of the string (1, 2 or 3)
+     */
     public void addString(String s, int size) {
         strings.add(s);
         glyphLayouts.add(new GlyphLayout());
@@ -101,6 +120,12 @@ public abstract class Window implements InputProcessor {
             glyphLayouts.get(glyphLayouts.size()-1).setText(MyGdxGame.bigFont, s);
     }
 
+    /**
+     * Changes a string of the window.
+     * @param index -> the index of the string
+     * @param s -> the new string
+     * @param size -> the size of the string (1, 2 or 3)
+     */
     public void changeString(int index, String s, int size) {
         strings.set(index, s);
         if(size==1)

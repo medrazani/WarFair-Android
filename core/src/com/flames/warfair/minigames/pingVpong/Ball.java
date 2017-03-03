@@ -5,9 +5,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.flames.warfair.MyGdxGame;
 
 /**
- * Created by Flames on 26/2/2017.
+ * The sprite of the ball.
  */
-
 class Ball {
 
     private Circle circle;
@@ -16,7 +15,6 @@ class Ball {
     private int ballspeedY;
     private int dirX;
     private int dirY;
-    private float distance;
 
     Ball(Circle circle) {
         this.circle = circle;
@@ -26,27 +24,36 @@ class Ball {
         dirX = -1;
     }
 
-    public void setDirX(int dirX) {
+    void setDirX(int dirX) {
         this.dirX = dirX;
     }
 
-    public void setDirY(int dirY) {
+    void setDirY(int dirY) {
         this.dirY = dirY;
     }
 
-    public void setDistanceFromPlayerCenter(float distance) {
-        this.distance = distance;
+    /**
+     * The distance of the ball impact from the center of the player sprite.
+     * @param distance -> the distance of the ball-player impact
+     */
+    void setDistanceFromPlayerCenter(float distance) {
         distance *= 4;
         if(distance < 20)
             dirY = 0;
         ballspeedY = Math.round(distance);
     }
 
-    public void addBallspeed() {
-        ballspeed+=30;
+    /**
+     * Add speed to the ball.
+     */
+    void addBallspeed() {
+        ballspeed+=40;
     }
 
-    public void reset() {
+    /**
+     * Reset ball to initial state.
+     */
+    void reset() {
         circle.x = MyGdxGame.WIDTH / 2;
         rectangle.x = MyGdxGame.WIDTH / 2 - circle.radius;
         circle.y = MyGdxGame.HEIGHT/2;

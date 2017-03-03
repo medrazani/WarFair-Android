@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.flames.warfair.startmenu.StartMenuWindow;
 
+/**
+ * This is the first shared method that is called from the desktop, android or IOS launcher.
+ */
 public class MyGdxGame extends ApplicationAdapter {
 	public static final int WIDTH = 1280; //1185, 854, 1920, 1280
 	public static final int HEIGHT = 768; //600, 480,  1080, 768
@@ -25,7 +28,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 
 	private WindowManager wm;
-	
+
+	/**
+	 * This method is the onCreate method of the application.
+	 */
 	@Override
 	public void create () {
 		soundVolume = 1f;
@@ -58,6 +64,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		wm.push(new StartMenuWindow(wm));
 	}
 
+	/**
+	 * Call the update and render methods of the WindowManager.
+	 */
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);

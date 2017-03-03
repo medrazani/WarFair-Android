@@ -14,7 +14,7 @@ import com.flames.warfair.minigames.pray2win.*;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 1/8/16.
+ * The sprite of the players.
  */
 public class Player extends Button {
 
@@ -51,34 +51,33 @@ public class Player extends Button {
         }
     }
 
-    public void setMoveUp() {
+    void setMoveUp() {
         dir = 1;
     }
 
-    public void setMoveDown() {
+    void setMoveDown() {
         dir = -1;
     }
 
-    public void setNoMovement() {
+    void setNoMovement() {
         dir = 0;
     }
 
-    public int getHealth() {
+    int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    void setHealth(int health) {
         this.health = health;
     }
 
-    public void reset() {
+    void reset() {
         setNoMovement();
         rect.y = MyGdxGame.HEIGHT/2 - rect.height/2;
         midRect.setY(MyGdxGame.HEIGHT/2 - midRect.height/2);
     }
 
     public void dispose() {
-
     }
 
     public Color getColor() {
@@ -93,7 +92,7 @@ public class Player extends Button {
         this.touchRect = touchRect;
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
@@ -101,7 +100,7 @@ public class Player extends Button {
         this.id = id;
     }
 
-    public Rectangle getMidRect() {
+    Rectangle getMidRect() {
         return midRect;
     }
 

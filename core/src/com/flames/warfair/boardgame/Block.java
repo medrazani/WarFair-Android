@@ -7,7 +7,7 @@ import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 7/8/16.
+ * The rectangles represting the blocks of the board game.
  */
 class Block extends Button {
 
@@ -26,6 +26,10 @@ class Block extends Button {
         propertyOwnerID = -1;
     }
 
+    /**
+     * Start the block event for the player that landed on the block.
+     * @param player -> the player that landed on the block
+     */
     void startBlockEvent(Player player) {
         switch (id) {
             case 0: //start

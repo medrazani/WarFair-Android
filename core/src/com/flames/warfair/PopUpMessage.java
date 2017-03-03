@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 2/8/16.
+ * A pop-up message window.
  */
 public class PopUpMessage extends Window{
 
@@ -19,6 +19,14 @@ public class PopUpMessage extends Window{
     private float xZero;
     private float yZero;
 
+    /**
+     * The constructor of the pop-up window.
+     * @param overlapN -> used to determine the number of current pop-up windows.
+     * @param buttonN -> the number of buttons on the pop-up window
+     * @param title -> the title of the window
+     * @param message -> the message of the window
+     * @param wm -> WindowManager
+     */
     public PopUpMessage(int overlapN, int buttonN, String title, String message, WindowManager wm) {
         this.WIDTH = 700;
         this.HEIGHT = 300;
@@ -28,6 +36,7 @@ public class PopUpMessage extends Window{
         yZero = cam.position.y - HEIGHT/2;
         this.wm = wm;
 
+        //split the message up to 4 lines long
         String[] messages;
         String msgLine1 ="";
         String msgLine2 ="";
@@ -82,6 +91,10 @@ public class PopUpMessage extends Window{
 
     }
 
+    /**
+     * Render the pop-up window UI.
+     * @param sb -> sprite batch used to render on the window
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);

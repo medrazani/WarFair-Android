@@ -8,7 +8,7 @@ import com.flames.warfair.buttons.Button;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 31/7/16.
+ * The sprite of the players.
  */
 public class Player extends Button implements java.io.Serializable {
 
@@ -28,7 +28,6 @@ public class Player extends Button implements java.io.Serializable {
     private int onThaPit;
     private boolean alive;
     private int disqualifiedCounter;
-
 
     public Player(int id, int goalPoints, Rectangle rect) {
         super(Loader.getPlayer1T(), rect);
@@ -62,6 +61,7 @@ public class Player extends Button implements java.io.Serializable {
         disqualifiedCounter = 0;
         alive = true;
 
+        //for debugging purposes
         /*if(id==1) {
             points = 20;
         }
@@ -115,6 +115,9 @@ public class Player extends Button implements java.io.Serializable {
         }
     }
 
+    /**
+     * Handle the state in which the player is stack on the 'Tha Pit' block.
+     */
     private void handleThaPit() {
         if(onThaPit==0) {
             if (Dice.roll >= 6) { //set him free
@@ -160,6 +163,9 @@ public class Player extends Button implements java.io.Serializable {
         }
     }
 
+    /**
+     * Move the player on the board.
+     */
     private void move() {
         if(nextBlock!=22) {
             rect.x = BoardGameWindow.blocks.get(nextBlock).getRect().x + initX;
@@ -184,6 +190,9 @@ public class Player extends Button implements java.io.Serializable {
         }
     }
 
+    /**
+     * Award player for passing from the start block.
+     */
     void passByStartBlock() {
         BoardGameWindow.announcer.addAnnouncement(name+" has passed by the Start block receiving 300 points.");
         alterPoints(300);
@@ -197,6 +206,9 @@ public class Player extends Button implements java.io.Serializable {
         return color;
     }
 
+    /**
+     * Alter the player's points.
+     */
     public void alterPoints(int points) {
         this.points += points;
         Loader.getCoinS().play(MyGdxGame.soundVolume);
@@ -211,6 +223,9 @@ public class Player extends Button implements java.io.Serializable {
         }
     }
 
+    /**
+     * Disqualify the player.
+     */
     private void setDisqualified() {
         alive = false;
         this.points = BoardGameWindow.nextRank;
@@ -229,6 +244,10 @@ public class Player extends Button implements java.io.Serializable {
         return id;
     }
 
+    /**
+     * Teleport the player to a block.
+     * @param k -> the number of the block for the player to be teleported
+     */
     void goToBlock(int k) {
         nextBlock = k+1;
         rect.x = BoardGameWindow.blocks.get(k).getRect().x + initX;

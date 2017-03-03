@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Created by Flames on 11/8/16.
+ * Loads the assets of the Skillshot mini-game.
  */
 public class Loader {
 
@@ -23,7 +23,10 @@ public class Loader {
     private static Sound beepS;
     private static Sound gongS;
 
-    public static void loadSkillshot() {
+    /**
+     * Load the assets. (images and sounds)
+     */
+    static void loadSkillshot() {
         backgroundT = new Texture("images/skillshot/background.png");
         arrowT = new Texture("images/skillshot/arrow.png");
         targetT = new Texture("images/skillshot/target.png");
@@ -38,7 +41,10 @@ public class Loader {
         gongS = Gdx.audio.newSound(Gdx.files.internal("sounds/pray2Win/gong.ogg"));
     }
 
-    public static void disposeSkillshot() {
+    /**
+     * Dispose the assets.
+     */
+    static void disposeSkillshot() {
         arrowT.dispose();
         backgroundT.dispose();
         bowT.dispose();
@@ -53,19 +59,19 @@ public class Loader {
         gongS.dispose();
     }
 
-    public static Texture getBackgroundT() {
+    static Texture getBackgroundT() {
         return backgroundT;
     }
 
-    public static Texture getArrowT() {
+    static Texture getArrowT() {
         return arrowT;
     }
 
-    public static Texture getTargetT() {
+    static Texture getTargetT() {
         return targetT;
     }
 
-    public static Texture getBowT() {
+    static Texture getBowT() {
         return bowT;
     }
 
@@ -93,11 +99,11 @@ public class Loader {
         return victoryS;
     }
 
-    public static Sound getBeepS() {
+    static Sound getBeepS() {
         return beepS;
     }
 
-    public static Sound getGongS() {
+    static Sound getGongS() {
         return gongS;
     }
 }

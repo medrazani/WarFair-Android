@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by Flames on 7/8/16.
+ * The sprite of the Announcer of the board game.
  */
-public class Announcer {
+class Announcer {
 
     private Rectangle rect;
     private ArrayList<String> strings;
@@ -36,6 +36,11 @@ public class Announcer {
         return rect;
     }
 
+    //TODO correct the announcer text format (out of bounds)
+    /**
+     * Add an announcement to the announcer sprite on-screen.
+     * @param s -> the announcement to be added
+     */
     public void addAnnouncement(String s) {
         for (int i=0; i<yScrolls.size(); i++)
             yScrolls.set(i, yScrolls.get(i) + 45);
@@ -73,6 +78,10 @@ public class Announcer {
             strings.add("[" + sdf.format(calendar.getTime()) + "]: " + s);
     }
 
+    /**
+     * Add the announcements of a loaded game.
+     * @param s -> the string that contains the announcements
+     */
     void addLoadedAnnouncement(String s) {
         for (int i=0; i<yScrolls.size(); i++)
             yScrolls.set(i, yScrolls.get(i) + 45);

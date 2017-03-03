@@ -9,7 +9,7 @@ import com.flames.warfair.buttons.Button;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 1/8/16.
+ * The sprite of the players.
  */
 public class Player extends Button{
 
@@ -52,6 +52,9 @@ public class Player extends Button{
         }
     }
 
+    /**
+     * Adds height to the pray bar.
+     */
     void addHeight() {
         height = (height+1)%8;
         if(height==7)

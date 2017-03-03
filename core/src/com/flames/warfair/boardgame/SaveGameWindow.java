@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.ObjectOutputStream;
 
 /**
- * Created by Flames on 13/8/16.
+ * The 'Save Game' window of the in-game Pause Menu.
  */
 class SaveGameWindow extends Window {
 
@@ -168,11 +168,19 @@ class SaveGameWindow extends Window {
         return false;
     }
 
+    /**
+     * Check if file exists.
+     * @return -> true if file exists
+     */
     private boolean saveExists() {
         File f = new File("saves/" + nameField.getText() + ".ser");
         return(f.exists() && !f.isDirectory());
     }
 
+    /**
+     * Saves the game state. (serialization)
+     * @return -> true if saved without error
+     */
     boolean serializeSave() {
         BoardGameWindow.players.get(0).setPlayerTurn(BoardGameWindow.playerTurn);
         BoardGameWindow.players.get(0).setAnnouncements(BoardGameWindow.announcer.getStrings());
@@ -209,6 +217,9 @@ class SaveGameWindow extends Window {
         return nameField;
     }
 
+    /**
+     * The listener of the confirm button.
+     */
     private void confirmBtnListener() {
         Gdx.input.setOnscreenKeyboardVisible(false);
         if (!saveExists()) {

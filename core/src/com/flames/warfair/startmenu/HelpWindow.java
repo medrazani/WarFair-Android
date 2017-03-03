@@ -9,7 +9,7 @@ import com.flames.warfair.WindowManager;
 import com.flames.warfair.boardgame.PauseMenuWindow;
 
 /**
- * Created by Flames on 31/7/16.
+ * The 'Help' window of the start menu and the in-game pause menu.
  */
 public class HelpWindow extends com.flames.warfair.Window {
 
@@ -29,11 +29,19 @@ public class HelpWindow extends com.flames.warfair.Window {
         cam.position.y = 930;
     }
 
+    /**
+     * Update the help window.
+     * @param dt -> delta time
+     */
     @Override
     public void update(float dt) {
         cam.update();
     }
 
+    /**
+     * Render the help window.
+     * @param sb -> sprite batch used to render on the window
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
@@ -72,6 +80,10 @@ public class HelpWindow extends com.flames.warfair.Window {
         return false;
     }
 
+    //TODO scroll for android
+    /**
+     * Called when the user scrolls.
+     */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         System.out.println(touchDownY - screenY);

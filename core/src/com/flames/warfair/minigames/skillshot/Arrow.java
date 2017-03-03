@@ -5,7 +5,7 @@ import com.flames.warfair.MyGdxGame;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 1/8/16.
+ * The sprite of the players' arrows.
  */
 class Arrow extends Button {
 
@@ -36,11 +36,18 @@ class Arrow extends Button {
             rect.y = -200;
     }
 
+    /**
+     * Resets the arrow position to the initial state.
+     */
     void resetArrow() {
         impactXdist = 0;
         bindToTarget = false;
     }
 
+    /**
+     * Return the points of the player's attempt.
+     * @return -> the points of the attempt
+     */
     public int getPoints() {
         if(impactXdist<=-2)
             return 1;

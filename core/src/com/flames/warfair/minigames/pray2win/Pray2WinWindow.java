@@ -14,7 +14,7 @@ import com.flames.warfair.boardgame.BoardGameWindow;
 import com.flames.warfair.startmenu.StartMenuWindow;
 
 /**
- * Created by Flames on 31/7/16.
+ * The window of the Pray2Win mini-game.
  */
 public class Pray2WinWindow extends Window {
 

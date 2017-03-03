@@ -21,7 +21,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 31/7/16.
+ * The 'Load Game' window of the start menu.
  */
 class LoadGameWindow extends com.flames.warfair.Window {
 
@@ -61,6 +61,10 @@ class LoadGameWindow extends com.flames.warfair.Window {
 
     }
 
+    /**
+     * Render the Load Game window.
+     * @param sb -> sprite batch used to render on the window
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
@@ -195,6 +199,9 @@ class LoadGameWindow extends com.flames.warfair.Window {
         return false;
     }
 
+    /**
+     * Delete the selected save file.
+     */
     private void deleteFile() {
         try {
             FileHandle file = Gdx.files.local("saves/" + saveBtns.get(deleteIndex).getText() + ".ser");
@@ -211,6 +218,9 @@ class LoadGameWindow extends com.flames.warfair.Window {
         }
     }
 
+    /**
+     * Load the save files and initialize the save buttons.
+     */
     private void loadSavesOnButtons() {
         FileHandle folder = Gdx.files.local("saves");
         for (FileHandle fileEntry : folder.list()) {
@@ -222,6 +232,11 @@ class LoadGameWindow extends com.flames.warfair.Window {
         }
     }
 
+    /**
+     * Handles the load deserialization.
+     * @param saveName -> the name of the save file that the user chose
+     * @return -> true if the file is loaded without error
+     */
     private boolean serializeLoad(String saveName) {
         try {
             FileHandle file = Gdx.files.local("saves/" + saveName+".ser");
@@ -240,6 +255,11 @@ class LoadGameWindow extends com.flames.warfair.Window {
         return false;
     }
 
+    //TODO scroll for android
+    /**
+     * Called when the user scrolls.
+     * @param amount -> the amount the user scrolled
+     */
     @Override
     public boolean scrolled(int amount) {
         amount = amount * 80;

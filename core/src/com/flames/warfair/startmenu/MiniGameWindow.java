@@ -11,7 +11,7 @@ import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 31/7/16.
+ * The 'Mini Game' window of the New Game window.
  */
 class MiniGameWindow extends com.flames.warfair.Window {
 
@@ -44,6 +44,10 @@ class MiniGameWindow extends com.flames.warfair.Window {
 
     }
 
+    /**
+     * Render the Mini Game window.
+     * @param sb -> sprite batch used to render on the window
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);

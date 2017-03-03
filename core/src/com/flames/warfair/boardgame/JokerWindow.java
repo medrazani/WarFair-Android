@@ -11,7 +11,7 @@ import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 9/8/16.
+ * The Joker block window.
  */
 class JokerWindow extends Window {
 

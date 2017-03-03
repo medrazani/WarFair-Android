@@ -14,9 +14,9 @@ import com.flames.warfair.buttons.Button;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 7/8/16.
+ * The 'Choose Opponent for the mini-game' window.
  */
-public class ChooseOpponentWindow extends Window {
+class ChooseOpponentWindow extends Window {
 
     private ArrayList<Button> playerBtns;
     private String miniGame;
@@ -39,7 +39,7 @@ public class ChooseOpponentWindow extends Window {
         String handicapText = "no handicap";
         handicapPoints = new ArrayList<Integer>();
         int i = 0;
-        float y = 0;
+        float y;
         for (int j = 0; j < BoardGameWindow.players.size(); j++) {
             if (BoardGameWindow.players.get(j).getID() != challengerID) {
 

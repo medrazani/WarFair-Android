@@ -10,7 +10,7 @@ import com.flames.warfair.MyGdxGame;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 1/8/16.
+ * The sprite of the players.
  */
 public class Player extends Button {
 
@@ -89,11 +89,11 @@ public class Player extends Button {
         }
     }
 
-    public void setStartShoot() {
+    void setStartShoot() {
         startShoot = true;
     }
 
-    public int getScore() {
+    int getScore() {
         return score;
     }
 
@@ -101,11 +101,11 @@ public class Player extends Button {
         return shootAnimation.getFrameRegion();
     }
 
-    public Button getArrow() {
+    Button getArrow() {
         return arrow;
     }
 
-    public boolean getCanShoot() {
+    boolean getCanShoot() {
         return canShoot;
     }
 
@@ -115,11 +115,11 @@ public class Player extends Button {
         arrow.dispose();
     }
 
-    public boolean isAlive() {
+    boolean isAlive() {
         return alive;
     }
 
-    public int getID() {
+    int getID() {
         return id;
     }
 
@@ -127,23 +127,23 @@ public class Player extends Button {
         return color;
     }
 
-    public Texture getPlayerIcon() {
+    Texture getPlayerIcon() {
         return playerIcon;
     }
 
-    public void setCanShoot(boolean canShoot) {
+    void setCanShoot(boolean canShoot) {
         this.canShoot = canShoot;
     }
 
-    public void setScore(int score) {
+    void setScore(int score) {
         this.score = score;
     }
 
-    public Rectangle getTouchRect() {
+    Rectangle getTouchRect() {
         return touchRect;
     }
 
-    public void setTouchRect(Rectangle touchRect) {
+    void setTouchRect(Rectangle touchRect) {
         this.touchRect = touchRect;
     }
 }

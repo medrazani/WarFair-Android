@@ -16,7 +16,7 @@ import com.flames.warfair.startmenu.StartMenuWindow;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 31/7/16.
+ * The window of the Skillshot mini-game.
  */
 public class SkillshotWindow extends Window {
 
@@ -218,7 +218,6 @@ public class SkillshotWindow extends Window {
         }
         return false;
     }
-
 
     private void initializePlayers(int numOfPlayers) {
         if (!miniGameMode) {

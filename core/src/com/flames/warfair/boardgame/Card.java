@@ -9,7 +9,7 @@ import com.flames.warfair.buttons.Button;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 9/8/16.
+ * The sprite of the card.
  */
 class Card extends Button {
 
@@ -21,7 +21,6 @@ class Card extends Button {
     private int randomN;
     private long timerMillis;
     private Player player;
-
 
     Card(Rectangle rect) {
         super(Loader.getCardsT(), rect);
@@ -102,6 +101,9 @@ class Card extends Button {
         }
     }
 
+    /**
+     * Add announcement for the drawn card.
+     */
     private void announceCard() {
         switch (randomN) {
             case 0: //goToBank

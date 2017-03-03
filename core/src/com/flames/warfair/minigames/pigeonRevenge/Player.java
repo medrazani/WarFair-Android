@@ -9,7 +9,7 @@ import com.flames.warfair.MyGdxGame;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 1/8/16.
+ * The sprite of the players.
  */
 public class Player extends Button {
 

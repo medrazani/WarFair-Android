@@ -13,7 +13,7 @@ import com.flames.warfair.startmenu.HelpWindow;
 import com.flames.warfair.startmenu.StartMenuWindow;
 
 /**
- * Created by Flames on 7/8/16.
+ * The in-game Pause Menu window.
  */
 public class PauseMenuWindow extends Window {
 

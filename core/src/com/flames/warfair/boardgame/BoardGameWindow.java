@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Flames on 31/7/16.
+ * The 'Board Game' window. The main window of the board game.
  */
 public class BoardGameWindow extends Window {
 
@@ -44,7 +44,6 @@ public class BoardGameWindow extends Window {
     private Dice dice;
     private long timerMillis;
     private int goalPoints;
-    private boolean doOnceDice;
     private String goalString;
     private PauseMenuWindow pauseMenuWindow;
     private PopUpMessage gameOverPopUp;
@@ -61,7 +60,6 @@ public class BoardGameWindow extends Window {
         playerBtns = new ArrayList<Button>();
         random = new Random();
         rollGlyphLayout = new GlyphLayout();
-        doOnceDice = true;
         minPoints = 10000;
         min2Points = 10000;
         minPtr = 0;
@@ -130,6 +128,9 @@ public class BoardGameWindow extends Window {
         }
     }
 
+    /**
+     * Handle the Dicer block.
+     */
     private void handleDicer() {
         if (Block.dicerPopUpMsg != null) {
             if (Block.dicerPopUpMsg.getButtonPressed() == 1) {
@@ -150,6 +151,10 @@ public class BoardGameWindow extends Window {
         }
     }
 
+    /**
+     * Finish the current player's turn and set the next player's turn.
+     * Check if there a winner by the end of the turn.
+     */
     public static void setNextPlayersTurn() {
         nextTurn = true;
         Dice.setDice0TR();
@@ -314,6 +319,7 @@ public class BoardGameWindow extends Window {
         return false;
     }
 
+    //TODO fix scroll for android
     @Override
     public boolean scrolled(int amount) {
         announcer.scroll(amount);

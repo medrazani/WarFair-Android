@@ -9,7 +9,7 @@ import com.flames.warfair.buttons.Button;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 5/8/16.
+ * The sprite of the game dice.
  */
 class Dice extends Button {
 
@@ -65,6 +65,9 @@ class Dice extends Button {
         currentFrame = dice0TR;
     }
 
+    /**
+     * Set the dice clicked.
+     */
     void setClicked(boolean b) {
         timerMillis = TimeUtils.millis();
         clicked = b;

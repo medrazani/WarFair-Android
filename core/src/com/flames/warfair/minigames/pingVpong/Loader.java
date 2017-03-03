@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 /**
- * Created by Flames on 11/8/16.
+ * Loads the assets of the pingVpong mini-game.
  */
 public class Loader {
 
@@ -14,12 +14,18 @@ public class Loader {
     private static Sound victoryS;
     private static Sound touchS;
 
+    /**
+     * Load the assets. (sounds)
+     */
     static void loadPingVPong() {
         backgroundS = Gdx.audio.newMusic(Gdx.files.internal("sounds/miniGameBackground.wav"));
         victoryS = Gdx.audio.newSound(Gdx.files.internal("sounds/victory.wav"));
         touchS = Gdx.audio.newSound(Gdx.files.internal("sounds/lastManStanding/collide.wav"));
     }
 
+    /**
+     * Dispose the assets.
+     */
     static void disposePingVPong() {
         backgroundS.dispose();
         victoryS.dispose();
@@ -35,7 +41,7 @@ public class Loader {
         return victoryS;
     }
 
-    public static Sound getTouchS() {
+    static Sound getTouchS() {
         return touchS;
     }
 }

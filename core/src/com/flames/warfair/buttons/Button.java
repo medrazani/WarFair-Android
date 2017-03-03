@@ -9,7 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.flames.warfair.MyGdxGame;
 
 /**
- * Created by Flames on 31/7/16.
+ * The button items on the windows extend this class.
+ * Sprites are also considered buttons.
  */
 public class Button implements java.io.Serializable{
 
@@ -21,7 +22,6 @@ public class Button implements java.io.Serializable{
     protected transient Texture texture;
 
     private boolean highlighted;
-
 
     public Button(String text, Rectangle rect) {
         this.rect = rect;
@@ -38,31 +38,60 @@ public class Button implements java.io.Serializable{
         highlighted = false;
     }
 
+    /**
+     * Render the shape of the button (rectangle).
+     * @param sr -> ShapeRenderer, renders shapes
+     */
     public void drawShape(ShapeRenderer sr) {
         sr.rect(rect.x, rect.y, rect.width, rect.height);
     }
 
+    /**
+     * Draw the image of the button.
+     * @param sb -> SpriteBatch, renders the image
+     */
     public void drawImage(SpriteBatch sb) {
         sb.draw(texture, rect.x, rect.y, rect.width, rect.height);
     }
 
+    /**
+     * Draw the image rotated horizontally.
+     * @param sb -> SpriteBatch, renders the image
+     */
     public void drawImageRotatedHorizontally(SpriteBatch sb) {
         sb.draw(texture, rect.x, rect.y, rect.width, rect.height, 0, 0, (int)rect.width, (int)rect.height, true, false);
     }
 
+    /**
+     * Draw the highlighted shape of the button.
+     * @param sr -> ShapeRenderer, renders shapes
+     */
     public void drawHighlight(ShapeRenderer sr) {
         if(highlighted)
             sr.rect(rect.x,rect.y,rect.width,rect.height);
     }
 
+    /**
+     * Draw the text of the button.
+     * @param sb -> SpriteBatch, renders the text
+     */
     public void drawFont(SpriteBatch sb) {
         MyGdxGame.smallFont.draw(sb, text, rect.x + rect.width/2 - glyphLayout.width/2, rect.y + rect.height/2 + glyphLayout.height/2);
     }
 
+    /**
+     * Draw the text of the button. (medium font)
+     * @param sb -> SpriteBatch, renders the text
+     * @param s -> the text to be written
+     */
     public void drawMediumFont(SpriteBatch sb, String s) {
         MyGdxGame.mediumFont.draw(sb, s, rect.x + rect.width/2 - glyphLayout.width/2, rect.y + rect.height/2 + glyphLayout.height/2);
     }
 
+    /**
+     * Draw the text of a text field. (used for text fields)
+     * @param sb -> SpriteBatch, renders the text
+     */
     public void drawFieldFont(SpriteBatch sb) {
         MyGdxGame.smallFont.draw(sb, text, rect.x + 5, rect.y+40);
     }

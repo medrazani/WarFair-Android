@@ -11,7 +11,7 @@ import com.flames.warfair.buttons.Button;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 1/8/16.
+ * The sprite of the players.
  */
 public class Player extends Button {
 
@@ -110,6 +110,11 @@ public class Player extends Button {
         return lives;
     }
 
+    /**
+     * Generate a wall for the player.
+     * @param width -> width of the wall
+     * @param height -> height of the wall
+     */
     void spawnWall(int width, int height) {
         if(walls.size()>0) {
             walls.get(wallSpawnPointer).setX(MyGdxGame.WIDTH + 0f);
@@ -170,6 +175,9 @@ public class Player extends Button {
         this.touchRect = touchRect;
     }
 
+    /**
+     * Initialize the player sprite.
+     */
     void setRect(int x, int y, int width, int height) {
         rect.x = x;
         rect.y = y;

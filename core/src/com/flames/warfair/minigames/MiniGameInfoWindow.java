@@ -21,7 +21,7 @@ import com.flames.warfair.minigames.skillshot.SkillshotWindow;
 import com.flames.warfair.startmenu.StartMenuWindow;
 
 /**
- * Created by Flames on 11/8/16.
+ * This class implements the window that explains the current mini-game to the users before they start playing.
  */
 public class MiniGameInfoWindow extends Window {
 
@@ -280,6 +280,9 @@ public class MiniGameInfoWindow extends Window {
         return false;
     }
 
+    /**
+     * When the user scrolls, start the game.
+     */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if(touchDownY!=0) {

@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Created by Flames on 11/8/16.
+ * Loads the assets of the PigeonRevenge mini-game.
  */
 public class Loader {
 
@@ -24,6 +24,9 @@ public class Loader {
     private static Sound splatS;
     private static Sound victoryS;
 
+    /**
+     * Load the assets. (images and sounds)
+     */
     static void loadPigeonRevenge() {
         backgroundT = new Texture("images/pigeonRevenge/background.png");
         droppingT = new Texture("images/pigeonRevenge/dropping.png");
@@ -40,6 +43,9 @@ public class Loader {
         victoryS = Gdx.audio.newSound(Gdx.files.internal("sounds/victory.wav"));
     }
 
+    /**
+     * Dispose the assets.
+     */
     static void disposePigeonRevenge() {
         angryBirdT.dispose();
         backgroundT.dispose();

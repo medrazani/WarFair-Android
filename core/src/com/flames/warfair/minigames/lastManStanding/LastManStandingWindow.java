@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Flames on 31/7/16.
+ * The window of the LastManStanding mini-game.
  */
 public class LastManStandingWindow extends Window {
 
@@ -42,7 +42,6 @@ public class LastManStandingWindow extends Window {
         timerMillis = TimeUtils.millis();
         random = new Random(4);
         randomNumber = Math.abs(random.nextInt() % 4) + 1;
-
 
         if (!miniGameMode) {
             if (players.size() >= 3) {

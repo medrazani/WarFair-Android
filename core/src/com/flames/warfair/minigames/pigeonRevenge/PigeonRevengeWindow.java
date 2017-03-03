@@ -17,7 +17,7 @@ import com.flames.warfair.startmenu.StartMenuWindow;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 31/7/16.
+ * The window of the PigeonRevenge mini-game.
  */
 public class PigeonRevengeWindow extends Window {
 
@@ -279,6 +279,10 @@ public class PigeonRevengeWindow extends Window {
         return false;
     }
 
+    /**
+     * Get the opponents player image.
+     * @return -> the opponents player image.
+     */
     private Texture getOpponentTexture() {
         if(opponentID==1)
             return Loader.getPlayer1T();

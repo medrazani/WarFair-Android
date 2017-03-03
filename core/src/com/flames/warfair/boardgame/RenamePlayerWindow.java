@@ -15,7 +15,7 @@ import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 14/8/16.
+ * The 'Rename Player' pop-up window.
  */
 class RenamePlayerWindow extends Window {
 
@@ -191,6 +191,9 @@ class RenamePlayerWindow extends Window {
         return false;
     }
 
+    /**
+     * Check if the name already exists.
+     */
     private boolean nameExists() {
         for(Player player: BoardGameWindow.players) {
             if(nameField.getText().equals(player.getName()))
@@ -199,6 +202,9 @@ class RenamePlayerWindow extends Window {
         return false;
     }
 
+    /**
+     * The listener of the confirm button.
+     */
     private void confirmBtnListener() {
         Gdx.input.setOnscreenKeyboardVisible(false);
         if(!nameExists()) {

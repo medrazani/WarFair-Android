@@ -7,6 +7,9 @@ import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
 import com.flames.warfair.MyGdxGame;
 
+/**
+ * This is the starting class when the app is run from an IOS device
+ */
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {

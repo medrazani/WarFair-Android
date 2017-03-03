@@ -14,7 +14,7 @@ import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 31/7/16.
+ * The 'Start Menu' of the game. The first window that the user sees.
  */
 public class StartMenuWindow extends com.flames.warfair.Window {
 
@@ -47,6 +47,10 @@ public class StartMenuWindow extends com.flames.warfair.Window {
         cam.update();
     }
 
+    /**
+     * Render the Start Menu window.
+     * @param sb -> sprite batch used to render on the window
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
@@ -114,11 +118,8 @@ public class StartMenuWindow extends com.flames.warfair.Window {
             clickVector = cam.unproject(clickVector);
             clickCoords.set(clickVector.x, clickVector.y, 1, 1);
 
-            if(clickCoords.overlaps(newGameBtn.getRect())) {
-                MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
-                wm.set(new NewGameWindow(wm));
-            }
-                //newGameBtnListener();
+            if(clickCoords.overlaps(newGameBtn.getRect()))
+                newGameBtnListener();
             else if(clickCoords.overlaps(loadGameBtn.getRect()))
                 loadGameBtnListener();
             else if(clickCoords.overlaps(helpBtn.getRect()))
@@ -147,16 +148,25 @@ public class StartMenuWindow extends com.flames.warfair.Window {
         return false;
     }
 
+    /**
+     * The listener of the New Game button.
+     */
     private void newGameBtnListener() {
         MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
         wm.set(new NewGameWindow(wm));
     }
 
+    /**
+     * The listener of the Load Game button.
+     */
     private void loadGameBtnListener() {
         MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
         wm.set(new LoadGameWindow(wm));
     }
 
+    /**
+     * The listener of the Help button.
+     */
     private void helpBtnListener() {
         MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
         wm.set(new HelpWindow(false, wm));

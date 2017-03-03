@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
 /**
- * Created by Flames on 11/8/16.
+ * Loads the assets of the Pray2Win mini-game.
  */
 public class Loader {
 
@@ -24,6 +24,9 @@ public class Loader {
     private static Sound gongS;
     private static Sound hallelujahS;
 
+    /**
+     * Load the assets. (images and sounds)
+     */
     static void loadPray2Win() {
         backgroundT = new Texture("images/pray2Win/monastery.png");
         monkWinT = new Texture("images/pray2Win/monkWin.png");
@@ -40,6 +43,9 @@ public class Loader {
         hallelujahS = Gdx.audio.newSound(Gdx.files.internal("sounds/pray2Win/hallelujah.wav"));
     }
 
+    /**
+     * Dispose the assets.
+     */
     static void disposePray2Win() {
         backgroundT.dispose();
         for(Texture texture: monkTs)

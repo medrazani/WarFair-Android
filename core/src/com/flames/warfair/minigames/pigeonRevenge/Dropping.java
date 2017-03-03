@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 1/8/16.
+ * The sprite of the pigeon dropping.
  */
 class Dropping extends Button {
 

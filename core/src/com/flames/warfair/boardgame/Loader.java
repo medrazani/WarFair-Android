@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Created by Flames on 11/8/16.
+ * Loads the assets of the Board Game.
  */
 public class Loader {
 
@@ -40,6 +40,9 @@ public class Loader {
     private static Sound diceS;
     private static Sound victoryS;
 
+    /**
+     * Load the assets. (images and sounds)
+     */
     static void loadBoardGame() {
         backgroundT = new Texture("images/boardGame/gameBoard.png");
         bankBackgroundT = new Texture("images/boardGame/bankBackground.png");
@@ -74,6 +77,9 @@ public class Loader {
         diceS = Gdx.audio.newSound(Gdx.files.internal("sounds/dice.wav"));
     }
 
+    /**
+     * Dispose the assets.
+     */
     static void disposeBoardGame() {
         backgroundT.dispose();
         bankBackgroundT.dispose();

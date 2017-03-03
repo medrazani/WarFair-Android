@@ -16,7 +16,7 @@ import com.flames.warfair.boardgame.BoardGameWindow;
 import com.flames.warfair.startmenu.StartMenuWindow;
 
 /**
- * Created by Flames on 31/7/16.
+ * The window of the pingVpong mini-game.
  */
 public class PingVpongWindow extends Window {
 
@@ -255,6 +255,9 @@ public class PingVpongWindow extends Window {
         return false;
     }
 
+    /**
+     * Stops the player movement if the user touches the screen but doesn't drag.
+     */
     private void stopMovementWhenLateTouch() {
         if(Gdx.input.isTouched()) {
             if(player1.getMidRect().overlaps(clickCoords2))

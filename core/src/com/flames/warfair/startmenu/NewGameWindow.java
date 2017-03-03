@@ -13,7 +13,7 @@ import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 31/7/16.
+ * The 'New Game' window of the Start Menu.
  */
 class NewGameWindow extends com.flames.warfair.Window {
 
@@ -56,6 +56,10 @@ class NewGameWindow extends com.flames.warfair.Window {
         goalPoints = 3000;
     }
 
+    /**
+     * Update the New Game window.
+     * @param dt -> delta time
+     */
     @Override
     public void update(float dt) {
         if(miniGameBtn.isHighlighted()) {
@@ -72,6 +76,10 @@ class NewGameWindow extends com.flames.warfair.Window {
         }
     }
 
+    /**
+     * Render the New Game window.
+     * @param sb -> sprite batch used to render on the window
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
@@ -258,6 +266,9 @@ class NewGameWindow extends com.flames.warfair.Window {
         g3Btn.setHighlighted(false);
     }
 
+    /**
+     * The listener of the confirm button.
+     */
     private void confirmBtnListener() {
         MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
         if(gameMode==1) {

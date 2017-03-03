@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Created by Flames on 11/8/16.
+ * Loads the assets of the LastManStanding mini-game.
  */
 public class Loader {
 
@@ -19,6 +19,9 @@ public class Loader {
     private static Sound collideS;
     private static Sound victoryS;
 
+    /**
+     * Load the assets. (images and sounds)
+     */
     static void loadLastManStanding() {
         playerT = new Texture("images/lastManStanding/stickman.png");
         player1T = new Texture("images/boardGame/player1.png");
@@ -30,6 +33,9 @@ public class Loader {
         victoryS = Gdx.audio.newSound(Gdx.files.internal("sounds/victory.wav"));
     }
 
+    /**
+     * Dispose the assets.
+     */
     static void disposeLastManStanding() {
         playerT.dispose();
         player1T.dispose();

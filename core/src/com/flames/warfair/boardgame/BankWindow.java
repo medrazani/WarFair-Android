@@ -11,7 +11,7 @@ import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
 
 /**
- * Created by Flames on 9/8/16.
+ * The 'Bank' window of the board game.
  */
 class BankWindow extends Window {
 
@@ -23,7 +23,7 @@ class BankWindow extends Window {
     private boolean transactionMade;
     private PopUpMessage exitPopUp;
 
-    public BankWindow(Player player, WindowManager wm) {
+    BankWindow(Player player, WindowManager wm) {
         this.WIDTH = 800;
         this.HEIGHT = 600;
         xZero = cam.position.x - WIDTH / 2;
