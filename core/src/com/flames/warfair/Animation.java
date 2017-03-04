@@ -1,9 +1,5 @@
 package com.flames.warfair;
 
-/**
- * Created by Flames on 2/8/16.
- */
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;

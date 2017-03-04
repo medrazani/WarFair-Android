@@ -11,7 +11,7 @@ import java.util.Calendar;
 /**
  * The sprite of the Announcer of the board game.
  */
-class Announcer {
+public class Announcer {
 
     private Rectangle rect;
     private ArrayList<String> strings;
