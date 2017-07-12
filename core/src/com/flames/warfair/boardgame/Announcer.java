@@ -22,6 +22,7 @@ public class Announcer {
     private String[] tempArray;
     private String tempString;
     private int changeLinePtr;
+    private int changeLinePtr2;
 
     Announcer(Rectangle rect) {
         this.rect = rect;
@@ -36,18 +37,17 @@ public class Announcer {
         return rect;
     }
 
-    //TODO correct the announcer text format (out of bounds)
     /**
      * Add an announcement to the announcer sprite on-screen.
      * @param s -> the announcement to be added
      */
     public void addAnnouncement(String s) {
-        for (int i=0; i<yScrolls.size(); i++)
-            yScrolls.set(i, yScrolls.get(i) + 45);
-        yScrolls.add(0);
+        addYScroll();
         calendar = Calendar.getInstance();
         changeLinePtr = 0;
-        tempString = "";
+        changeLinePtr2 = 0;
+        tempString = "["+sdf.format(calendar.getTime())+"]: ";
+        boolean line3 = false;
 
         gl.setText(MyGdxGame.smallFont, "["+sdf.format(calendar.getTime())+"]: " + s);
         if(gl.width > rect.width - 10) {
@@ -55,23 +55,42 @@ public class Announcer {
             for(int i=0; i<tempArray.length; i++) {
                 tempString+= tempArray[i] + " ";
                 changeLinePtr++;
+                changeLinePtr2++;
                 gl.setText(MyGdxGame.smallFont, tempString);
-                if(gl.width > rect.width - 115)
+                if(gl.width > rect.width - 10)
                     break;
             }
 
-            tempString = "";
+            tempString = "["+sdf.format(calendar.getTime())+"]: ";
             for(int i=0; i<changeLinePtr-1; i++)
                 tempString+=tempArray[i]+ " ";
-            strings.add("["+sdf.format(calendar.getTime())+"]: " + tempString);
+            strings.add(tempString);
 
-            for (int i=0; i<yScrolls.size(); i++)
-                yScrolls.set(i, yScrolls.get(i) + 45);
-            yScrolls.add(0);
+            addYScroll(); //2nd line
             tempString = "";
-            for(int i=changeLinePtr-1; i<tempArray.length; i++)
+            for(int i=changeLinePtr-1; i<tempArray.length; i++) {
+                tempString += tempArray[i] + " ";
+                changeLinePtr2++;
+                gl.setText(MyGdxGame.smallFont, tempString);
+                if(gl.width > rect.width) {
+                    changeLinePtr2--;
+                    line3 = true;
+                    break;
+                }
+            }
+            tempString = "";
+            for(int i=changeLinePtr -1; i<changeLinePtr2 -1; i++)
                 tempString+=tempArray[i]+ " ";
             strings.add(tempString);
+
+            tempString = "";
+            if(line3) {
+                addYScroll(); //3rd line
+                for(int i=changeLinePtr2-1; i<tempArray.length; i++)
+                    tempString+=tempArray[i]+ " ";
+                strings.add(tempString);
+                changeLinePtr2 = -1; //to recognize if the last entry is 3 lines long
+            }
             changeLinePtr = -1; //to recognize if the last entry is 2 lines long
         }
         else
@@ -83,11 +102,11 @@ public class Announcer {
      * @param s -> the string that contains the announcements
      */
     void addLoadedAnnouncement(String s) {
-        for (int i=0; i<yScrolls.size(); i++)
-            yScrolls.set(i, yScrolls.get(i) + 45);
-        yScrolls.add(0);
+        addYScroll();
         changeLinePtr = 0;
+        changeLinePtr2 = 0;
         tempString = "";
+        boolean line3 = false;
 
         gl.setText(MyGdxGame.smallFont, s);
         if(gl.width > rect.width - 10) {
@@ -95,8 +114,9 @@ public class Announcer {
             for(int i=0; i<tempArray.length; i++) {
                 tempString+= tempArray[i] + " ";
                 changeLinePtr++;
+                changeLinePtr2++;
                 gl.setText(MyGdxGame.smallFont, tempString);
-                if(gl.width > rect.width -115)
+                if(gl.width > rect.width - 10)
                     break;
             }
 
@@ -105,17 +125,45 @@ public class Announcer {
                 tempString+=tempArray[i]+ " ";
             strings.add(tempString);
 
-            for (int i=0; i<yScrolls.size(); i++)
-                yScrolls.set(i, yScrolls.get(i) + 45);
-            yScrolls.add(0);
+            addYScroll(); //2nd line
             tempString = "";
-            for(int i=changeLinePtr-1; i<tempArray.length; i++)
+            for(int i=changeLinePtr-1; i<tempArray.length; i++) {
+                tempString += tempArray[i] + " ";
+                changeLinePtr2++;
+                gl.setText(MyGdxGame.smallFont, tempString);
+                if(gl.width > rect.width) {
+                    System.out.println(tempString);
+                    changeLinePtr2--;
+                    line3 = true;
+                    break;
+                }
+            }
+            tempString = "";
+            for(int i=changeLinePtr -1; i<changeLinePtr2 -1; i++)
                 tempString+=tempArray[i]+ " ";
             strings.add(tempString);
+
+            tempString = "";
+            if(line3) {
+                addYScroll(); //3rd line
+                for(int i=changeLinePtr2-1; i<tempArray.length; i++)
+                    tempString+=tempArray[i]+ " ";
+                strings.add(tempString);
+                changeLinePtr2 = -1; //to recognize if the last entry is 3 lines long
+            }
             changeLinePtr = -1; //to recognize if the last entry is 2 lines long
         }
         else
             strings.add(s);
+    }
+
+    private void addYScroll() {
+        for (int i=0; i<yScrolls.size(); i++)
+            yScrolls.set(i, yScrolls.get(i) + 45);
+        if(yScrolls.size() > 0)
+            yScrolls.add(yScrolls.get(yScrolls.size()-1) - 45);
+        else
+            yScrolls.add(0);
     }
 
     public ArrayList<String> getStrings() {
@@ -127,16 +175,16 @@ public class Announcer {
     }
 
     void scroll(int amount) {
-        if(amount==-1) { //scroll up
+        if(amount<0) { //scroll up
             if(rect.y + 50 + yScrolls.get(0) > rect.y + rect.height) {
                 for (int i = 0; i < yScrolls.size(); i++)
-                    yScrolls.set(i, yScrolls.get(i) + amount * 40);
+                    yScrolls.set(i, yScrolls.get(i) + amount*2);
             }
         }
         else { //scroll down
-            if(rect.y + 10 + yScrolls.get(yScrolls.size()-1) < rect.y) {
+            if(rect.y + 0 + yScrolls.get(yScrolls.size()-1) < rect.y) {
                 for (int i = 0; i < yScrolls.size(); i++)
-                    yScrolls.set(i, yScrolls.get(i) + amount * 40);
+                    yScrolls.set(i, yScrolls.get(i) + amount*2);
             }
         }
 
@@ -144,5 +192,8 @@ public class Announcer {
 
     int getChangeLinePtr() {
         return changeLinePtr;
+    }
+    int getChangeLinePtr2() {
+        return changeLinePtr2;
     }
 }

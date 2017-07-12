@@ -104,6 +104,14 @@ public class WindowManager {
         }
     }
 
+    public void pause() {
+        windows.peek().pause();
+    }
+
+    void resume() {
+        windows.peek().resume();
+    }
+
     /**
      * Set the input processor to the current window.
      */

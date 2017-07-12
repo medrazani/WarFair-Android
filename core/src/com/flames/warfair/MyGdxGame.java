@@ -10,6 +10,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.flames.warfair.startmenu.StartMenuWindow;
 
+//TODO:	μετα το game over save game, sto dice 'exit' (an to pathseis save prompt)
+//TODO:	escape thapit sound
+//TODO: load announcement lines bug
+//
+//TODO: choose opponent
+//TODO: tenses announcer
+//TODO:	revise board game
+//TODO: check sound on other devices. na to allaksw an einai etsi se ola as mhn kanei gia pc
+
+
 /**
  * This is the first shared method that is called from the desktop, android or IOS launcher.
  */
@@ -41,14 +51,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		smallFont = new BitmapFont();
 		mediumFont = new BitmapFont();
 		bigFont = new BitmapFont();
-		FileHandle fontFile = Gdx.files.internal("arimo.ttf");
+		FileHandle fontFile = Gdx.files.internal("mvboli.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 42;
+		parameter.size = 36;
 		parameter.characters = "1234567890" +
-				"αβγδεζηθικλμνξοπρστυφχψως" +
-				"ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ" +
-				"άέήίόύώΆΈΉΊΌΎΏΪ" +
+				//"αβγδεζηθικλμνξοπρστυφχψως" +
+				//"ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ" +
+				//"άέήίόύώΆΈΉΊΌΎΏΪ" +
 				"+-:/!.*<>^;[](),'?%" +
 				"abcdefghijklmnopqrstuvwxyz" +
 				"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -73,5 +83,15 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		wm.update(Gdx.graphics.getDeltaTime());
 		wm.render(batch);
+	}
+
+	@Override
+	public void pause() {
+		wm.pause();
+	}
+
+	@Override
+	public void resume() {
+		wm.resume();
 	}
 }

@@ -84,7 +84,7 @@ public class PingVpongWindow extends Window {
             if (forfeitPopUpMsg.getButtonPressed() == 1) {
                 if (challengerID != -1) {
                     StartMenuWindow.startMenuSound.play();
-                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has forfeited a match of pingVpong against " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
+                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has forfeited a match of pingVpong against " + BoardGameWindow.players.get(opponentID - 1).getName());
                     BoardGameWindow.setNextPlayersTurn();
                 }
                 wm.pop();
@@ -135,25 +135,25 @@ public class PingVpongWindow extends Window {
                     Loader.getVictoryS().play(MyGdxGame.soundVolume);
                     if (challengerID != -1) {
                         if (challengerID == player2.getId()) {
-                            winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
                         } else {
-                            winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player" + opponentID + " wins!", wm);
-                            BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of pingVpong from " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + opponentID + " wins!", wm);
+                            BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of pingVpong from " + BoardGameWindow.players.get(opponentID - 1).getName());
                         }
                     } else {
-                        winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player2 wins!", wm);
+                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player2 wins!", wm);
                     }
                 } else if (player2.getHealth() == 0) {//player1 wins
                     Loader.getVictoryS().play(MyGdxGame.soundVolume);
                     if (challengerID != -1) {
                         if (challengerID == player1.getId()) {
-                            winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
                         } else {
-                            winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(opponentID - 1).getName() + " wins!", wm);
-                            BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of pingVpong from " + BoardGameWindow.players.get(opponentID - 1).getName() + ".");
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(opponentID - 1).getName() + " wins!", wm);
+                            BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of pingVpong from " + BoardGameWindow.players.get(opponentID - 1).getName());
                         }
                     } else
-                        winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player1 wins!", wm);
+                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player1 wins!", wm);
                 }
                 wm.setPopUp(winPopUpMsg);
             }
@@ -216,7 +216,7 @@ public class PingVpongWindow extends Window {
         MyGdxGame.bigFont.setColor(player1.getColor());
         MyGdxGame.bigFont.draw(sb, "HP: " + player1.getHealth(), 20, MyGdxGame.HEIGHT - 30);
         MyGdxGame.bigFont.setColor(player2.getColor());
-        MyGdxGame.bigFont.draw(sb, "HP: " + player2.getHealth(), MyGdxGame.WIDTH - 175, MyGdxGame.HEIGHT - 30);
+        MyGdxGame.bigFont.draw(sb, "HP: " + player2.getHealth(), MyGdxGame.WIDTH - 200, MyGdxGame.HEIGHT - 30);
         if(!begin && player1.getHealth()>0 && player2.getHealth()>0) {
             MyGdxGame.bigFont.setColor(Color.WHITE);
             MyGdxGame.bigFont.draw(sb, strings.get(0), MyGdxGame.WIDTH / 2 - glyphLayouts.get(0).width / 2, MyGdxGame.HEIGHT - 100);
@@ -243,7 +243,7 @@ public class PingVpongWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if(challengerID!=-1) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "Do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
                 wm.setPopUp(forfeitPopUpMsg);
             }
             else {
@@ -345,4 +345,19 @@ public class PingVpongWindow extends Window {
         }
         return false;
     }
+
+    @Override
+    public void pause()
+    {
+        Loader.getBackgroundS().setLooping(false);
+        Loader.getBackgroundS().pause();
+    }
+
+    @Override
+    public void resume()
+    {
+        Loader.getBackgroundS().setLooping(true);
+        Loader.getBackgroundS().play();
+    }
+
 }

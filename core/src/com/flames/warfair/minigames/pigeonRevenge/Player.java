@@ -16,6 +16,7 @@ public class Player extends Button {
     private Animation animation;
     private TextureRegion playStandingTexture;
     private Rectangle collisonRect;
+    private Rectangle lineRect;
     private int score;
     private boolean dir;
     private boolean left;
@@ -29,6 +30,7 @@ public class Player extends Button {
         animation = new Animation(Loader.getPlayerWalkT(), 7, 0.6f);
         playStandingTexture = new TextureRegion(Loader.getPlayerStandT());
         collisonRect = new Rectangle(rect.x + 35, rect.y, rect.width-60, rect.height);
+        lineRect = new Rectangle(rect.x + 35, 0, rect.width-60, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT/2 - 51);
         score = 400;
         dir = false;
         left = false;
@@ -58,11 +60,13 @@ public class Player extends Button {
             if (collisonRect.x - 400 * dt > 0) {
                 rect.x -= 400 * dt;
                 collisonRect.x -= 400*dt;
+                lineRect.x -= 400*dt;
                 if(!dir) {
                     for(int i=0; i<animation.getFrames().size; i++)
                         animation.getFrames().get(i).flip(true, false);
                     playStandingTexture.flip(true, false);
                     collisonRect.x -= 10;
+                    lineRect.x -= 10;
                 }
                 dir = true;
             }
@@ -72,11 +76,13 @@ public class Player extends Button {
             if (collisonRect.x + collisonRect.width + 400 * dt < MyGdxGame.WIDTH) {
                 rect.x += 400 * dt;
                 collisonRect.x += 400*dt;
+                lineRect.x += 400*dt;
                 if (dir) {
                     for (int i = 0; i < animation.getFrames().size; i++)
                         animation.getFrames().get(i).flip(true, false);
                     playStandingTexture.flip(true, false);
                     collisonRect.x += 10;
+                    lineRect.x += 10;
                 }
                 dir = false;
             }
@@ -127,5 +133,9 @@ public class Player extends Button {
 
     void setScore(int score) {
         this.score = score;
+    }
+
+    Rectangle getLineRect() {
+        return lineRect;
     }
 }

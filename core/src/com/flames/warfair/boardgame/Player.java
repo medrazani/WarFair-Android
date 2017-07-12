@@ -63,11 +63,11 @@ public class Player extends Button implements java.io.Serializable {
 
         //for debugging purposes
         /*if(id==1) {
-            points = 20;
+            points = 2900;
         }
         else if(id==2) {
-            points = 2200;
-            setDisqualified();
+            points = 2900;
+            //setDisqualified();
         }
         else if(id==3) {
             points = 500;

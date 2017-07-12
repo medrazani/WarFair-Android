@@ -1,5 +1,6 @@
 package com.flames.warfair;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
@@ -134,5 +135,15 @@ public abstract class Window implements InputProcessor {
             glyphLayouts.get(index).setText(MyGdxGame.mediumFont, strings.get(index));
         else if(size==3)
             glyphLayouts.get(index).setText(MyGdxGame.bigFont, strings.get(index));
+    }
+
+    public void pause()
+    {
+
+    }
+
+    public void resume()
+    {
+
     }
 }

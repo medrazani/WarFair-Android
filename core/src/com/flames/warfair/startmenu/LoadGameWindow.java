@@ -32,33 +32,44 @@ class LoadGameWindow extends com.flames.warfair.Window {
     private ArrayList<Player> loadedPlayers;
     private float loadYPointer;
     private Sound scratchS;
-    private boolean scrollPrompt;
+    private boolean scrollDownPrompt;
+    private boolean scrollUpPrompt;
     private long scrollWink;
     private PopUpMessage deleteSaveMsg;
     private int deleteIndex;
+    private int touchDownY = 0;
+    private int touchDownYConst = 0;
+    private boolean dragging = false;
 
     LoadGameWindow(com.flames.warfair.WindowManager wm) {
         this.wm = wm;
         background = new Texture("images/startMenuBackground.png");
-        exitBtn = new Button("Back", new Rectangle(MyGdxGame.WIDTH / 2 - BTNWIDTH/2, 15, BTNWIDTH, BTNHEIGHT));
+        exitBtn = new Button("back", new Rectangle(MyGdxGame.WIDTH / 2 - BTNWIDTH/2, 15, BTNWIDTH, BTNHEIGHT));
         scratchS = Gdx.audio.newSound(Gdx.files.internal("sounds/scratch.wav"));
 
         deleteIndex = -1;
         scrollWink = 0;
-        scrollPrompt = false;
+        scrollDownPrompt = false;
+        scrollUpPrompt = false;
         loadYPointer = 0;
         loadedPlayers = new ArrayList<Player>();
         deleteSaveBtns = new ArrayList<Button>();
         saveBtns = new ArrayList<Button>();
         loadSavesOnButtons();
-
-        if (saveBtns.size() > 6)
-            scrollPrompt = true;
     }
 
     @Override
     public void update(float dt) {
-
+        if(saveBtns.size()>0) {
+            if (saveBtns.get(saveBtns.size() - 1).getRect().getY() < exitBtn.getRect().getY() + exitBtn.getRect().getHeight() + 60)
+                scrollDownPrompt = true;
+            else
+                scrollDownPrompt = false;
+            if(saveBtns.get(0).getRect().getY() > MyGdxGame.HEIGHT - 250)
+                scrollUpPrompt = true;
+            else
+                scrollUpPrompt = false;
+        }
     }
 
     /**
@@ -89,12 +100,12 @@ class LoadGameWindow extends com.flames.warfair.Window {
         exitBtn.drawShape(sr);
         sr.setColor(Color.GREEN);
         for (int i = 0; i < saveBtns.size(); i++) {
-            if (saveBtns.get(i).getRect().y <= MyGdxGame.HEIGHT - 220 && saveBtns.get(i).getRect().y > exitBtn.getRect().y + exitBtn.getRect().getHeight())
+            if (saveBtns.get(i).getRect().y <= MyGdxGame.HEIGHT - 250 && saveBtns.get(i).getRect().y > exitBtn.getRect().y + exitBtn.getRect().getHeight() + 60)
                 saveBtns.get(i).drawShape(sr);
         }
         sr.setColor(Color.RED);
         for (int i = 0; i < saveBtns.size(); i++) {
-            if (saveBtns.get(i).getRect().y <= MyGdxGame.HEIGHT - 220 && saveBtns.get(i).getRect().y > exitBtn.getRect().y + exitBtn.getRect().getHeight())
+            if (saveBtns.get(i).getRect().y <= MyGdxGame.HEIGHT - 250 && saveBtns.get(i).getRect().y > exitBtn.getRect().y + exitBtn.getRect().getHeight() + 60)
                 deleteSaveBtns.get(i).drawShape(sr);
         }
         sr.end();
@@ -103,16 +114,21 @@ class LoadGameWindow extends com.flames.warfair.Window {
         MyGdxGame.smallFont.setColor(Color.WHITE);
         exitBtn.drawFont(sb);
         for (int i = 0; i < saveBtns.size(); i++) {
-            if (saveBtns.get(i).getRect().y <= MyGdxGame.HEIGHT - 160 && saveBtns.get(i).getRect().y > exitBtn.getRect().y + exitBtn.getRect().getHeight()) {
+            if (saveBtns.get(i).getRect().y <= MyGdxGame.HEIGHT - 250 && saveBtns.get(i).getRect().y > exitBtn.getRect().y + exitBtn.getRect().getHeight() + 60) {
                 saveBtns.get(i).drawFont(sb);
                 deleteSaveBtns.get(i).drawFont(sb);
             }
         }
         scrollWink = TimeUtils.millis();
-        if (scrollPrompt) {
+        if (scrollDownPrompt) {
             MyGdxGame.smallFont.setColor(Color.RED);
             if (scrollWink % 200 > 100)
-                MyGdxGame.smallFont.draw(sb, "scroll", exitBtn.getRect().x + exitBtn.getRect().width + 33, exitBtn.getRect().y + 100);
+                MyGdxGame.smallFont.draw(sb, "v", exitBtn.getRect().x + exitBtn.getRect().width/2 - 10, exitBtn.getRect().y + exitBtn.getRect().getHeight() + 40);
+        }
+        if (scrollUpPrompt) {
+            MyGdxGame.smallFont.setColor(Color.RED);
+            if (scrollWink % 200 > 100)
+                MyGdxGame.smallFont.draw(sb, "^", exitBtn.getRect().x + exitBtn.getRect().width/2 - 10, MyGdxGame.HEIGHT - 150);
         }
         sb.end();
 
@@ -140,6 +156,8 @@ class LoadGameWindow extends com.flames.warfair.Window {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        touchDownY = screenY;
+        touchDownYConst = screenY;
         if (button == 0) {
             clickVector.set(screenX, screenY, 0);
             clickVector = cam.unproject(clickVector);
@@ -153,6 +171,7 @@ class LoadGameWindow extends com.flames.warfair.Window {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        touchDownY = 0;
         if (button == 0) {
             clickVector.set(screenX, screenY, 0);
             clickVector = cam.unproject(clickVector);
@@ -177,25 +196,30 @@ class LoadGameWindow extends com.flames.warfair.Window {
                     MyGdxGame.soundOn = true;
                 }
             } else {
-                for (int i = 0; i < saveBtns.size(); i++) {
-                    if (clickCoords.overlaps(saveBtns.get(i).getRect())) {
-                        if (serializeLoad(saveBtns.get(i).getText())) {
-                            StartMenuWindow.startMenuSound.dispose();
-                            scratchS.play(MyGdxGame.soundVolume);
-                            wm.set(new com.flames.warfair.boardgame.BoardGameWindow(loadedPlayers, loadedPlayers.size(), loadedPlayers.get(0).getGoalPoints(), wm));
-                            wm.setPopUp(new PopUpMessage(1, 1, "GAME LOADED", "Game " + saveBtns.get(i).getText() + " has been loaded!", wm));
-                        } else {
-                            wm.setPopUp(new PopUpMessage(1, 1, "GAME NOT LOADED", "Game could not be loaded :(", wm));
+                if(!dragging) {
+                    if(clickCoords.getY() < MyGdxGame.HEIGHT-250 && clickCoords.getY() > exitBtn.getRect().y + exitBtn.getRect().getHeight() + 70) {
+                        for (int i = 0; i < saveBtns.size(); i++) {
+                            if (clickCoords.overlaps(saveBtns.get(i).getRect())) {
+                                if (serializeLoad(saveBtns.get(i).getText())) {
+                                    StartMenuWindow.startMenuSound.stop();
+                                    scratchS.play(MyGdxGame.soundVolume);
+                                    wm.set(new com.flames.warfair.boardgame.BoardGameWindow(loadedPlayers, loadedPlayers.size(), loadedPlayers.get(0).getGoalPoints(), wm));
+                                    wm.setPopUp(new PopUpMessage(1, 1, "GAME LOADED", "game " + saveBtns.get(i).getText() + " has been loaded!", wm));
+                                } else {
+                                    wm.setPopUp(new PopUpMessage(1, 1, "GAME NOT LOADED", "game could not be loaded :(", wm));
+                                }
+                            } else if (clickCoords.overlaps(deleteSaveBtns.get(i).getRect())) {
+                                deleteSaveMsg = new PopUpMessage(1, 2, "confirmation", "delete " + saveBtns.get(i).getText() + " save file?", wm);
+                                wm.setPopUp(deleteSaveMsg);
+                                deleteIndex = i;
+                            }
                         }
-                    } else if (clickCoords.overlaps(deleteSaveBtns.get(i).getRect())) {
-                        deleteSaveMsg = new PopUpMessage(1, 2, "Confirmation", "Delete " + saveBtns.get(i).getText() + " save file?", wm);
-                        wm.setPopUp(deleteSaveMsg);
-                        deleteIndex = i;
                     }
                 }
             }
             exitBtn.setHighlighted(false);
         }
+        dragging = false;
         return false;
     }
 
@@ -225,7 +249,7 @@ class LoadGameWindow extends com.flames.warfair.Window {
         FileHandle folder = Gdx.files.local("saves");
         for (FileHandle fileEntry : folder.list()) {
             if (!fileEntry.isDirectory()) {
-                saveBtns.add(new Button(fileEntry.nameWithoutExtension(), new Rectangle(MyGdxGame.WIDTH / 2 - 180, MyGdxGame.HEIGHT - 220 - 80 * loadYPointer, 300, 70)));
+                saveBtns.add(new Button(fileEntry.nameWithoutExtension(), new Rectangle(MyGdxGame.WIDTH / 2 - 180, MyGdxGame.HEIGHT - 250 - 80 * loadYPointer, 300, 70)));
                 deleteSaveBtns.add(new Button("X", new Rectangle(saveBtns.get((int) loadYPointer).getRect().x + saveBtns.get((int) loadYPointer).getRect().width + 5, saveBtns.get((int) loadYPointer).getRect().y, 70, 70)));
                 loadYPointer++;
             }
@@ -251,21 +275,33 @@ class LoadGameWindow extends com.flames.warfair.Window {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
-    //TODO scroll for android
+    /**
+     * Called when the user scrolls.
+     */
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        if(Math.abs(touchDownYConst - screenY) > 10)
+            dragging = true;
+        if (saveBtns != null) {
+            if (touchDownY != 0) {
+                scroll(touchDownY - screenY);
+                touchDownY = screenY;
+            }
+        }
+        return false;
+    }
+
     /**
      * Called when the user scrolls.
      * @param amount -> the amount the user scrolled
      */
-    @Override
-    public boolean scrolled(int amount) {
-        amount = amount * 80;
-        if (saveBtns != null) {
+    private void scroll(int amount) {
+        amount = amount * 2;
             if (amount < 0) {
-                if (saveBtns.get(0).getRect().y + amount > MyGdxGame.HEIGHT - 250) {
+                if (saveBtns.get(0).getRect().y + amount >= MyGdxGame.HEIGHT - 250) {
                     for (int i = 0; i < saveBtns.size(); i++) {
                         saveBtns.get(i).setY(saveBtns.get(i).getRect().y + amount);
                         deleteSaveBtns.get(i).setY(deleteSaveBtns.get(i).getRect().y + amount);
@@ -279,7 +315,5 @@ class LoadGameWindow extends com.flames.warfair.Window {
                     }
                 }
             }
-        }
-        return false;
     }
 }

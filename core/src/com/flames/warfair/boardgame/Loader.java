@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Loader {
 
     private static Texture backgroundT;
-    private static Texture bankBackgroundT;
+    private static Texture bankT;
     private static Texture chooseOpp1T;
     private static Texture chooseOpp2T;
     private static Texture diceAnimT;
@@ -45,7 +45,7 @@ public class Loader {
      */
     static void loadBoardGame() {
         backgroundT = new Texture("images/boardGame/gameBoard.png");
-        bankBackgroundT = new Texture("images/boardGame/bankBackground.png");
+        bankT = new Texture("images/boardGame/bank.png");
         chooseOpp1T = new Texture("images/boardGame/chooseOpponentBackground.png");
         chooseOpp2T = new Texture("images/boardGame/chooseOpponentBackground2.png");
         dice0T = new Texture("images/boardGame/dice0.png");
@@ -82,7 +82,7 @@ public class Loader {
      */
     static void disposeBoardGame() {
         backgroundT.dispose();
-        bankBackgroundT.dispose();
+        bankT.dispose();
         chooseOpp1T.dispose();
         chooseOpp2T.dispose();
         diceAnimT.dispose();
@@ -98,7 +98,6 @@ public class Loader {
         player2T.dispose();
         player3T.dispose();
         player4T.dispose();
-        bankBackgroundT.dispose();
         flipCardT.dispose();
         cardsT.dispose();
         goToBankCardT.dispose();
@@ -116,10 +115,6 @@ public class Loader {
 
     static Texture getBackgroundT() {
         return backgroundT;
-    }
-
-    static Texture getBankBackgroundT() {
-        return bankBackgroundT;
     }
 
     static Texture getChooseOpp1T() {
@@ -232,5 +227,9 @@ public class Loader {
 
     static Sound getVictoryS() {
         return victoryS;
+    }
+
+    static Texture getBankT() {
+        return bankT;
     }
 }

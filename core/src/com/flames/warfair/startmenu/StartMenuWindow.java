@@ -36,10 +36,10 @@ public class StartMenuWindow extends com.flames.warfair.Window {
         startMenuSound.play();
         soundOnT = new Texture("images/soundOn.png");
         soundOffT = new Texture("images/soundOff.png");
-        soundBtn = new Button(soundOnT, new Rectangle(MyGdxGame.WIDTH - 90, 10, 60, 60));
-        newGameBtn = new Button("New Game", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH/2, MyGdxGame.HEIGHT - 320, BTNWIDTH, BTNHEIGHT));
-        loadGameBtn = new Button("Load Game", new Rectangle(newGameBtn.getRect().x, newGameBtn.getRect().y - 160, BTNWIDTH, BTNHEIGHT));
-        helpBtn = new Button("Help", new Rectangle(newGameBtn.getRect().x, loadGameBtn.getRect().y - 160, BTNWIDTH, BTNHEIGHT));
+        soundBtn = new Button(soundOnT, new Rectangle(MyGdxGame.WIDTH - 95, 15, 80, 80));
+        newGameBtn = new Button("new game", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH/2, MyGdxGame.HEIGHT - 320, BTNWIDTH, BTNHEIGHT));
+        loadGameBtn = new Button("load game", new Rectangle(newGameBtn.getRect().x, newGameBtn.getRect().y - 160, BTNWIDTH, BTNHEIGHT));
+        helpBtn = new Button("help", new Rectangle(newGameBtn.getRect().x, loadGameBtn.getRect().y - 160, BTNWIDTH, BTNHEIGHT));
     }
 
     @Override

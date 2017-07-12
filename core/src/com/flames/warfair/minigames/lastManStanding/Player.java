@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Player extends Button {
 
     private final static int WALLSPEED = 350;
+    private final static int JUMPSPEED = 1150;
     private int id;
     static int nextRank;
     private int rank;
@@ -43,7 +44,7 @@ public class Player extends Button {
         if(!alive)
             rank =-1;
         doOnce = true;
-        yVelocity = 850;
+        yVelocity = JUMPSPEED;
         walls = new ArrayList<Rectangle>();
 
         if(id==1) {
@@ -98,7 +99,7 @@ public class Player extends Button {
         } else {
             canJump = true;
             rect.y = touchRect.y + 1;
-            yVelocity = 850;
+            yVelocity = JUMPSPEED;
         }
     }
 
@@ -118,8 +119,8 @@ public class Player extends Button {
     void spawnWall(int width, int height) {
         if(walls.size()>0) {
             walls.get(wallSpawnPointer).setX(MyGdxGame.WIDTH + 0f);
-            walls.get(wallSpawnPointer).setHeight(height * 10);
-            walls.get(wallSpawnPointer).setWidth(width * 7);
+            walls.get(wallSpawnPointer).setHeight(height * 16);
+            walls.get(wallSpawnPointer).setWidth(width * 10);
             wallSpawnPointer++;
             if (wallSpawnPointer == 4)
                 wallSpawnPointer = 0;

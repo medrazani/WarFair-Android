@@ -40,10 +40,10 @@ class RenamePlayerWindow extends Window {
         this.playerPtr = playerPtr;
         this.nameBtn = nameBtn;
 
-        addString("Please give a name for " + nameBtn.getText()+".", 1);
+        addString("please give a name for " + nameBtn.getText()+".", 1);
 
-        confirmBtn = new Button("Confirm", new Rectangle(xZero + WIDTH/2 - 170 - 20, yZero + 10, 170, 60));
-        backBtn = new Button("Back", new Rectangle(xZero + WIDTH/2 + 20, yZero + 10, 170, 60));
+        confirmBtn = new Button("confirm", new Rectangle(xZero + WIDTH/2 - 170 - 20, yZero + 10, 170, 60));
+        backBtn = new Button("back", new Rectangle(xZero + WIDTH/2 + 20, yZero + 10, 170, 60));
         nameField = new Button("", new Rectangle(xZero + WIDTH/2 - 75, yZero + 92, 180, 60));
         nameField.setHighlighted(true);
 
@@ -106,7 +106,7 @@ class RenamePlayerWindow extends Window {
                 BoardGameWindow.players.get(playerPtr).setName(nameField.getText());
                 nameBtn.setText(nameField.getText());
                 nameBtn.getGlyphLayout().setText(MyGdxGame.mediumFont, nameField.getText());
-                BoardGameWindow.announcer.addAnnouncement("Player"+(playerPtr+1) + " is now "+nameField.getText()+".");
+                BoardGameWindow.announcer.addAnnouncement("Player"+(playerPtr+1) + " is now "+nameField.getText());
                 BoardGameWindow.rollGlyphLayout.setText(MyGdxGame.smallFont, BoardGameWindow.players.get((BoardGameWindow.playerTurn)).getName() + " roll");
                 wm.popPopUp();
             }
@@ -159,7 +159,7 @@ class RenamePlayerWindow extends Window {
 
     @Override
     public boolean keyTyped(char character) {
-        if (Character.isLetter(character) || Character.isDigit(character)) {
+        if ((character+"").matches("[a-zA-z0-9]")) {
             inputCharGlyphLayout.setText(MyGdxGame.smallFont, String.valueOf(character));
             if (cursorX + inputCharGlyphLayout.width < nameField.getRect().width) {
                 inputStringGlyphLayout.setText(MyGdxGame.mediumFont, nameField.getText() + String.valueOf(character));
@@ -210,16 +210,16 @@ class RenamePlayerWindow extends Window {
         if(!nameExists()) {
             if(!nameField.getText().equals("")) {
                 if(inputStringGlyphLayout.width <= nameBtn.getRect().width - 5) {
-                    confirmConfirmationMsg = new PopUpMessage(2, 2, "Warning", "Are you sure? You can only set a player's name once in a game!", wm);
+                    confirmConfirmationMsg = new PopUpMessage(2, 2, "warning", "are you sure? you can only set a player's name once in a game!", wm);
                     wm.setPopUp2(confirmConfirmationMsg);
                 }
                 else
-                    wm.setPopUp2(new PopUpMessage(2, 1, "Warning", "Name is too big!", wm));
+                    wm.setPopUp2(new PopUpMessage(2, 1, "warning", "name is too big!", wm));
             }
             else
-                wm.setPopUp2(new PopUpMessage(2, 1, "Warning", "Please enter a name.", wm));
+                wm.setPopUp2(new PopUpMessage(2, 1, "warning", "please enter a name!", wm));
         }
         else
-            wm.setPopUp2(new PopUpMessage(2, 1, "Warning", "Name already exists!", wm));
+            wm.setPopUp2(new PopUpMessage(2, 1, "warning", "name already exists!", wm));
     }
 }

@@ -26,6 +26,8 @@ public class Player extends Button {
     private Color color;
     private Texture playerIcon;
     private Rectangle touchRect;
+    private long pointPlusTimer = -1;
+    private int lastScore = 0;
 
     public Player(int id, boolean alive, Rectangle rect) {
         super(Loader.getBowT(), rect);
@@ -79,9 +81,11 @@ public class Player extends Button {
             }
             if (arrow.getRect().y > 0)
                 arrow.update(dt);
-            if (arrow.getImpactXdist() != 0 && doOnce) {
+            if (arrow.getImpactXdist() != 0 && doOnce) { //arrow hit target
                 MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
+                pointPlusTimer = TimeUtils.millis();
                 doOnce = false;
+                lastScore = arrow.getPoints();
                 score += arrow.getPoints();
                 if (score >= 100)
                     SkillshotWindow.winner = id;
@@ -145,5 +149,21 @@ public class Player extends Button {
 
     void setTouchRect(Rectangle touchRect) {
         this.touchRect = touchRect;
+    }
+
+    public long getPointPlusTimer() {
+        return pointPlusTimer;
+    }
+
+    public void setPointPlusTimer(long pointPlusTimer) {
+        this.pointPlusTimer = pointPlusTimer;
+    }
+
+    public boolean isDoOnce() {
+        return doOnce;
+    }
+
+    public int getLastScore() {
+        return lastScore;
     }
 }

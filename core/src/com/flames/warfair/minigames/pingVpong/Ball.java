@@ -47,7 +47,7 @@ class Ball {
      * Add speed to the ball.
      */
     void addBallspeed() {
-        ballspeed+=40;
+        ballspeed+=60;
     }
 
     /**

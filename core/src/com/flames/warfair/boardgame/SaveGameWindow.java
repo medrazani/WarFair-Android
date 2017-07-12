@@ -144,7 +144,7 @@ class SaveGameWindow extends Window {
 
     @Override
     public boolean keyTyped(char character) {
-        if (Character.isLetter(character) || character == ' ' || Character.isDigit(character)) {
+        if (character == ' ' || (character+"").matches("[a-zA-z0-9]")) {
             inputGlyphLayout.setText(MyGdxGame.smallFont, String.valueOf(character));
             if (cursorX + inputGlyphLayout.width < nameField.getRect().width) {
                 nameField.setText(nameField.getText() + character);

@@ -70,12 +70,12 @@ public class PopUpMessage extends Window{
         }
 
         if(buttonN==2) {
-            confirmBtn = new Button("Yes",new Rectangle(xZero + WIDTH/2 - 140 - 10, yZero + 10, 140, 60));
-            backBtn = new Button("No", new Rectangle(xZero + WIDTH / 2 + 10, yZero + 10, 140, 60));
+            confirmBtn = new Button("yes",new Rectangle(xZero + WIDTH/2 - 140 - 10, yZero + 10, 140, 60));
+            backBtn = new Button("no", new Rectangle(xZero + WIDTH / 2 + 10, yZero + 10, 140, 60));
         }
         else {
-            confirmBtn = new Button("ΟΚ",new Rectangle(xZero + WIDTH/2 - 70, yZero + 10, 140, 60));
-            backBtn = new Button("Back", new Rectangle(xZero + WIDTH / 2 + 10, MyGdxGame.HEIGHT, 140, 60));
+            confirmBtn = new Button("ok",new Rectangle(xZero + WIDTH/2 - 70, yZero + 10, 140, 60));
+            backBtn = new Button("back", new Rectangle(xZero + WIDTH / 2 + 10, MyGdxGame.HEIGHT, 140, 60));
         }
 
 

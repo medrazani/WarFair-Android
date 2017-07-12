@@ -47,6 +47,8 @@ public class BoardGameWindow extends Window {
     private String goalString;
     private PauseMenuWindow pauseMenuWindow;
     private PopUpMessage gameOverPopUp;
+    private int touchDownY = 0;
+    private Rectangle clickDownCoords = new Rectangle();
 
     public BoardGameWindow(ArrayList<Player> loadedPlayers, int numOfPlayers, int goalPoints, WindowManager wm) {
         this.wm = wm;
@@ -96,34 +98,29 @@ public class BoardGameWindow extends Window {
         } else {
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getPoints() >= goalPoints) {
-                    if (gameOverPopUp == null) {
-                        Loader.getVictoryS().play(MyGdxGame.soundVolume);
-                        gameOverPopUp = new PopUpMessage(1, 1, "GAME OVER", "The winner is " + players.get(i).getName() + "!!!", wm);
-                        announcer.addAnnouncement("GAME OVER! The winner is " + players.get(i).getName() + "!!");
-                        wm.setPopUp(gameOverPopUp);
-                    } else {
-                        if (gameOverPopUp.getButtonPressed() == 1) {
-                            gameOverPopUp.setButtonPressed(0);
-                            StartMenuWindow.startMenuSound.stop();
-                            wm.pop();
-                            wm.pop();
-                            StartMenuWindow.startMenuSound.play();
-                        }
-                    }
+                    gameOverFunc(i);
                 }
             }
             if (winnerPtr != -1) { //noone surpassed the point cap but there is only one survivor
-                if (gameOverPopUp == null) {
-                    Loader.getVictoryS().play(MyGdxGame.soundVolume);
-                    gameOverPopUp = new PopUpMessage(1, 1, "GAME OVER", "The winner is " + (players.get(winnerPtr)).getName() + "!!!", wm);
-                    wm.setPopUp(gameOverPopUp);
-                } else {
-                    if (gameOverPopUp.getButtonPressed() == 1) {
-                        StartMenuWindow.startMenuSound.stop();
-                        wm.pop();
-                        wm.pop();
-                    }
-                }
+                gameOverFunc(winnerPtr);
+            }
+        }
+    }
+
+    private void gameOverFunc(int ptr) {
+        if (gameOverPopUp == null) {
+            Loader.getVictoryS().play(MyGdxGame.soundVolume);
+            gameOverPopUp = new PopUpMessage(1, 1, "GAME OVER", "the winner is " + players.get(ptr).getName() + "!!!", wm);
+            announcer.addAnnouncement("GAME OVER! the winner is " + players.get(ptr).getName() + "!!!");
+            wm.setPopUp(gameOverPopUp);
+        } else {
+            if (gameOverPopUp.getButtonPressed() == 1) {
+                gameOverPopUp.setButtonPressed(0);
+                StartMenuWindow.startMenuSound.stop();
+                wm.pop();
+                wm.pop();
+                StartMenuWindow.soundBtn.getRect().set(new Rectangle(MyGdxGame.WIDTH - 90, 10, 60, 60));
+                StartMenuWindow.startMenuSound.play();
             }
         }
     }
@@ -139,13 +136,13 @@ public class BoardGameWindow extends Window {
                     announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " is feeling lucky and has won 300 points on the Dicer!");
                     players.get(BoardGameWindow.playerTurn).alterPoints(300);
                 } else {
-                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " run out of luck and lost 300 points on the Dicer..");
+                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " run out of luck and lost 300 points on the Dicer");
                     players.get(BoardGameWindow.playerTurn).alterPoints(-300);
                 }
                 setNextPlayersTurn();
             } else if (Block.dicerPopUpMsg.getButtonPressed() == 2) {
                 Block.dicerPopUpMsg = null;
-                announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " chickens out of the Dicer..");
+                announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " chickens out of the Dicer");
                 setNextPlayersTurn();
             }
         }
@@ -179,7 +176,7 @@ public class BoardGameWindow extends Window {
                         }
                     }
                     if (players.get(playerTurn).getPoints() == minPoints) {
-                        if (players.get(min2Ptr).getPoints() >= players.get(playerTurn).getPoints() + 500) {
+                        if (players.get(min2Ptr).getPoints() >= players.get(playerTurn).getPoints() + 700) {
                             if (players.get(playerTurn).getOnThaPit() <= 0) {
                                 players.get(playerTurn).alterPoints(150);
                                 announcer.addAnnouncement(players.get(playerTurn).getName() + " receives an allowance of 150 points for being weak!");
@@ -192,7 +189,20 @@ public class BoardGameWindow extends Window {
                 minPtr = 0;
                 min2Ptr = 0;
                 rollGlyphLayout.setText(MyGdxGame.smallFont, BoardGameWindow.players.get((BoardGameWindow.playerTurn)).getName() + " roll");
-                players.get(BoardGameWindow.playerTurn).setPointsInBank((int) (players.get(BoardGameWindow.playerTurn).getPointsInBank() * 1.1f));
+                if(players.get(BoardGameWindow.playerTurn).getPointsInBank() != 0) {
+                    players.get(BoardGameWindow.playerTurn).setPointsInBank((int) (players.get(BoardGameWindow.playerTurn).getPointsInBank() * 1.1f));
+                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " now has " + players.get(BoardGameWindow.playerTurn).getPointsInBank() + " points in his bank account");
+                }
+                switch (players.get(BoardGameWindow.playerTurn).getOnThaPit()) {
+                    case 1:
+                        announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " is still stuck on ThaPit. Roll 4 or more to escape!");
+                        break;
+                    case 2:
+                        announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " is still stuck on ThaPit. Roll 2 or more to escape!");
+                        break;
+                    default:
+                        break;
+                }
                 break;
             }
         }
@@ -245,6 +255,8 @@ public class BoardGameWindow extends Window {
             if (announcer.getyScrolls().get(i) < announcer.getRect().height - 50 && announcer.getRect().y + 5 + announcer.getyScrolls().get(i) > announcer.getRect().y) {// announcer previous lines
                 if (i == announcer.getStrings().size() - 2 && announcer.getChangeLinePtr() == -1) //last entry is 2 lines long
                     MyGdxGame.smallFont.setColor(Color.WHITE);
+                if (i == announcer.getStrings().size() - 3 && announcer.getChangeLinePtr2() == -1) //last entry is 3 lines long
+                    MyGdxGame.smallFont.setColor(Color.WHITE);
                 MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(i));
             }
         }
@@ -294,7 +306,17 @@ public class BoardGameWindow extends Window {
     }
 
     @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        touchDownY = screenY;
+        clickVector.set(screenX, screenY, 0);
+        clickVector = cam.unproject(clickVector);
+        clickDownCoords.set(clickVector.x, clickVector.y, 1, 1);
+        return false;
+    }
+
+    @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        touchDownY = 0;
         if (button == 0) {
             clickVector.set(screenX, screenY, 0);
             clickVector = cam.unproject(clickVector);
@@ -319,10 +341,17 @@ public class BoardGameWindow extends Window {
         return false;
     }
 
-    //TODO fix scroll for android
+    /**
+     * Called when the user scrolls.
+     */
     @Override
-    public boolean scrolled(int amount) {
-        announcer.scroll(amount);
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        if(touchDownY!=0) {
+            if(clickDownCoords.overlaps(announcer.getRect())) {
+                announcer.scroll(touchDownY - screenY);
+                touchDownY = screenY;
+            }
+        }
         return false;
     }
 
@@ -340,7 +369,7 @@ public class BoardGameWindow extends Window {
     private void initializePlayers(ArrayList<Player> loadedPlayers, int numOfPlayers) {
         if(loadedPlayers==null) {
             announcer.addAnnouncement("THE GAME HAS STARTED!");
-            announcer.addAnnouncement("You can click on player buttons to change names.");
+            announcer.addAnnouncement("You can click on player buttons to change names");
             players.add(new Player(1, goalPoints, new Rectangle(blocks.get(0).getRect().x + 30, blocks.get(0).getRect().y + 60, 55, 55)));
             playerBtns.add(new Button("Player1", new Rectangle(MyGdxGame.WIDTH / 7 + 25, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT / 6 - 95, 240, 65)));
             players.add(new Player(2, goalPoints, new Rectangle(blocks.get(0).getRect().x + 100, blocks.get(0).getRect().y + 60, 55, 55)));

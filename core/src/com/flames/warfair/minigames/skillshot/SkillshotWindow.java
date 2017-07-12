@@ -74,7 +74,7 @@ public class SkillshotWindow extends Window {
     public void update(float dt) {
         if (forfeitPopUpMsg != null) {
             if (forfeitPopUpMsg.getButtonPressed() == 1) {
-                BoardGameWindow.announcer.addAnnouncement("A match of Skillshot has been forfeited.");
+                BoardGameWindow.announcer.addAnnouncement("A match of Skillshot has been forfeited");
                 if (!miniGameMode) {
                     StartMenuWindow.startMenuSound.play();
                     BoardGameWindow.setNextPlayersTurn();
@@ -152,9 +152,9 @@ public class SkillshotWindow extends Window {
             Loader.getBackgroundS().stop();
             Loader.getVictoryS().play(MyGdxGame.soundVolume);
             if (miniGameMode)
-                winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player" + winner + " wins!", wm);
+                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + winner + " wins!", wm);
             else
-                winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(winner - 1).getName() + " wins!", wm);
+                winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(winner - 1).getName() + " wins!", wm);
             winner = 0; //so that it enters only once
             wm.setPopUp(winPopUpMsg);
         }
@@ -162,7 +162,14 @@ public class SkillshotWindow extends Window {
             MyGdxGame.bigFont.setColor(player.getColor());
             if (player.isAlive()) {
                 sb.draw(player.getPlayerIcon(), player.getRect().x + 10, 4, 40, 40);
-                MyGdxGame.bigFont.draw(sb, player.getScore() + "", player.getRect().x + 60, 45);
+                MyGdxGame.bigFont.draw(sb, player.getScore() + "", player.getRect().x + 60, 55);
+                if(player.getPointPlusTimer() != -1) {
+                    MyGdxGame.bigFont.draw(sb, "+"+player.getLastScore(), player.getRect().x + 60, 55 + (TimeUtils.timeSinceMillis(player.getPointPlusTimer())/3));
+                    if((TimeUtils.timeSinceMillis(player.getPointPlusTimer())) > 1500) {
+                        player.setPointPlusTimer(-1);
+                    }
+                }
+
             }
         }
         sb.end();
@@ -191,7 +198,7 @@ public class SkillshotWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if (!miniGameMode) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "Do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
                 wm.setPopUp(forfeitPopUpMsg);
             } else {
                 StartMenuWindow.startMenuSound.play();
@@ -245,5 +252,19 @@ public class SkillshotWindow extends Window {
             if(player.isAlive())
                 player.setTouchRect(new Rectangle(player.getRect().x - 15, -2, player.getRect().width+30, MyGdxGame.HEIGHT+2));
         }
+    }
+
+    @Override
+    public void pause()
+    {
+        Loader.getBackgroundS().setLooping(false);
+        Loader.getBackgroundS().pause();
+    }
+
+    @Override
+    public void resume()
+    {
+        Loader.getBackgroundS().setLooping(true);
+        Loader.getBackgroundS().play();
     }
 }

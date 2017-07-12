@@ -31,21 +31,21 @@ class NewGameWindow extends com.flames.warfair.Window {
     NewGameWindow(WindowManager wm) {
         this.wm = wm;
 
-        addString("Choose game mode:",1);
-        addString("Choose number of players:",1);
-        addString("Choose points goal:",1);
+        addString("choose game mode:",1);
+        addString("choose number of players:",1);
+        addString("choose points goal:",1);
 
         background = new Texture("images/newGameBackground.png");
-        classicGameBtn = new Button("Classic (Board)", new Rectangle(MyGdxGame.WIDTH/2 - 64, MyGdxGame.HEIGHT - 150,360,70));
-        miniGameBtn = new Button("Mini Games", new Rectangle(classicGameBtn.getRect().x + classicGameBtn.getRect().width + 35, classicGameBtn.getRect().y,260,70));
+        classicGameBtn = new Button("classic (board)", new Rectangle(MyGdxGame.WIDTH/2 - 64, MyGdxGame.HEIGHT - 150,360,70));
+        miniGameBtn = new Button("mini games", new Rectangle(classicGameBtn.getRect().x + classicGameBtn.getRect().width + 35, classicGameBtn.getRect().y,260,70));
         p2Btn = new Button("2", new Rectangle(classicGameBtn.getRect().x, classicGameBtn.getRect().y - 100,100,70));
         p3Btn = new Button("3", new Rectangle(p2Btn.getX() + p2Btn.getRect().width + 40, classicGameBtn.getRect().y - 100,100,70));
         p4Btn = new Button("4", new Rectangle(p3Btn.getX() + p3Btn.getRect().width + 40, classicGameBtn.getRect().y - 100,100,70));
         g1Btn = new Button("3000", new Rectangle(classicGameBtn.getRect().x, p2Btn.getRect().y - 100,130,70)); //change from update method
         g2Btn = new Button("7000", new Rectangle(g1Btn.getX() +  g1Btn.getRect().width + 40, g1Btn.getRect().y,130,70)); // -//-
         g3Btn = new Button("10000", new Rectangle(g2Btn.getX() + g2Btn.getRect().width + 40, g1Btn.getRect().y,130,70)); // -//-
-        confirmBtn = new Button("Confirm", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH - 20, 60, BTNWIDTH, BTNHEIGHT));
-        backBtn = new Button("Back", new Rectangle(confirmBtn.getRect().x + confirmBtn.getRect().width + 20, 60, BTNWIDTH, BTNHEIGHT));
+        confirmBtn = new Button("confirm", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH - 20, 60, BTNWIDTH, BTNHEIGHT));
+        backBtn = new Button("back", new Rectangle(confirmBtn.getRect().x + confirmBtn.getRect().width + 20, 60, BTNWIDTH, BTNHEIGHT));
         scratchS = Gdx.audio.newSound(Gdx.files.internal("sounds/scratch.wav"));
 
         classicGameBtn.setHighlighted(true);
@@ -69,7 +69,7 @@ class NewGameWindow extends com.flames.warfair.Window {
             g3Btn.getRect().setY(-200);
         }
         else {
-            strings.set(2, "Choose points goal:");
+            strings.set(2, "choose points goal:");
             g1Btn.getRect().setY(p2Btn.getRect().y - 100);
             g2Btn.getRect().setY(g1Btn.getRect().y);
             g3Btn.getRect().setY(g1Btn.getRect().y);
@@ -93,7 +93,7 @@ class NewGameWindow extends com.flames.warfair.Window {
 
         //drawHighlights
         sr.begin(ShapeRenderer.ShapeType.Filled);
-        sr.setColor(Color.GREEN);
+        sr.setColor(Color.FOREST);
         classicGameBtn.drawHighlight(sr);
         miniGameBtn.drawHighlight(sr);
         p2Btn.drawHighlight(sr);
@@ -102,7 +102,6 @@ class NewGameWindow extends com.flames.warfair.Window {
         g1Btn.drawHighlight(sr);
         g2Btn.drawHighlight(sr);
         g3Btn.drawHighlight(sr);
-        sr.setColor(Color.FOREST);
         confirmBtn.drawHighlight(sr);
         backBtn.drawHighlight(sr);
         sr.end();

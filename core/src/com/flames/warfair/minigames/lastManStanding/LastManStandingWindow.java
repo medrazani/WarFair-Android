@@ -74,7 +74,7 @@ public class LastManStandingWindow extends Window {
     public void update(float dt) {
         if (forfeitPopUpMsg != null) {
             if (forfeitPopUpMsg.getButtonPressed() == 1) {
-                BoardGameWindow.announcer.addAnnouncement("A match of Last Man Standing has been forfeited.");
+                BoardGameWindow.announcer.addAnnouncement("A match of Last Man Standing has been forfeited");
                 if (!miniGameMode) {
                     StartMenuWindow.startMenuSound.play();
                     BoardGameWindow.setNextPlayersTurn();
@@ -94,9 +94,9 @@ public class LastManStandingWindow extends Window {
                             Loader.getBackgroundS().stop();
                             Loader.getVictoryS().play(MyGdxGame.soundVolume);
                             if (miniGameMode)
-                                winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player" + player.getID() + " wins!", wm);
+                                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + player.getID() + " wins!", wm);
                             else
-                                winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(player.getID() - 1).getName() + " wins!", wm);
+                                winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(player.getID() - 1).getName() + " wins!", wm);
                             wm.setPopUp(winPopUpMsg);
                             break;
                         }
@@ -122,7 +122,7 @@ public class LastManStandingWindow extends Window {
                 for (Player player : players)
                     player.update(dt);
 
-                if (TimeUtils.timeSinceMillis(timerMillis) > 1000 * randomNumber) {
+                if (TimeUtils.timeSinceMillis(timerMillis) > 800 * randomNumber) {
                     randomNumber = Math.abs(random.nextInt() % 4) + 1;
                     timerMillis = TimeUtils.millis();
                     randomWidth = Math.abs(random.nextInt() % 3) + 1;
@@ -217,7 +217,7 @@ public class LastManStandingWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if (!miniGameMode) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "Do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
                 wm.setPopUp(forfeitPopUpMsg);
             } else {
                 StartMenuWindow.startMenuSound.play();
@@ -275,8 +275,22 @@ public class LastManStandingWindow extends Window {
 
         for(Player player: players) {
             if(player.getTouchRect() != null)
-                player.setRect(130, (int)player.getTouchRect().y + 1, 40, 40);
+                player.setRect(200, (int)player.getTouchRect().y + 1, 40, 40);
         }
         Player.nextRank = numOfPlayers - deadCounter;
+    }
+
+    @Override
+    public void pause()
+    {
+        Loader.getBackgroundS().setLooping(false);
+        Loader.getBackgroundS().pause();
+    }
+
+    @Override
+    public void resume()
+    {
+        Loader.getBackgroundS().setLooping(true);
+        Loader.getBackgroundS().play();
     }
 }

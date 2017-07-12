@@ -34,6 +34,7 @@ public class MiniGameInfoWindow extends Window {
     private long timerMillis;
 
     private float player1X, player2X;
+    private int stantardY = 260;
     private Button leftBtn, rightBtn;
     private int player1Pos; // -1   0   1
     private int handicapPoints;
@@ -52,6 +53,11 @@ public class MiniGameInfoWindow extends Window {
         chosenSides = false;
         startGame = false;
         player1Pos = 0;
+
+        addString("Slide up/down to begin!", 1);
+        addString("Choose sides!", 1);
+        addString("Player" + (challengerPtr + 1), 1);
+        addString("Player" + (opponentPtr + 1), 1);
 
         if (miniGame.equals("pingVpong")) {
             background = new Texture("images/pingVpong/pingVpongInfo.png");
@@ -74,19 +80,31 @@ public class MiniGameInfoWindow extends Window {
             chosenSides = true;
         }
 
-        addString("Slide up/down to begin!", 1);
-        addString("Choose sides!", 1);
-        addString("Player" + (challengerPtr + 1), 1);
-        addString("Player" + (opponentPtr + 1), 1);
 
         if (miniGameMode) {
             player1Pos = -1;
             chosenSides = true;
         }
         else {
-            if(!miniGame.equals("lastManStanding") && !miniGame.equals("skillshot")){
+            if(!miniGame.equals("lastManStanding") && !miniGame.equals("skillshot")){ //change names
                 changeString(2, BoardGameWindow.players.get(challengerPtr).getName(), 1);
                 changeString(3, BoardGameWindow.players.get(opponentPtr).getName(), 1);
+            }
+            else {
+                changeString(2, BoardGameWindow.players.get(0).getName(), 1);
+                changeString(3, BoardGameWindow.players.get(1).getName(), 1);
+                if(BoardGameWindow.players.size()>=3) {
+                    if(BoardGameWindow.players.get(2).isAlive())
+                        addString(BoardGameWindow.players.get(2).getName(), 1);
+                    else
+                        addString("", 1);
+                    if(BoardGameWindow.players.size()>=4) {
+                        if(BoardGameWindow.players.get(3).isAlive())
+                            addString(BoardGameWindow.players.get(3).getName(), 1);
+                        else
+                            addString("", 1);
+                    }
+                }
             }
         }
         player1X = MyGdxGame.WIDTH / 2 - glyphLayouts.get(2).width / 2;
@@ -105,8 +123,8 @@ public class MiniGameInfoWindow extends Window {
             chosenSides = true;
         } else {
             chosenSides = false;
-            leftBtn.setY(330);
-            rightBtn.setY(330);
+            leftBtn.setY(stantardY-100);
+            rightBtn.setY(stantardY-100);
             if (player1Pos == 1) {
                 rightBtn.setY(-210);
                 chosenSides = true;
@@ -128,14 +146,14 @@ public class MiniGameInfoWindow extends Window {
             if (timerMillis % 200 < 100) {
                 timerMillis = 0;
                 sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.rect(MyGdxGame.WIDTH / 2 - 250, 250, 500, 140);
+                sr.rect(MyGdxGame.WIDTH / 2 - 250, stantardY - 180, 500, 140);
                 sr.end();
             }
         } else { //draw game start button
             if (timerMillis % 200 < 100) {
                 timerMillis = 0;
                 sr.begin(ShapeRenderer.ShapeType.Line);
-                sr.rect(10, MyGdxGame.HEIGHT - 60, 510, 50);
+                sr.rect(10, MyGdxGame.HEIGHT - 60, 450, 50);
                 sr.end();
             }
 
@@ -158,16 +176,16 @@ public class MiniGameInfoWindow extends Window {
                 rightBtn.drawShape(sr);
                 if (chosenSides) {
                     sr.setColor(Color.RED);
-                    sr.rect(MyGdxGame.WIDTH / 2 - 250, 250, 500, 140);
+                    sr.rect(MyGdxGame.WIDTH / 2 - 250, stantardY - 180, 500, 140);
                 }
                 sr.end();
                 sb.begin();
                 MyGdxGame.smallFont.setColor(Color.CYAN);
-                MyGdxGame.smallFont.draw(sb, strings.get(1), MyGdxGame.WIDTH / 2 - glyphLayouts.get(1).width / 2, 430);
+                MyGdxGame.smallFont.draw(sb, strings.get(1), MyGdxGame.WIDTH / 2 - glyphLayouts.get(1).width / 2, stantardY);
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(challengerPtr).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, 370);
+                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, stantardY - 60);
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(opponentPtr).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(3), player2X, 310);
+                MyGdxGame.smallFont.draw(sb, strings.get(3), player2X, stantardY - 120);
                 MyGdxGame.smallFont.setColor(Color.CYAN);
                 leftBtn.drawFont(sb);
                 rightBtn.drawFont(sb);
@@ -176,9 +194,25 @@ public class MiniGameInfoWindow extends Window {
             else if(miniGame.equals("pigeonRevenge")) {
                 sb.begin();
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(challengerPtr).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, 290);
+                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, stantardY - 100);
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(opponentPtr).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(3), player2X, 350);
+                MyGdxGame.smallFont.draw(sb, strings.get(3), player2X, stantardY - 40);
+                sb.end();
+            }
+            else if(miniGame.equals("lastManStanding") || miniGame.equals("skillshot")) {
+                sb.begin();
+                MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(0).getColor());
+                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, stantardY);
+                MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(1).getColor());
+                MyGdxGame.smallFont.draw(sb, strings.get(3), player1X, stantardY - 60);
+                if(miniGameMode || BoardGameWindow.players.size()>=3) {
+                    MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(2).getColor());
+                    MyGdxGame.smallFont.draw(sb, strings.get(4), player1X, stantardY - 120);
+                    if(miniGameMode || BoardGameWindow.players.size()>=4) {
+                        MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(3).getColor());
+                        MyGdxGame.smallFont.draw(sb, strings.get(5), player1X, stantardY - 180);
+                    }
+                }
                 sb.end();
             }
         }

@@ -25,8 +25,8 @@ class Arrow extends Button {
                     && rect.y + rect.height <= SkillshotWindow.target.getRect().y + SkillshotWindow.target.getRect().height/2 + 25) {
                 bindToTarget = true;
                 if(impactXdist == 0)
-                    impactXdist = rect.x - SkillshotWindow.target.getRect().x;
-                rect.x = SkillshotWindow.target.getRect().x + impactXdist;
+                    impactXdist = rect.x + rect.width/2 - SkillshotWindow.target.getRect().x;
+                rect.x = SkillshotWindow.target.getRect().x + impactXdist - rect.width/2;
             }
         }
         if(!bindToTarget) {
@@ -49,43 +49,44 @@ class Arrow extends Button {
      * @return -> the points of the attempt
      */
     public int getPoints() {
-        if(impactXdist<=-2)
+        System.out.println(impactXdist);
+        if(impactXdist<=     240 - (float)19/20 * 240)
             return 1;
-        else if(impactXdist<=8)
+        else if(impactXdist<=240 - (float)18/20 * 240)
             return 2;
-        else if(impactXdist<=18)
+        else if(impactXdist<=240 - (float)17/20 * 240)
             return 3;
-        else if(impactXdist<=28)
+        else if(impactXdist<=240 - (float)16/20 * 240)
             return 4;
-        else if(impactXdist<=38)
+        else if(impactXdist<=240 - (float)15/20 * 240)
             return 5;
-        else if(impactXdist<=48)
+        else if(impactXdist<=240 - (float)14/20 * 240)
             return 6;
-        else if(impactXdist<=58)
+        else if(impactXdist<=240 - (float)13/20 * 240)
             return 7;
-        else if(impactXdist<=68)
+        else if(impactXdist<=240 - (float)12/20 * 240)
             return 8;
-        else if(impactXdist<=78)
+        else if(impactXdist<=240 - (float)11/20 * 240)
             return 9;
-        else if(impactXdist<=98)
+        else if(impactXdist<=240 - (float)9/20 * 240)
             return 10;
-        else if(impactXdist<=112)
+        else if(impactXdist<=240 - (float)8/20 * 240)
             return 9;
-        else if(impactXdist<=122)
+        else if(impactXdist<=240 - (float)7/20 * 240)
             return 8;
-        else if(impactXdist<=132)
+        else if(impactXdist<=240 - (float)6/20 * 240)
             return 7;
-        else if(impactXdist<=142)
+        else if(impactXdist<=240 - (float)5/20 * 240)
             return 6;
-        else if(impactXdist<=152)
+        else if(impactXdist<=240 - (float)4/20 * 240)
             return 5;
-        else if(impactXdist<=162)
+        else if(impactXdist<=240 - (float)3/20 * 240)
             return 4;
-        else if(impactXdist<=172)
+        else if(impactXdist<=240 - (float)2/20 * 240)
             return 3;
-        else if(impactXdist<=182)
+        else if(impactXdist<=240 - (float)1/20 * 240)
             return 2;
-        else if(impactXdist<=192)
+        else if(impactXdist<=240 - (float)0/20 * 240)
             return 1;
         return 0;
     }

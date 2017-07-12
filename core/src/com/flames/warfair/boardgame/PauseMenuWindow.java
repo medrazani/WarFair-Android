@@ -31,13 +31,13 @@ public class PauseMenuWindow extends Window {
         yZero = cam.position.y - HEIGHT/2;
         this.wm = wm;
 
-        resumeBtn = new Button("Resume", new Rectangle(xZero + WIDTH/2 - 120, yZero + HEIGHT - 175, 240, 70));
-        saveGameBtn = new Button("Save Game", new Rectangle(resumeBtn.getRect().x, resumeBtn.getRect().y - 100, 240, 70));
-        helpBtn = new Button("Help", new Rectangle(resumeBtn.getRect().x, saveGameBtn.getRect().y - 100, 240, 70));
-        exitBtn = new Button("Exit", new Rectangle(resumeBtn.getRect().x, yZero + 25, 240, 70));
+        resumeBtn = new Button("resume", new Rectangle(xZero + WIDTH/2 - 120, yZero + HEIGHT - 175, 240, 70));
+        saveGameBtn = new Button("save game", new Rectangle(resumeBtn.getRect().x, resumeBtn.getRect().y - 100, 240, 70));
+        helpBtn = new Button("help", new Rectangle(resumeBtn.getRect().x, saveGameBtn.getRect().y - 100, 240, 70));
+        exitBtn = new Button("exit", new Rectangle(resumeBtn.getRect().x, yZero + 25, 240, 70));
 
         addString("GAME PAUSED", 2);
-        StartMenuWindow.soundBtn.setRect(new Rectangle(xZero+WIDTH - 70, yZero + 10, 60, 60));
+        StartMenuWindow.soundBtn.setRect(new Rectangle(xZero+WIDTH - 95, yZero + 15, 80, 80));
     }
 
     @Override
@@ -100,10 +100,10 @@ public class PauseMenuWindow extends Window {
                 if (saveGameWindow.getOverwriteSaveMsg().getButtonPressed() == 1) {
                     saveGameWindow.getOverwriteSaveMsg().setButtonPressed(3); //so that it enters only once
                     if (saveGameWindow.serializeSave()) {
-                        wm.setPopUp2(new PopUpMessage(2, 1, "GAME SAVED", "Game has been saved under the name " + saveGameWindow.getNameField().getText(), wm));
+                        wm.setPopUp2(new PopUpMessage(2, 1, "GAME SAVED", "game has been saved under the name " + saveGameWindow.getNameField().getText(), wm));
                         saveGameWindow.setSaved(true);
                     } else {
-                        wm.setPopUp2(new PopUpMessage(2, 1, "GAME NOT SAVED", "There was an error while saving the game :(", wm));
+                        wm.setPopUp2(new PopUpMessage(2, 1, "GAME NOT SAVED", "there was an error while saving the game :(", wm));
                     }
                 }
             }
@@ -133,7 +133,7 @@ public class PauseMenuWindow extends Window {
                     wm.setPopUp2(saveGameWindow);
                 }
                 else {
-                    wm.setPopUp2(new PopUpMessage(2, 1, "Warning", "Game can't be saved while a player is moving.", wm));
+                    wm.setPopUp2(new PopUpMessage(2, 1, "warning", "game can't be saved while a player is moving.", wm));
                 }
             }
             else if(clickCoords.overlaps(helpBtn.getRect())) {
@@ -144,7 +144,7 @@ public class PauseMenuWindow extends Window {
             else if(clickCoords.overlaps(exitBtn.getRect())) {
                 MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
                 if(saveGameWindow==null || !saveGameWindow.isSaved()) {
-                    exitPopUp = new PopUpMessage(2, 2, "Warning", "Are you sure you want to exit? Unsaved progress will be lost.", wm);
+                    exitPopUp = new PopUpMessage(2, 2, "warning", "are you sure you want to exit? unsaved progress will be lost.", wm);
                     wm.setPopUp2(exitPopUp);
                 }
                 else {

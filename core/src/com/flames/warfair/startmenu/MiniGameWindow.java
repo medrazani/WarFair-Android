@@ -23,20 +23,20 @@ class MiniGameWindow extends com.flames.warfair.Window {
         this.wm = wm;
         this.numOfPlayers = numOfPlayers;
 
-        background = new Texture("images/startMenuBackground.png");
-        lastManStandingBtn = new Button("LastManStanding", new Rectangle(MyGdxGame.WIDTH / 2 - BTNWIDTH - 90, MyGdxGame.HEIGHT - 280, BTNWIDTH + 60, 90));
-        skillshotBtn = new Button("Skillshot", new Rectangle(lastManStandingBtn.getRect().x + lastManStandingBtn.getRect().width + 40, lastManStandingBtn.getRect().y, BTNWIDTH + 60, 90));
+        background = new Texture("images/newGameBackground.png");
+        lastManStandingBtn = new Button("LastManStanding", new Rectangle(MyGdxGame.WIDTH / 2 - BTNWIDTH - 90, MyGdxGame.HEIGHT - 200, BTNWIDTH + 60, 90));
+        skillshotBtn = new Button("skillshot", new Rectangle(lastManStandingBtn.getRect().x + lastManStandingBtn.getRect().width + 40, lastManStandingBtn.getRect().y, BTNWIDTH + 60, 90));
         if (numOfPlayers == 2) {
             pingVpongBtn = new Button("pingVpong", new Rectangle(lastManStandingBtn.getRect().x, lastManStandingBtn.getRect().y - 120, BTNWIDTH + 60, 90));
-            pigeonRevengeBtn = new Button("PigeonRevenge", new Rectangle(skillshotBtn.getRect().x, lastManStandingBtn.getRect().y - 120, BTNWIDTH + 60, 90));
-            pray2WinBtn = new Button("Pray2Win", new Rectangle(MyGdxGame.WIDTH/2 - (BTNWIDTH+60)/2, lastManStandingBtn.getRect().y - 240, BTNWIDTH + 60, 90));
-            pingVpongBtn.setShapeColor(Color.GREEN);
-            pigeonRevengeBtn.setShapeColor(Color.GREEN);
-            pray2WinBtn.setShapeColor(Color.GREEN);
+            pigeonRevengeBtn = new Button("pigeonRevenge", new Rectangle(skillshotBtn.getRect().x, lastManStandingBtn.getRect().y - 120, BTNWIDTH + 60, 90));
+            pray2WinBtn = new Button("pray2win", new Rectangle(MyGdxGame.WIDTH/2 - (BTNWIDTH+60)/2, lastManStandingBtn.getRect().y - 240, BTNWIDTH + 60, 90));
+            pingVpongBtn.setShapeColor(Color.RED);
+            pigeonRevengeBtn.setShapeColor(Color.RED);
+            pray2WinBtn.setShapeColor(Color.RED);
         }
-        lastManStandingBtn.setShapeColor(Color.GREEN);
-        skillshotBtn.setShapeColor(Color.GREEN);
-        backBtn = new Button("Back", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH/2, 40, BTNWIDTH, BTNHEIGHT));
+        lastManStandingBtn.setShapeColor(Color.RED);
+        skillshotBtn.setShapeColor(Color.RED);
+        backBtn = new Button("back", new Rectangle(MyGdxGame.WIDTH/2 - BTNWIDTH/2, 40, BTNWIDTH, BTNHEIGHT));
     }
 
     @Override
@@ -91,14 +91,16 @@ class MiniGameWindow extends com.flames.warfair.Window {
         sr.end();
 
         sb.begin();
-        MyGdxGame.smallFont.setColor(Color.WHITE);
+        MyGdxGame.smallFont.setColor(Color.GREEN);
         if (numOfPlayers == 2) {
             pingVpongBtn.drawFont(sb);
             pigeonRevengeBtn.drawFont(sb);
             pray2WinBtn.drawFont(sb);
         }
+        MyGdxGame.smallFont.setColor(Color.BLUE);
         lastManStandingBtn.drawFont(sb);
         skillshotBtn.drawFont(sb);
+        MyGdxGame.smallFont.setColor(Color.WHITE);
         backBtn.drawFont(sb);
         sb.end();
     }

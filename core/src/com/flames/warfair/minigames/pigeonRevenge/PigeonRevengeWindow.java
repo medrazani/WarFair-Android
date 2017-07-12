@@ -1,5 +1,6 @@
 package com.flames.warfair.minigames.pigeonRevenge;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -72,13 +73,14 @@ public class PigeonRevengeWindow extends Window {
             player.setScore(player.getScore() - 150);
     }
 
+
     @Override
     public void update(float dt) {
         if(forfeitPopUpMsg!=null) {
             if(forfeitPopUpMsg.getButtonPressed()==1) {
                 if(challengerID!=-1) {
                     StartMenuWindow.startMenuSound.play();
-                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has forfeited a match of Pigeon Revenge against "+BoardGameWindow.players.get(opponentID-1).getName()+".");
+                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has forfeited a match of Pigeon Revenge against "+BoardGameWindow.players.get(opponentID-1).getName());
                     BoardGameWindow.setNextPlayersTurn();
                 }
                 wm.pop();
@@ -89,6 +91,7 @@ public class PigeonRevengeWindow extends Window {
         }
         else {
             if (seconds > 0) {
+                stopMovementWhenLateTouch();
                 if(movePlayer == -1) {
                     player.setRight(false);
                     player.setLeft(true);
@@ -127,11 +130,11 @@ public class PigeonRevengeWindow extends Window {
             } else {
                 if (winPopUpMsg == null) {
                     if(challengerID!=-1) {
-                        winPopUpMsg = new PopUpMessage(1, 1, "Game Over", BoardGameWindow.players.get(challengerID-1).getName() + "'s score is " + player.getScore() + "!", wm);
+                        winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID-1).getName() + "'s score is " + player.getScore() + "!", wm);
                         wm.setPopUp(winPopUpMsg);
                     }
                     else {
-                        winPopUpMsg = new PopUpMessage(1, 1, "Game Over", "Player1's score is " + player.getScore() + "!", wm);
+                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player1's score is " + player.getScore() + "!", wm);
                         wm.setPopUp(winPopUpMsg);
                     }
                 } else {
@@ -184,7 +187,7 @@ public class PigeonRevengeWindow extends Window {
         sb.begin();
         MyGdxGame.smallFont.setColor(player.getColor());
         MyGdxGame.smallFont.draw(sb, "POINTS: " + player.getScore(), 17, 277);
-        MyGdxGame.bigFont.draw(sb, seconds + "", 30, MyGdxGame.HEIGHT - 30);
+        MyGdxGame.bigFont.draw(sb, seconds + "", 10, MyGdxGame.HEIGHT - 30);
         sb.draw(player.getPlayerIcon(), 40, 300, 40 ,40);
         sb.draw(getOpponentTexture(), 100, MyGdxGame.HEIGHT - 72, 40, 40);
         sb.end();
@@ -193,6 +196,7 @@ public class PigeonRevengeWindow extends Window {
     @Override
     public void dispose() {
         Loader.getVictoryS().stop();
+        Loader.getBackgroundS().stop();
         MyGdxGame.smallFont.setColor(Color.WHITE);
         Loader.disposePigeonRevenge();
         sr.dispose();
@@ -267,7 +271,7 @@ public class PigeonRevengeWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if(challengerID!=-1) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "Do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
                 wm.setPopUp(forfeitPopUpMsg);
             }
             else {
@@ -277,6 +281,16 @@ public class PigeonRevengeWindow extends Window {
             }
         }
         return false;
+    }
+
+    /**
+     * Stops the player movement if the user touches the screen but doesn't drag.
+     */
+    private void stopMovementWhenLateTouch() {
+        if(Gdx.input.isTouched()) {
+            if(player.getLineRect().overlaps(clickCoords))
+                movePlayer = 0;
+        }
     }
 
     /**
@@ -293,4 +307,19 @@ public class PigeonRevengeWindow extends Window {
         else
             return Loader.getPlayer4T();
     }
+
+    @Override
+    public void pause()
+    {
+        Loader.getBackgroundS().setLooping(false);
+        Loader.getBackgroundS().pause();
+    }
+
+    @Override
+    public void resume()
+    {
+        Loader.getBackgroundS().setLooping(true);
+        Loader.getBackgroundS().play();
+    }
+
 }

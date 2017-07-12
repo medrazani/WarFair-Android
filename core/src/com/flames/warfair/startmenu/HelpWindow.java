@@ -23,10 +23,11 @@ public class HelpWindow extends com.flames.warfair.Window {
         this.calledFromBoardGame = calledFromBoardGame;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
+        HEIGHT = 1616;
 
         background = new Texture("images/help.png");
         //cam.position.y = +MyGdxGame.HEIGHT/2;
-        cam.position.y = 930;
+        cam.position.y = HEIGHT - cam.viewportHeight/2;
     }
 
     /**
@@ -48,7 +49,7 @@ public class HelpWindow extends com.flames.warfair.Window {
         sr.setProjectionMatrix(sb.getProjectionMatrix());
 
         sb.begin();
-        sb.draw(background, 0, 0, MyGdxGame.WIDTH, 1240);
+        sb.draw(background, 0, 0, MyGdxGame.WIDTH, HEIGHT);
         sb.end();
     }
 
@@ -80,25 +81,15 @@ public class HelpWindow extends com.flames.warfair.Window {
         return false;
     }
 
-    //TODO scroll for android
     /**
      * Called when the user scrolls.
      */
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        System.out.println(touchDownY - screenY);
         if(touchDownY!=0) {
-            if (cam.position.y - (touchDownY - screenY) > 300)
+            if (cam.position.y - (touchDownY - screenY) > cam.viewportHeight/2 && cam.position.y - (touchDownY - screenY) < HEIGHT - cam.viewportHeight/2) {
                 cam.position.y -= (touchDownY - screenY);
-            else {
-                cam.position.y = 300;
-                touchDownY = 0;
-            }
-            if (cam.position.y - (touchDownY - screenY) < 930)
-                cam.position.y -= (touchDownY - screenY);
-            else {
-                cam.position.y = 930;
-                touchDownY = 0;
+                touchDownY = screenY;
             }
         }
         return false;

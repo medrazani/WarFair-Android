@@ -18,10 +18,10 @@ class BankWindow extends Window {
     private Player player;
     private float xZero;
     private float yZero;
-    private int depositValue;
-    private Button withdrawBtn, depositBtn, exitBtn, leftBtn, rightBtn;
-    private boolean transactionMade;
+    private Button withdrawBtn, depositBtn, exitBtn;
+    static boolean transactionMade;
     private PopUpMessage exitPopUp;
+    private BankDepositWindow bankDepositWindow;
 
     BankWindow(Player player, WindowManager wm) {
         this.WIDTH = 800;
@@ -30,24 +30,18 @@ class BankWindow extends Window {
         yZero = cam.position.y - HEIGHT / 2;
         this.wm = wm;
         this.player = player;
-        depositValue = 0;
         transactionMade = false;
 
-        addString(player.getName(),2);
-        addString("Current deposit: "+ player.getPointsInBank(),2);
-        addString("Deposit amount: ",2);
-        addString(depositValue+"",2);
-        addString("(10% interest per round)",2);
+        addString(player.getName() + " bank",2);
+        addString("current points in bank: "+ player.getPointsInBank(),2);
+        addString("deposit points and receive",1);
+        addString("a 10% interest per round", 1);
 
-        withdrawBtn = new Button("Withdraw", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 230, 200,60));
-        depositBtn = new Button("Deposit", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 440, 200,60));
-        leftBtn = new Button("<", new Rectangle(xZero + WIDTH/2 + 140, yZero + HEIGHT - 320, 50,50));
-        rightBtn = new Button(">", new Rectangle(xZero + WIDTH - 60 - 5, yZero + HEIGHT - 320, 50,50));
-        exitBtn = new Button("Exit", new Rectangle(xZero + WIDTH - 180 - 20, yZero + 10, 180,60));
+        withdrawBtn = new Button("withdraw", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 260, 200,60));
+        depositBtn = new Button("deposit", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 480, 200,60));
+        exitBtn = new Button("x", new Rectangle(xZero + WIDTH - 60 - 15, yZero + HEIGHT - 60 - 15, 60,60));
         withdrawBtn.setHighlighted(true);
         depositBtn.setHighlighted(true);
-        leftBtn.setHighlighted(true);
-        rightBtn.setHighlighted(true);
         exitBtn.setHighlighted(true);
 //        withdrawBtn.setShapeColor(Color.RED);
 //        depositBtn.setShapeColor(Color.RED);
@@ -66,51 +60,51 @@ class BankWindow extends Window {
         sb.setProjectionMatrix(cam.combined);
         sr.setProjectionMatrix(sb.getProjectionMatrix());
 
-        sb.begin();
-        sb.draw(Loader.getBankBackgroundT(), xZero, yZero, WIDTH, HEIGHT);
-        sb.end();
-
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr.setColor(Color.BLACK);
-        withdrawBtn.drawHighlight(sr);
+        sr.rect(xZero, yZero, WIDTH, HEIGHT);
+        if(player.getPointsInBank()>0)
+            withdrawBtn.drawHighlight(sr);
         depositBtn.drawHighlight(sr);
-        leftBtn.drawHighlight(sr);
-        rightBtn.drawHighlight(sr);
         exitBtn.drawHighlight(sr);
         sr.end();
 
+        sb.begin();
+        sb.draw(Loader.getBankT(), xZero + 10, yZero + HEIGHT - 100 - 10, 100, 100);
+        sb.end();
+
         sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(player.getColor());
+        sr.rect(xZero, yZero, WIDTH, HEIGHT);
         sr.setColor(withdrawBtn.getShapeColor());
-        withdrawBtn.drawShape(sr);
+        if(player.getPointsInBank()>0)
+            withdrawBtn.drawShape(sr);
         sr.setColor(depositBtn.getShapeColor());
         depositBtn.drawShape(sr);
-        sr.setColor(leftBtn.getShapeColor());
-        leftBtn.drawShape(sr);
-        sr.setColor(rightBtn.getShapeColor());
-        rightBtn.drawShape(sr);
         sr.setColor(exitBtn.getShapeColor());
         exitBtn.drawShape(sr);
         sr.end();
 
         sb.begin();
         MyGdxGame.mediumFont.setColor(player.getColor());
-        MyGdxGame.mediumFont.draw(sb, strings.get(0), xZero + WIDTH/2 - glyphLayouts.get(0).width/2, yZero + HEIGHT - 25);
+        MyGdxGame.mediumFont.draw(sb, strings.get(0), xZero + WIDTH/2 - glyphLayouts.get(0).width/2, yZero + HEIGHT - 45);
         MyGdxGame.mediumFont.setColor(Color.CYAN);
-        MyGdxGame.mediumFont.draw(sb, strings.get(1), xZero + WIDTH/2 - glyphLayouts.get(1).width/2, yZero + HEIGHT - 120);
-        MyGdxGame.mediumFont.draw(sb, strings.get(2), xZero + WIDTH/2 - glyphLayouts.get(2).width/2 - 80, yZero + HEIGHT - 280);
-        MyGdxGame.mediumFont.draw(sb, strings.get(3), xZero + WIDTH/2 + 260 - glyphLayouts.get(3).width/2, yZero + HEIGHT - 280);
-        MyGdxGame.mediumFont.draw(sb, strings.get(4), xZero + WIDTH/2 - glyphLayouts.get(4).width/2, yZero + HEIGHT - 330);
+        MyGdxGame.smallFont.setColor(Color.CYAN);
+        MyGdxGame.mediumFont.draw(sb, strings.get(1), xZero + WIDTH/2 - glyphLayouts.get(1).width/2, yZero + HEIGHT - 150);
+        MyGdxGame.smallFont.draw(sb, strings.get(2), xZero + WIDTH/2 - glyphLayouts.get(2).width/2, yZero + HEIGHT - 320);
+        MyGdxGame.smallFont.draw(sb, strings.get(3), xZero + WIDTH/2 - glyphLayouts.get(3).width/2, yZero + HEIGHT - 370);
         MyGdxGame.smallFont.setColor(Color.WHITE);
-        withdrawBtn.drawFont(sb);
+        if(player.getPointsInBank()>0)
+            withdrawBtn.drawFont(sb);
         depositBtn.drawFont(sb);
-        leftBtn.drawFont(sb);
-        rightBtn.drawFont(sb);
         exitBtn.drawFont(sb);
         sb.end();
 
         if(exitPopUp!=null) {
-            if(exitPopUp.getButtonPressed()==1)
+            if(exitPopUp.getButtonPressed()==1) {
                 wm.popPopUp();
+                BoardGameWindow.setNextPlayersTurn();
+            }
         }
     }
 
@@ -127,12 +121,6 @@ class BankWindow extends Window {
 
         if(clickCoords.overlaps(withdrawBtn.getRect())) {
             withdrawBtn.setShapeColor(Color.FOREST);
-        }
-        else if(clickCoords.overlaps(leftBtn.getRect())) {
-            leftBtn.setShapeColor(Color.FOREST);
-        }
-        else if(clickCoords.overlaps(rightBtn.getRect())) {
-            rightBtn.setShapeColor(Color.FOREST);
         }
         else if(clickCoords.overlaps(depositBtn.getRect())) {
             depositBtn.setShapeColor(Color.FOREST);
@@ -156,36 +144,12 @@ class BankWindow extends Window {
                 player.alterPoints(player.getPointsInBank());
                 player.setPointsInBank(0);
                 transactionMade = true;
-                changeString(1, "Current deposit: "+ player.getPointsInBank(), 2);
-            }
-        }
-        else if(clickCoords.overlaps(leftBtn.getRect())) {
-            if(depositValue >= 100) {
-                MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
-                depositValue -= 100;
-                changeString(3, depositValue+"", 2);
-            }
-        }
-        else if(clickCoords.overlaps(rightBtn.getRect())) {
-            if(depositValue <= 900) {
-                if(player.getPoints() > depositValue + 100) {
-                    MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
-                    depositValue += 100;
-                    changeString(3, depositValue+"", 2);
-                }
+                changeString(1, "current points in bank: "+ player.getPointsInBank(), 2);
             }
         }
         else if(clickCoords.overlaps(depositBtn.getRect())) {
-            if(depositValue > 0) {
-                MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
-                transactionMade = true;
-                player.setPointsInBank(player.getPointsInBank() + depositValue);
-                changeString(1, "Current deposit: " + player.getPointsInBank(), 2);
-                BoardGameWindow.announcer.addAnnouncement(player.getName() + " has deposited " + depositValue + " points to his bank account!");
-                player.alterPoints(-depositValue);
-                depositValue = 0;
-                changeString(3, depositValue + "", 2);
-            }
+            bankDepositWindow = new BankDepositWindow(wm, player, strings);
+            wm.setPopUp2(bankDepositWindow);
         }
         else if(clickCoords.overlaps(exitBtn.getRect())) {
             MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
@@ -193,14 +157,14 @@ class BankWindow extends Window {
                 exitPopUp = new PopUpMessage(2, 2, "Warning", "Are you sure you don't want to make any transactions?", wm);
                 wm.setPopUp2(exitPopUp);
             }
-            else
+            else {
                 wm.popPopUp();
+                BoardGameWindow.setNextPlayersTurn();
+            }
         }
 
         withdrawBtn.setShapeColor(Color.RED);
         depositBtn.setShapeColor(Color.RED);
-        leftBtn.setShapeColor(Color.RED);
-        rightBtn.setShapeColor(Color.RED);
         exitBtn.setShapeColor(Color.RED);
         return false;
     }
