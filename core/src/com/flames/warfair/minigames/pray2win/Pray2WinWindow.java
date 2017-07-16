@@ -35,8 +35,8 @@ public class Pray2WinWindow extends Window {
 
         Loader.loadPray2Win();
         if (challengerPos == -1) {
-            player1 = new Player(challengerID, new Rectangle(MyGdxGame.WIDTH / 2 - 400, MyGdxGame.HEIGHT / 2 - 200, 300, 312));
-            player2 = new Player(opponentID, new Rectangle(MyGdxGame.WIDTH / 2 + 100, MyGdxGame.HEIGHT / 2 - 200, 300, 312));
+            player1 = new Player(challengerID, new Rectangle(MyGdxGame.WIDTH / 2 - 400, MyGdxGame.HEIGHT / 2 - 180, 300, 312));
+            player2 = new Player(opponentID, new Rectangle(MyGdxGame.WIDTH / 2 + 100, MyGdxGame.HEIGHT / 2 - 180, 300, 312));
             if (handicapPoints == 1)
                 player1.setPrays(1);
             else if (handicapPoints == 2)
@@ -51,8 +51,8 @@ public class Pray2WinWindow extends Window {
                 player2.setPrays(3);
 
         } else {
-            player1 = new Player(opponentID, new Rectangle(MyGdxGame.WIDTH / 2 - 400, MyGdxGame.HEIGHT / 2 - 200, 300, 312));
-            player2 = new Player(challengerID, new Rectangle(MyGdxGame.WIDTH / 2 + 100, MyGdxGame.HEIGHT / 2 - 200, 300, 312));
+            player1 = new Player(opponentID, new Rectangle(MyGdxGame.WIDTH / 2 - 400, MyGdxGame.HEIGHT / 2 - 180, 300, 312));
+            player2 = new Player(challengerID, new Rectangle(MyGdxGame.WIDTH / 2 + 100, MyGdxGame.HEIGHT / 2 - 180, 300, 312));
             if (handicapPoints == 1)
                 player2.setPrays(1);
             else if (handicapPoints == 2)
@@ -120,26 +120,26 @@ public class Pray2WinWindow extends Window {
                             player1.setTexture(Loader.getMonkWinT());
                             if (challengerID != -1) {
                                 if (challengerID == player1.getId()) {
-                                    winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
+                                    winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!",true, wm);
                                 } else {
-                                    winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(opponentID - 1).getName() + " wins!", wm);
+                                    winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(opponentID - 1).getName() + " wins!", true,wm);
                                     BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of Pray2Win from " + BoardGameWindow.players.get(opponentID - 1).getName());
                                 }
                             } else
-                                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player1 wins!", wm);
+                                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player1 wins!", true,wm);
                         } else if (player1.getPrays() < player2.getPrays()) {
                             player2.setTexture(Loader.getMonkWinT());
                             if (challengerID != -1) {
                                 if (challengerID == player2.getId()) {
-                                    winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
+                                    winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", true,wm);
                                 } else {
-                                    winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + opponentID + " wins!", wm);
+                                    winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + opponentID + " wins!", true,wm);
                                     BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of Pray2Win from " + BoardGameWindow.players.get(opponentID - 1).getName());
                                 }
                             } else
-                                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player2 wins!", wm);
+                                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player2 wins!", true,wm);
                         } else {
-                            winPopUpMsg = new PopUpMessage(1, 1, "game over", "it's a tie!", wm);
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", "it's a tie!", true,wm);
                             player1.setTexture(Loader.getMonkWinT());
                             player2.setTexture(Loader.getMonkWinT());
                             if (challengerID != -1)
@@ -199,9 +199,9 @@ public class Pray2WinWindow extends Window {
             }
         }
         MyGdxGame.bigFont.setColor(player1.getColor());
-        MyGdxGame.bigFont.draw(sb, player1.getPrays() + "", player1.getTapBar().getRect().x + 5, player1.getTapBar().getRect().y + player1.getTapBar().getRect().height + 60);
+        MyGdxGame.bigFont.draw(sb, player1.getPrays() + "", player1.getTapBar().getRect().x + 5, player1.getTapBar().getRect().y + player1.getTapBar().getRect().height + 105);
         MyGdxGame.bigFont.setColor(player2.getColor());
-        MyGdxGame.bigFont.draw(sb, player2.getPrays() + "", player2.getTapBar().getRect().x + 5, player2.getTapBar().getRect().y + player2.getTapBar().getRect().height + 60);
+        MyGdxGame.bigFont.draw(sb, player2.getPrays() + "", player2.getTapBar().getRect().x + 5, player2.getTapBar().getRect().y + player2.getTapBar().getRect().height + 105);
         sb.draw(player1.getPlayerIcon(), player1.getTapBar().getRect().x, player1.getTapBar().getRect().y - 50, 40, 40);
         sb.draw(player2.getPlayerIcon(), player2.getTapBar().getRect().x, player2.getTapBar().getRect().y - 50, 40, 40);
         sb.end();
@@ -237,7 +237,7 @@ public class Pray2WinWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if (challengerID != -1) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", false, wm);
                 wm.setPopUp(forfeitPopUpMsg);
             } else {
                 StartMenuWindow.startMenuSound.play();

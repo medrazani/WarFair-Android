@@ -74,7 +74,7 @@ public class LastManStandingWindow extends Window {
     public void update(float dt) {
         if (forfeitPopUpMsg != null) {
             if (forfeitPopUpMsg.getButtonPressed() == 1) {
-                BoardGameWindow.announcer.addAnnouncement("A match of Last Man Standing has been forfeited");
+                BoardGameWindow.announcer.addAnnouncement("A match of LastManStanding has been forfeited");
                 if (!miniGameMode) {
                     StartMenuWindow.startMenuSound.play();
                     BoardGameWindow.setNextPlayersTurn();
@@ -94,9 +94,9 @@ public class LastManStandingWindow extends Window {
                             Loader.getBackgroundS().stop();
                             Loader.getVictoryS().play(MyGdxGame.soundVolume);
                             if (miniGameMode)
-                                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + player.getID() + " wins!", wm);
+                                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + player.getID() + " wins!", true, wm);
                             else
-                                winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(player.getID() - 1).getName() + " wins!", wm);
+                                winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(player.getID() - 1).getName() + " wins!", true, wm);
                             wm.setPopUp(winPopUpMsg);
                             break;
                         }
@@ -107,7 +107,7 @@ public class LastManStandingWindow extends Window {
                             for (Player player : players) {
                                 if (player.getRank() == 1) {
                                     BoardGameWindow.players.get(player.getID() - 1).alterPoints(200);
-                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(player.getID() - 1).getName() + " has won 200 points on a match of Last Man Standing!");
+                                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(player.getID() - 1).getName() + " has won 200 points on a match of LastManStanding!");
                                     break;
                                 }
                             }
@@ -217,7 +217,7 @@ public class LastManStandingWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if (!miniGameMode) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?",false, wm);
                 wm.setPopUp(forfeitPopUpMsg);
             } else {
                 StartMenuWindow.startMenuSound.play();

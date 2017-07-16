@@ -49,7 +49,6 @@ class Arrow extends Button {
      * @return -> the points of the attempt
      */
     public int getPoints() {
-        System.out.println(impactXdist);
         if(impactXdist<=     240 - (float)19/20 * 240)
             return 1;
         else if(impactXdist<=240 - (float)18/20 * 240)

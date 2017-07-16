@@ -35,7 +35,7 @@ class BankWindow extends Window {
         addString(player.getName() + " bank",2);
         addString("current points in bank: "+ player.getPointsInBank(),2);
         addString("deposit points and receive",1);
-        addString("a 10% interest per round", 1);
+        addString("a 5% interest per round", 1);
 
         withdrawBtn = new Button("withdraw", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 260, 200,60));
         depositBtn = new Button("deposit", new Rectangle(xZero + WIDTH/2 - 80, yZero + HEIGHT - 480, 200,60));
@@ -154,7 +154,7 @@ class BankWindow extends Window {
         else if(clickCoords.overlaps(exitBtn.getRect())) {
             MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
             if(!transactionMade) {
-                exitPopUp = new PopUpMessage(2, 2, "Warning", "Are you sure you don't want to make any transactions?", wm);
+                exitPopUp = new PopUpMessage(2, 2, "warning", "are you sure you don't want to make any transactions?",false, wm);
                 wm.setPopUp2(exitPopUp);
             }
             else {

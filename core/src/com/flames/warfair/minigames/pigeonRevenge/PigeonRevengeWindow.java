@@ -56,7 +56,7 @@ public class PigeonRevengeWindow extends Window {
         pigeonPointer = 0;
         seconds = 40;
         timerMillis = TimeUtils.millis();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
             pigeons.add(new Pigeon(new Rectangle(-100, -100, 70, 70)));
 
         if(handicapPoints==1)
@@ -80,7 +80,7 @@ public class PigeonRevengeWindow extends Window {
             if(forfeitPopUpMsg.getButtonPressed()==1) {
                 if(challengerID!=-1) {
                     StartMenuWindow.startMenuSound.play();
-                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has forfeited a match of Pigeon Revenge against "+BoardGameWindow.players.get(opponentID-1).getName());
+                    BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has forfeited a match of PigeonRevenge against "+BoardGameWindow.players.get(opponentID-1).getName());
                     BoardGameWindow.setNextPlayersTurn();
                 }
                 wm.pop();
@@ -130,18 +130,18 @@ public class PigeonRevengeWindow extends Window {
             } else {
                 if (winPopUpMsg == null) {
                     if(challengerID!=-1) {
-                        winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID-1).getName() + "'s score is " + player.getScore() + "!", wm);
+                        winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID-1).getName() + "'s score is " + player.getScore() + "!", true, wm);
                         wm.setPopUp(winPopUpMsg);
                     }
                     else {
-                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player1's score is " + player.getScore() + "!", wm);
+                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player1's score is " + player.getScore() + "!", true, wm);
                         wm.setPopUp(winPopUpMsg);
                     }
                 } else {
                     if (winPopUpMsg.getButtonPressed() != 0) {
                         if(challengerID!=-1) {
                             StartMenuWindow.startMenuSound.play();
-                            BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " scored " + player.getScore() + " points against " + BoardGameWindow.players.get(opponentID-1).getName() + " on a match of Pigeon Revenge!");
+                            BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has scored " + player.getScore() + " points against " + BoardGameWindow.players.get(opponentID-1).getName() + " on a match of PigeonRevenge!");
                             BoardGameWindow.players.get(challengerID-1).alterPoints(player.getScore());
                             BoardGameWindow.setNextPlayersTurn();
                         }
@@ -217,7 +217,7 @@ public class PigeonRevengeWindow extends Window {
                 pigeons.get(pigeonPointer).setY(MyGdxGame.HEIGHT);
                 pigeons.get(pigeonPointer).setDir(-1);
                 pigeonPointer++;
-                if (pigeonPointer == 10)
+                if (pigeonPointer == 20)
                     pigeonPointer = 0;
             }
             else if(clickCoords.overlaps(touchRectCh)) {
@@ -271,7 +271,7 @@ public class PigeonRevengeWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if(challengerID!=-1) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?",false, wm);
                 wm.setPopUp(forfeitPopUpMsg);
             }
             else {

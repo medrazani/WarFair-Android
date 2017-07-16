@@ -27,10 +27,10 @@ class JokerWindow extends Window {
         this.wm = wm;
 
         pingVpongBtn = new Button("pingVpong", new Rectangle(xZero + WIDTH / 2 - 190, yZero + HEIGHT - 155, 380, 60));
-        pigeonRevengeBtn = new Button("pigeonRevenge", new Rectangle(pingVpongBtn.getRect().x, pingVpongBtn.getRect().y - 80, 380, 60));
-        pray2WinBtn = new Button("pray2win", new Rectangle(pingVpongBtn.getRect().x, pigeonRevengeBtn.getRect().y - 80, 380, 60));
+        pigeonRevengeBtn = new Button("PigeonRevenge", new Rectangle(pingVpongBtn.getRect().x, pingVpongBtn.getRect().y - 80, 380, 60));
+        pray2WinBtn = new Button("Pray2Win", new Rectangle(pingVpongBtn.getRect().x, pigeonRevengeBtn.getRect().y - 80, 380, 60));
         lastManStandingBtn = new Button("LastManStanding", new Rectangle(pingVpongBtn.getRect().x, pray2WinBtn.getRect().y - 80, 380, 60));
-        skillshotBtn = new Button("skillshot", new Rectangle(pingVpongBtn.getRect().x, lastManStandingBtn.getRect().y - 80, 380, 60));
+        skillshotBtn = new Button("Skillshot", new Rectangle(pingVpongBtn.getRect().x, lastManStandingBtn.getRect().y - 80, 380, 60));
 
         addString("choose a mini-game!", 2);
     }

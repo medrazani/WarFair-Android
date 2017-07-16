@@ -210,16 +210,16 @@ class RenamePlayerWindow extends Window {
         if(!nameExists()) {
             if(!nameField.getText().equals("")) {
                 if(inputStringGlyphLayout.width <= nameBtn.getRect().width - 5) {
-                    confirmConfirmationMsg = new PopUpMessage(2, 2, "warning", "are you sure? you can only set a player's name once in a game!", wm);
+                    confirmConfirmationMsg = new PopUpMessage(2, 2, "warning", "are you sure? you can only set a player's name once in a game!",false, wm);
                     wm.setPopUp2(confirmConfirmationMsg);
                 }
                 else
-                    wm.setPopUp2(new PopUpMessage(2, 1, "warning", "name is too big!", wm));
+                    wm.setPopUp2(new PopUpMessage(2, 1, "warning", "name is too big!",false, wm));
             }
             else
-                wm.setPopUp2(new PopUpMessage(2, 1, "warning", "please enter a name!", wm));
+                wm.setPopUp2(new PopUpMessage(2, 1, "warning", "please enter a name!",false, wm));
         }
         else
-            wm.setPopUp2(new PopUpMessage(2, 1, "warning", "name already exists!", wm));
+            wm.setPopUp2(new PopUpMessage(2, 1, "warning", "name already exists!",false, wm));
     }
 }

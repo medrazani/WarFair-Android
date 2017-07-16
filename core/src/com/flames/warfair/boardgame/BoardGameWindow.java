@@ -24,6 +24,7 @@ import java.util.Random;
  */
 public class BoardGameWindow extends Window {
 
+    public static String matchName;
     public static Announcer announcer;
     public static ArrayList<Player> players;
     static int playerTurn;
@@ -52,6 +53,7 @@ public class BoardGameWindow extends Window {
 
     public BoardGameWindow(ArrayList<Player> loadedPlayers, int numOfPlayers, int goalPoints, WindowManager wm) {
         this.wm = wm;
+        matchName = "";
         BoardGameWindow.numOfPlayers = numOfPlayers;
         nextRank = numOfPlayers;
         this.goalPoints = goalPoints;
@@ -110,7 +112,7 @@ public class BoardGameWindow extends Window {
     private void gameOverFunc(int ptr) {
         if (gameOverPopUp == null) {
             Loader.getVictoryS().play(MyGdxGame.soundVolume);
-            gameOverPopUp = new PopUpMessage(1, 1, "GAME OVER", "the winner is " + players.get(ptr).getName() + "!!!", wm);
+            gameOverPopUp = new PopUpMessage(1, 1, "GAME OVER", "the winner is " + players.get(ptr).getName() + "!!!", true, wm);
             announcer.addAnnouncement("GAME OVER! the winner is " + players.get(ptr).getName() + "!!!");
             wm.setPopUp(gameOverPopUp);
         } else {
@@ -133,16 +135,16 @@ public class BoardGameWindow extends Window {
             if (Block.dicerPopUpMsg.getButtonPressed() == 1) {
                 Block.dicerPopUpMsg = null;
                 if (Math.abs(random.nextInt() % 2) == 0) {
-                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " is feeling lucky and has won 300 points on the Dicer!");
+                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " was feeling lucky and has won 300 points on the Dicer!");
                     players.get(BoardGameWindow.playerTurn).alterPoints(300);
                 } else {
-                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " run out of luck and lost 300 points on the Dicer");
+                    announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " has run out of luck and lost 300 points on the Dicer");
                     players.get(BoardGameWindow.playerTurn).alterPoints(-300);
                 }
                 setNextPlayersTurn();
             } else if (Block.dicerPopUpMsg.getButtonPressed() == 2) {
                 Block.dicerPopUpMsg = null;
-                announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " chickens out of the Dicer");
+                announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " has chickened out of the Dicer!");
                 setNextPlayersTurn();
             }
         }
@@ -179,7 +181,7 @@ public class BoardGameWindow extends Window {
                         if (players.get(min2Ptr).getPoints() >= players.get(playerTurn).getPoints() + 700) {
                             if (players.get(playerTurn).getOnThaPit() <= 0) {
                                 players.get(playerTurn).alterPoints(150);
-                                announcer.addAnnouncement(players.get(playerTurn).getName() + " receives an allowance of 150 points for being weak!");
+                                announcer.addAnnouncement(players.get(playerTurn).getName() + " has received an allowance of 150 points for being weak!");
                             }
                         }
                     }
@@ -190,7 +192,7 @@ public class BoardGameWindow extends Window {
                 min2Ptr = 0;
                 rollGlyphLayout.setText(MyGdxGame.smallFont, BoardGameWindow.players.get((BoardGameWindow.playerTurn)).getName() + " roll");
                 if(players.get(BoardGameWindow.playerTurn).getPointsInBank() != 0) {
-                    players.get(BoardGameWindow.playerTurn).setPointsInBank((int) (players.get(BoardGameWindow.playerTurn).getPointsInBank() * 1.1f));
+                    players.get(BoardGameWindow.playerTurn).setPointsInBank((int) (players.get(BoardGameWindow.playerTurn).getPointsInBank() * 1.05f));
                     announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " now has " + players.get(BoardGameWindow.playerTurn).getPointsInBank() + " points in his bank account");
                 }
                 switch (players.get(BoardGameWindow.playerTurn).getOnThaPit()) {

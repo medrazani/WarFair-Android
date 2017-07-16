@@ -41,10 +41,10 @@ class SaveGameWindow extends Window {
         xZero = MyGdxGame.WIDTH / 2 - WIDTH / 2;
         yZero = MyGdxGame.HEIGHT / 2 - HEIGHT / 2 + 160;
 
-        addString("Please give a name for the match:", 1);
+        addString("please give a name for the match:", 1);
 
-        confirmBtn = new Button("Confirm", new Rectangle(xZero + WIDTH / 2 - 170 - 20, yZero + 10, 170, 60));
-        backBtn = new Button("Back", new Rectangle(xZero + WIDTH / 2 + 20, yZero + 10, 170, 60));
+        confirmBtn = new Button("confirm", new Rectangle(xZero + WIDTH / 2 - 170 - 20, yZero + 10, 170, 60));
+        backBtn = new Button("back", new Rectangle(xZero + WIDTH / 2 + 20, yZero + 10, 170, 60));
         nameField = new Button("", new Rectangle(xZero + WIDTH / 2 - 125, yZero + 92, 250, 60));
         nameField.setHighlighted(true);
 
@@ -53,6 +53,10 @@ class SaveGameWindow extends Window {
         cursorX = 5;
         saved = false;
         Gdx.input.setOnscreenKeyboardVisible(true);
+
+        inputGlyphLayout.setText(MyGdxGame.smallFont, BoardGameWindow.matchName);
+        cursorX += inputGlyphLayout.width;
+        nameField.setText(BoardGameWindow.matchName);
     }
 
     @Override
@@ -174,6 +178,7 @@ class SaveGameWindow extends Window {
      */
     private boolean saveExists() {
         File f = new File("saves/" + nameField.getText() + ".ser");
+        System.out.println();
         return(f.exists() && !f.isDirectory());
     }
 
@@ -225,15 +230,16 @@ class SaveGameWindow extends Window {
         if (!saveExists()) {
             if (serializeSave()) {
                 wm.popPopUp2();
-                wm.setPopUp2(new PopUpMessage(2, 1, "GAME SAVED", "Game has been saved under the name " + nameField.getText(), wm));
+                wm.setPopUp2(new PopUpMessage(2, 1, "GAME SAVED", "game has been saved under the name " + nameField.getText(),false, wm));
+                BoardGameWindow.matchName = nameField.getText();
                 saved = true;
             } else {
                 wm.popPopUp2();
-                wm.setPopUp2(new PopUpMessage(2, 1, "GAME NOT SAVED", "There was an error while saving the game :(", wm));
+                wm.setPopUp2(new PopUpMessage(2, 1, "GAME NOT SAVED", "there was an error while saving the game :(",false, wm));
             }
         } else {
             wm.popPopUp2();
-            overwriteSaveMsg = new PopUpMessage(2, 2, "SAVE NAME ALREADY EXISTS", "Would you like to overwrite the save?", wm);
+            overwriteSaveMsg = new PopUpMessage(2, 2, "SAVE NAME ALREADY EXISTS", "would you like to overwrite the save?",false, wm);
             wm.setPopUp2(overwriteSaveMsg);
         }
     }

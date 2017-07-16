@@ -303,7 +303,7 @@ public class MiniGameInfoWindow extends Window {
                             wm.set(new SkillshotWindow(false, BoardGameWindow.players.size(), wm));
                     }
                 } else {
-                    wm.setPopUp(new PopUpMessage(1, 1, "Warning", "Please choose sides before starting the game", wm));
+                    wm.setPopUp(new PopUpMessage(1, 1, "Warning", "Please choose sides before starting the game",false, wm));
                 }
             }
             touchDownY=0;

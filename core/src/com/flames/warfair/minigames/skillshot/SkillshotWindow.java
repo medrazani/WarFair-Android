@@ -148,15 +148,24 @@ public class SkillshotWindow extends Window {
                 MyGdxGame.bigFont.draw(sb, startCounter + "", MyGdxGame.WIDTH / 2 - 30, MyGdxGame.HEIGHT - 100);
             }
         } else {
-            Loader.getBackgroundS().setLooping(false);
-            Loader.getBackgroundS().stop();
-            Loader.getVictoryS().play(MyGdxGame.soundVolume);
-            if (miniGameMode)
-                winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + winner + " wins!", wm);
-            else
-                winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(winner - 1).getName() + " wins!", wm);
-            winner = 0; //so that it enters only once
-            wm.setPopUp(winPopUpMsg);
+            if(target.getRect().x < 0) {
+                Loader.getBackgroundS().setLooping(false);
+                Loader.getBackgroundS().stop();
+                Loader.getVictoryS().play(MyGdxGame.soundVolume);
+                int maxPoints = 0;
+                for(Player player : players) {
+                    if(player.getScore() >= maxPoints) {
+                        winner = player.getID();
+                        maxPoints = player.getScore();
+                    }
+                }
+                if (miniGameMode)
+                    winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + winner + " wins!", true, wm);
+                else
+                    winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(winner - 1).getName() + " wins!", true, wm);
+                winner = 0; //so that it enters only once
+                wm.setPopUp(winPopUpMsg);
+            }
         }
         for (Player player : players) {
             MyGdxGame.bigFont.setColor(player.getColor());
@@ -198,7 +207,7 @@ public class SkillshotWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if (!miniGameMode) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?",false, wm);
                 wm.setPopUp(forfeitPopUpMsg);
             } else {
                 StartMenuWindow.startMenuSound.play();

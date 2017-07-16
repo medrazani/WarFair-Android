@@ -103,11 +103,6 @@ public class Player extends Button implements java.io.Serializable {
                     if (rect.y <= BoardGameWindow.blocks.get(0).getRect().y + initY)
                         move();
                 }
-                /*else { //last block
-                    rect.y -= 350 * dt;
-                    if (rect.y <= BoardGameWindow.blocks.get(nextBlock-1).getRect().y + initY)
-                        move(nextBlock-1);
-                }*/
             }
         }
         else { //on thaPit
@@ -122,10 +117,11 @@ public class Player extends Button implements java.io.Serializable {
         if(onThaPit==0) {
             if (Dice.roll >= 6) { //set him free
                 onThaPit = -1;
+                Loader.getVictoryS().play(MyGdxGame.soundVolume);
                 BoardGameWindow.announcer.addAnnouncement(name+" has managed to escape ThaPit and is free to go!");
             }
             else {
-                BoardGameWindow.announcer.addAnnouncement(name+" stays in ThaPit losing 200 points and the round..");
+                BoardGameWindow.announcer.addAnnouncement(name+" stays in ThaPit losing 200 points and the round");
                 alterPoints(-200);
                 onThaPit++;
             }
@@ -133,10 +129,11 @@ public class Player extends Button implements java.io.Serializable {
         else if(onThaPit==1) {
             if (Dice.roll >=4) { //set him free
                 onThaPit = -1;
+                Loader.getVictoryS().play(MyGdxGame.soundVolume);
                 BoardGameWindow.announcer.addAnnouncement(name+" has managed to escape ThaPit and is free to go!");
             }
             else {
-                BoardGameWindow.announcer.addAnnouncement(name+" stays in ThaPit losing 200 points and the round..");
+                BoardGameWindow.announcer.addAnnouncement(name+" stays in ThaPit losing 200 points and the round");
                 alterPoints(-200);
                 onThaPit++;
             }
@@ -144,10 +141,11 @@ public class Player extends Button implements java.io.Serializable {
         else if(onThaPit==2) {
             if (Dice.roll >= 2) { //set him free
                 onThaPit = -1;
+                Loader.getVictoryS().play(MyGdxGame.soundVolume);
                 BoardGameWindow.announcer.addAnnouncement(name+" has managed to escape ThaPit and is free to go!");
             }
             else {
-                BoardGameWindow.announcer.addAnnouncement(name+" stays in ThaPit losing 200 points and the round..");
+                BoardGameWindow.announcer.addAnnouncement(name+" stays in ThaPit losing 200 points and the round");
                 alterPoints(-200);
                 onThaPit++;
             }
@@ -155,6 +153,7 @@ public class Player extends Button implements java.io.Serializable {
         else {
             //set him free
             onThaPit = -1;
+            Loader.getVictoryS().play(MyGdxGame.soundVolume);
             BoardGameWindow.announcer.addAnnouncement(name+" has managed to escape ThaPit and is free to go!");
         }
         if(onThaPit!=-1) {
@@ -194,7 +193,7 @@ public class Player extends Button implements java.io.Serializable {
      * Award player for passing from the start block.
      */
     void passByStartBlock() {
-        BoardGameWindow.announcer.addAnnouncement(name+" has passed by the Start block receiving 300 points.");
+        BoardGameWindow.announcer.addAnnouncement(name+" has passed by the Start block receiving 300 points");
         alterPoints(300);
     }
 

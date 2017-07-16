@@ -109,7 +109,7 @@ class ChooseOpponentWindow extends Window {
                     y = - 200;
                 else {
                     i++;
-                    y = yZero + HEIGHT / 2 + 45 - (90 * (i));
+                    y = yZero + HEIGHT / 2 + 15 - (90 * (i));
                 }
                 playerBtns.add(new Button(BoardGameWindow.players.get(j).getName() + ", Points: " + BoardGameWindow.players.get(j).getPoints() + "  (" + handicapText + ")", new Rectangle(xZero + WIDTH / 2 - 460, y, 920, 60)));
             }
@@ -144,6 +144,7 @@ class ChooseOpponentWindow extends Window {
 
         //drawShapes
         sr.begin(ShapeRenderer.ShapeType.Line);
+        sr.setColor(Color.CYAN);
         sr.rect(xZero, yZero, WIDTH, HEIGHT);
         for (Button btn : playerBtns) {
             sr.setColor(btn.getShapeColor());
@@ -153,6 +154,8 @@ class ChooseOpponentWindow extends Window {
 
         //drawFonts
         sb.begin();
+        MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(challengerPtr).getColor());
+        MyGdxGame.smallFont.draw(sb, BoardGameWindow.players.get(challengerPtr).getName() + ", Points: " + BoardGameWindow.players.get(challengerPtr).getPoints(), xZero + WIDTH/2 + 20, yZero+HEIGHT-37);
         MyGdxGame.smallFont.setColor(Color.WHITE);
         for (Button btn : playerBtns)
             //MyGdxGame.smallFont.draw(sb, btn.getText(), btn.getRect().x + 38, btn.getRect().y + 22);

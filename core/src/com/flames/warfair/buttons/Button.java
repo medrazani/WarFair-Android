@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.flames.warfair.MyGdxGame;
 
@@ -67,8 +68,9 @@ public class Button implements java.io.Serializable{
      * @param sr -> ShapeRenderer, renders shapes
      */
     public void drawHighlight(ShapeRenderer sr) {
-        if(highlighted)
-            sr.rect(rect.x,rect.y,rect.width,rect.height);
+        if(highlighted) {
+            sr.rect(rect.x, rect.y, rect.width, rect.height);
+        }
     }
 
     /**

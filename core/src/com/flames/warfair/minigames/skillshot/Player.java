@@ -151,19 +151,15 @@ public class Player extends Button {
         this.touchRect = touchRect;
     }
 
-    public long getPointPlusTimer() {
+    long getPointPlusTimer() {
         return pointPlusTimer;
     }
 
-    public void setPointPlusTimer(long pointPlusTimer) {
+    void setPointPlusTimer(long pointPlusTimer) {
         this.pointPlusTimer = pointPlusTimer;
     }
 
-    public boolean isDoOnce() {
-        return doOnce;
-    }
-
-    public int getLastScore() {
+    int getLastScore() {
         return lastScore;
     }
 }

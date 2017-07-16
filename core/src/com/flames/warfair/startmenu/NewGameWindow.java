@@ -37,10 +37,10 @@ class NewGameWindow extends com.flames.warfair.Window {
 
         background = new Texture("images/newGameBackground.png");
         classicGameBtn = new Button("classic (board)", new Rectangle(MyGdxGame.WIDTH/2 - 64, MyGdxGame.HEIGHT - 150,360,70));
-        miniGameBtn = new Button("mini games", new Rectangle(classicGameBtn.getRect().x + classicGameBtn.getRect().width + 35, classicGameBtn.getRect().y,260,70));
-        p2Btn = new Button("2", new Rectangle(classicGameBtn.getRect().x, classicGameBtn.getRect().y - 100,100,70));
-        p3Btn = new Button("3", new Rectangle(p2Btn.getX() + p2Btn.getRect().width + 40, classicGameBtn.getRect().y - 100,100,70));
-        p4Btn = new Button("4", new Rectangle(p3Btn.getX() + p3Btn.getRect().width + 40, classicGameBtn.getRect().y - 100,100,70));
+        miniGameBtn = new Button("mini-games", new Rectangle(classicGameBtn.getRect().x + classicGameBtn.getRect().width + 35, classicGameBtn.getRect().y,260,70));
+        p2Btn = new Button("2", new Rectangle(classicGameBtn.getRect().x, classicGameBtn.getRect().y - 100,130,70));
+        p3Btn = new Button("3", new Rectangle(p2Btn.getX() + p2Btn.getRect().width + 40, classicGameBtn.getRect().y - 100,130,70));
+        p4Btn = new Button("4", new Rectangle(p3Btn.getX() + p3Btn.getRect().width + 40, classicGameBtn.getRect().y - 100,130,70));
         g1Btn = new Button("3000", new Rectangle(classicGameBtn.getRect().x, p2Btn.getRect().y - 100,130,70)); //change from update method
         g2Btn = new Button("7000", new Rectangle(g1Btn.getX() +  g1Btn.getRect().width + 40, g1Btn.getRect().y,130,70)); // -//-
         g3Btn = new Button("10000", new Rectangle(g2Btn.getX() + g2Btn.getRect().width + 40, g1Btn.getRect().y,130,70)); // -//-

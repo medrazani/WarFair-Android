@@ -11,13 +11,17 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.flames.warfair.startmenu.StartMenuWindow;
 
 //TODO:	μετα το game over save game, sto dice 'exit' (an to pathseis save prompt)
-//TODO:	escape thapit sound
-//TODO: load announcement lines bug
 //
-//TODO: choose opponent
-//TODO: tenses announcer
-//TODO:	revise board game
 //TODO: check sound on other devices. na to allaksw an einai etsi se ola as mhn kanei gia pc
+//TODO: sto android overwrite save de pianei
+
+//TODO:GRAPHICS
+//4 figoures
+//START MENU
+//ICON
+//Pray2Win: monk, background?
+//PigeonRevenge: pigeon, man, background?
+//Skillshot: bow?, arrow?, target?
 
 
 /**

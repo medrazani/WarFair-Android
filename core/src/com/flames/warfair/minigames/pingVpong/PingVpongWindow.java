@@ -135,25 +135,25 @@ public class PingVpongWindow extends Window {
                     Loader.getVictoryS().play(MyGdxGame.soundVolume);
                     if (challengerID != -1) {
                         if (challengerID == player2.getId()) {
-                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", true,wm);
                         } else {
-                            winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + opponentID + " wins!", wm);
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player" + opponentID + " wins!", true,wm);
                             BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of pingVpong from " + BoardGameWindow.players.get(opponentID - 1).getName());
                         }
                     } else {
-                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player2 wins!", wm);
+                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player2 wins!", true,wm);
                     }
                 } else if (player2.getHealth() == 0) {//player1 wins
                     Loader.getVictoryS().play(MyGdxGame.soundVolume);
                     if (challengerID != -1) {
                         if (challengerID == player1.getId()) {
-                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", wm);
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(challengerID - 1).getName() + " wins!", true,wm);
                         } else {
-                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(opponentID - 1).getName() + " wins!", wm);
+                            winPopUpMsg = new PopUpMessage(1, 1, "game over", BoardGameWindow.players.get(opponentID - 1).getName() + " wins!", true,wm);
                             BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has lost a match of pingVpong from " + BoardGameWindow.players.get(opponentID - 1).getName());
                         }
                     } else
-                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player1 wins!", wm);
+                        winPopUpMsg = new PopUpMessage(1, 1, "game over", "Player1 wins!", true, wm);
                 }
                 wm.setPopUp(winPopUpMsg);
             }
@@ -243,7 +243,7 @@ public class PingVpongWindow extends Window {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             if(challengerID!=-1) {
-                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?", wm);
+                forfeitPopUpMsg = new PopUpMessage(1, 2, "PAUSED", "do you want to forfeit?",false, wm);
                 wm.setPopUp(forfeitPopUpMsg);
             }
             else {

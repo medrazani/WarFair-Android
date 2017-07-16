@@ -100,10 +100,10 @@ public class PauseMenuWindow extends Window {
                 if (saveGameWindow.getOverwriteSaveMsg().getButtonPressed() == 1) {
                     saveGameWindow.getOverwriteSaveMsg().setButtonPressed(3); //so that it enters only once
                     if (saveGameWindow.serializeSave()) {
-                        wm.setPopUp2(new PopUpMessage(2, 1, "GAME SAVED", "game has been saved under the name " + saveGameWindow.getNameField().getText(), wm));
+                        wm.setPopUp2(new PopUpMessage(2, 1, "GAME SAVED", "game has been saved under the name " + saveGameWindow.getNameField().getText(),false, wm));
                         saveGameWindow.setSaved(true);
                     } else {
-                        wm.setPopUp2(new PopUpMessage(2, 1, "GAME NOT SAVED", "there was an error while saving the game :(", wm));
+                        wm.setPopUp2(new PopUpMessage(2, 1, "GAME NOT SAVED", "there was an error while saving the game :(",false, wm));
                     }
                 }
             }
@@ -133,7 +133,7 @@ public class PauseMenuWindow extends Window {
                     wm.setPopUp2(saveGameWindow);
                 }
                 else {
-                    wm.setPopUp2(new PopUpMessage(2, 1, "warning", "game can't be saved while a player is moving.", wm));
+                    wm.setPopUp2(new PopUpMessage(2, 1, "warning", "game can't be saved while a player is moving",false, wm));
                 }
             }
             else if(clickCoords.overlaps(helpBtn.getRect())) {
@@ -144,11 +144,11 @@ public class PauseMenuWindow extends Window {
             else if(clickCoords.overlaps(exitBtn.getRect())) {
                 MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
                 if(saveGameWindow==null || !saveGameWindow.isSaved()) {
-                    exitPopUp = new PopUpMessage(2, 2, "warning", "are you sure you want to exit? unsaved progress will be lost.", wm);
+                    exitPopUp = new PopUpMessage(2, 2, "warning", "are you sure you want to exit? unsaved progress will be lost",false, wm);
                     wm.setPopUp2(exitPopUp);
                 }
                 else {
-                    StartMenuWindow.soundBtn.setRect(new Rectangle(MyGdxGame.WIDTH - 70, 10, 60, 60));
+                    StartMenuWindow.soundBtn.setRect(new Rectangle(MyGdxGame.WIDTH - 95, 15, 80, 80));
                     StartMenuWindow.startMenuSound.stop();
                     StartMenuWindow.startMenuSound.play();
                     wm.popPopUp();

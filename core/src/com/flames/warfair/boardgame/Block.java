@@ -43,7 +43,7 @@ class Block extends Button {
                     if(player.getID()!=propertyOwnerID) {
                         player.alterPoints(-300);
                         BoardGameWindow.players.get(propertyOwnerID - 1).alterPoints(300);
-                        BoardGameWindow.announcer.addAnnouncement(player.getName() + " has landed on " + BoardGameWindow.players.get(propertyOwnerID - 1).getName() + "'s property and buys it for 300 points");
+                        BoardGameWindow.announcer.addAnnouncement(player.getName() + " has landed on " + BoardGameWindow.players.get(propertyOwnerID - 1).getName() + "'s property and bought it for 300 points");
                         propertyOwnerID = player.getID();
                     }
                 }
@@ -58,7 +58,7 @@ class Block extends Button {
                 break;
             case 4: //losePoints
                 player.alterPoints(-200);
-                BoardGameWindow.announcer.addAnnouncement(player.getName() + " has landed on a Lose Points block and loses 200 points");
+                BoardGameWindow.announcer.addAnnouncement(player.getName() + " has landed on a Lose Points block and lost 200 points");
                 BoardGameWindow.setNextPlayersTurn();
                 break;
             case 5: //skillshot
@@ -76,15 +76,15 @@ class Block extends Button {
                 wm.setPopUp(chooseOpponentWindow);
                 break;
             case 9: //dicer
-                dicerPopUpMsg = new PopUpMessage(1, 2, "DICER", "Do you feel lucky - punk?", wm);
+                dicerPopUpMsg = new PopUpMessage(1, 2, "DICER", "Do you feel lucky - punk?",false, wm);
                 wm.setPopUp(dicerPopUpMsg);
                 break;
             case 10: //drawCard
                 BoardGameWindow.card.startAnimation(player);
                 break;
             case 11: //thaPit
-                BoardGameWindow.announcer.addAnnouncement(player.getName() + " has landed on ThaPit and is stuck. Roll 6 to escape!");
-                wm.setPopUp(new PopUpMessage(1, 1, "ThaPit", "You are stuck. To get out you need to roll 6/4+/2+ on consecutive rounds. Roll now!", wm));
+                BoardGameWindow.announcer.addAnnouncement(player.getName() + " landed on ThaPit and is stuck. Roll 6 to escape!");
+                wm.setPopUp(new PopUpMessage(1, 1, "ThaPit", "You are stuck. To get out you need to roll 6/4+/2+ on consecutive rounds. Roll now!",false, wm));
                 player.startThaPit();
                 BoardGameWindow.setPlayerReroll();
                 break;

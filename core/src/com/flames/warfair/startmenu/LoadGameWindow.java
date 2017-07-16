@@ -12,6 +12,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.flames.warfair.MyGdxGame;
 import com.flames.warfair.PopUpMessage;
+import com.flames.warfair.Window;
+import com.flames.warfair.boardgame.BoardGameWindow;
 import com.flames.warfair.boardgame.Player;
 import com.flames.warfair.buttons.Button;
 
@@ -197,19 +199,22 @@ class LoadGameWindow extends com.flames.warfair.Window {
                 }
             } else {
                 if(!dragging) {
-                    if(clickCoords.getY() < MyGdxGame.HEIGHT-250 && clickCoords.getY() > exitBtn.getRect().y + exitBtn.getRect().getHeight() + 70) {
+                    if(clickCoords.getY() <= MyGdxGame.HEIGHT-250+70 && clickCoords.getY() >= exitBtn.getRect().y + exitBtn.getRect().getHeight() + 70) {
                         for (int i = 0; i < saveBtns.size(); i++) {
                             if (clickCoords.overlaps(saveBtns.get(i).getRect())) {
                                 if (serializeLoad(saveBtns.get(i).getText())) {
                                     StartMenuWindow.startMenuSound.stop();
                                     scratchS.play(MyGdxGame.soundVolume);
-                                    wm.set(new com.flames.warfair.boardgame.BoardGameWindow(loadedPlayers, loadedPlayers.size(), loadedPlayers.get(0).getGoalPoints(), wm));
-                                    wm.setPopUp(new PopUpMessage(1, 1, "GAME LOADED", "game " + saveBtns.get(i).getText() + " has been loaded!", wm));
+                                    Window window = new com.flames.warfair.boardgame.BoardGameWindow(loadedPlayers, loadedPlayers.size(), loadedPlayers.get(0).getGoalPoints(), wm);
+                                    BoardGameWindow.matchName = saveBtns.get(i).getText();
+                                    wm.set(window);
+
+                                    wm.setPopUp(new PopUpMessage(1, 1, "GAME LOADED", "game '" + saveBtns.get(i).getText() + "' has been loaded!", false, wm));
                                 } else {
-                                    wm.setPopUp(new PopUpMessage(1, 1, "GAME NOT LOADED", "game could not be loaded :(", wm));
+                                    wm.setPopUp(new PopUpMessage(1, 1, "GAME NOT LOADED", "game could not be loaded :(",false, wm));
                                 }
                             } else if (clickCoords.overlaps(deleteSaveBtns.get(i).getRect())) {
-                                deleteSaveMsg = new PopUpMessage(1, 2, "confirmation", "delete " + saveBtns.get(i).getText() + " save file?", wm);
+                                deleteSaveMsg = new PopUpMessage(1, 2, "confirmation", "delete '" + saveBtns.get(i).getText() + "' save file?",false, wm);
                                 wm.setPopUp(deleteSaveMsg);
                                 deleteIndex = i;
                             }
@@ -285,7 +290,7 @@ class LoadGameWindow extends com.flames.warfair.Window {
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if(Math.abs(touchDownYConst - screenY) > 10)
             dragging = true;
-        if (saveBtns != null) {
+        if (saveBtns.size() > 0) {
             if (touchDownY != 0) {
                 scroll(touchDownY - screenY);
                 touchDownY = screenY;
@@ -299,7 +304,7 @@ class LoadGameWindow extends com.flames.warfair.Window {
      * @param amount -> the amount the user scrolled
      */
     private void scroll(int amount) {
-        amount = amount * 2;
+        //amount = amount * 2;
             if (amount < 0) {
                 if (saveBtns.get(0).getRect().y + amount >= MyGdxGame.HEIGHT - 250) {
                     for (int i = 0; i < saveBtns.size(); i++) {
@@ -307,8 +312,14 @@ class LoadGameWindow extends com.flames.warfair.Window {
                         deleteSaveBtns.get(i).setY(deleteSaveBtns.get(i).getRect().y + amount);
                     }
                 }
+                else {
+                    for (int i = 0; i < saveBtns.size(); i++) {
+                        saveBtns.get(i).setY(MyGdxGame.HEIGHT - 250 - 80*i);
+                        deleteSaveBtns.get(i).setY(MyGdxGame.HEIGHT - 250 - 80*i);
+                    }
+                }
             } else {
-                if (saveBtns.get(saveBtns.size() - 1).getRect().y + amount < exitBtn.getRect().y + exitBtn.getRect().getHeight() +100) {
+                if (saveBtns.get(saveBtns.size() - 1).getRect().y + amount < exitBtn.getRect().y + exitBtn.getRect().getHeight() + 100) {
                     for (int i = 0; i < saveBtns.size(); i++) {
                         saveBtns.get(i).setY(saveBtns.get(i).getRect().y + amount);
                         deleteSaveBtns.get(i).setY(deleteSaveBtns.get(i).getRect().y + amount);

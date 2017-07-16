@@ -25,11 +25,11 @@ class MiniGameWindow extends com.flames.warfair.Window {
 
         background = new Texture("images/newGameBackground.png");
         lastManStandingBtn = new Button("LastManStanding", new Rectangle(MyGdxGame.WIDTH / 2 - BTNWIDTH - 90, MyGdxGame.HEIGHT - 200, BTNWIDTH + 60, 90));
-        skillshotBtn = new Button("skillshot", new Rectangle(lastManStandingBtn.getRect().x + lastManStandingBtn.getRect().width + 40, lastManStandingBtn.getRect().y, BTNWIDTH + 60, 90));
+        skillshotBtn = new Button("Skillshot", new Rectangle(lastManStandingBtn.getRect().x + lastManStandingBtn.getRect().width + 40, lastManStandingBtn.getRect().y, BTNWIDTH + 60, 90));
         if (numOfPlayers == 2) {
             pingVpongBtn = new Button("pingVpong", new Rectangle(lastManStandingBtn.getRect().x, lastManStandingBtn.getRect().y - 120, BTNWIDTH + 60, 90));
-            pigeonRevengeBtn = new Button("pigeonRevenge", new Rectangle(skillshotBtn.getRect().x, lastManStandingBtn.getRect().y - 120, BTNWIDTH + 60, 90));
-            pray2WinBtn = new Button("pray2win", new Rectangle(MyGdxGame.WIDTH/2 - (BTNWIDTH+60)/2, lastManStandingBtn.getRect().y - 240, BTNWIDTH + 60, 90));
+            pigeonRevengeBtn = new Button("PigeonRevenge", new Rectangle(skillshotBtn.getRect().x, lastManStandingBtn.getRect().y - 120, BTNWIDTH + 60, 90));
+            pray2WinBtn = new Button("Pray2Win", new Rectangle(MyGdxGame.WIDTH/2 - (BTNWIDTH+60)/2, lastManStandingBtn.getRect().y - 240, BTNWIDTH + 60, 90));
             pingVpongBtn.setShapeColor(Color.RED);
             pigeonRevengeBtn.setShapeColor(Color.RED);
             pray2WinBtn.setShapeColor(Color.RED);
@@ -189,9 +189,6 @@ class MiniGameWindow extends com.flames.warfair.Window {
                 pingVpongBtn.setHighlighted(false);
                 pigeonRevengeBtn.setHighlighted(false);
                 pray2WinBtn.setHighlighted(false);
-                pingVpongBtn.setShapeColor(Color.GREEN);
-                pigeonRevengeBtn.setShapeColor(Color.GREEN);
-                pray2WinBtn.setShapeColor(Color.GREEN);
             }
             lastManStandingBtn.setHighlighted(false);
             skillshotBtn.setHighlighted(false);

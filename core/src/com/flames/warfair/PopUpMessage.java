@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.flames.warfair.buttons.Button;
 
 /**
@@ -15,6 +16,7 @@ public class PopUpMessage extends Window{
     private Button backBtn;
     private int buttonPressed;
     private int overlapN;
+    private long gameOverMillis;
 
     private float xZero;
     private float yZero;
@@ -25,9 +27,10 @@ public class PopUpMessage extends Window{
      * @param buttonN -> the number of buttons on the pop-up window
      * @param title -> the title of the window
      * @param message -> the message of the window
+     * @param gameOverDelay -> the delay of the exit button (used for mini-games)
      * @param wm -> WindowManager
      */
-    public PopUpMessage(int overlapN, int buttonN, String title, String message, WindowManager wm) {
+    public PopUpMessage(int overlapN, int buttonN, String title, String message, boolean gameOverDelay, WindowManager wm) {
         this.WIDTH = 700;
         this.HEIGHT = 300;
         buttonPressed = 0;
@@ -35,6 +38,10 @@ public class PopUpMessage extends Window{
         xZero = cam.position.x - WIDTH/2;
         yZero = cam.position.y - HEIGHT/2;
         this.wm = wm;
+        if(gameOverDelay)
+            gameOverMillis = TimeUtils.millis();
+        else
+            gameOverMillis = -1;
 
         //split the message up to 4 lines long
         String[] messages;
@@ -107,7 +114,12 @@ public class PopUpMessage extends Window{
 
         //draw highlights
         sr.setColor(Color.FOREST);
-        confirmBtn.drawHighlight(sr);
+        if(gameOverMillis != -1) {
+            if(TimeUtils.timeSinceMillis(gameOverMillis) > 2000)
+                confirmBtn.drawHighlight(sr);
+        }
+        else
+            confirmBtn.drawHighlight(sr);
         backBtn.drawHighlight(sr);
         sr.end();
 
@@ -116,7 +128,12 @@ public class PopUpMessage extends Window{
         sr.setColor(Color.RED);
         sr.rect(xZero, yZero, WIDTH, HEIGHT);
         sr.setColor(confirmBtn.getShapeColor());
-        confirmBtn.drawShape(sr);
+        if(gameOverMillis != -1) {
+            if(TimeUtils.timeSinceMillis(gameOverMillis) > 2000)
+                confirmBtn.drawShape(sr);
+        }
+        else
+            confirmBtn.drawShape(sr);
         sr.setColor(backBtn.getShapeColor());
         backBtn.drawShape(sr);
         sr.end();
@@ -130,7 +147,12 @@ public class PopUpMessage extends Window{
         MyGdxGame.smallFont.draw(sb, strings.get(2), xZero + WIDTH/2 - glyphLayouts.get(2).width/2, yZero - 103 + HEIGHT);
         MyGdxGame.smallFont.draw(sb, strings.get(3), xZero + WIDTH/2 - glyphLayouts.get(3).width/2, yZero - 147 + HEIGHT);
         MyGdxGame.smallFont.draw(sb, strings.get(4), xZero + WIDTH/2 - glyphLayouts.get(4).width/2, yZero - 192 + HEIGHT);
-        confirmBtn.drawFont(sb);
+        if(gameOverMillis != -1) {
+            if(TimeUtils.timeSinceMillis(gameOverMillis) > 2000)
+                confirmBtn.drawFont(sb);
+        }
+        else
+            confirmBtn.drawFont(sb);
         backBtn.drawFont(sb);
         sb.end();
     }
@@ -160,12 +182,24 @@ public class PopUpMessage extends Window{
         clickCoords.set(clickVector.x, clickVector.y, 1, 1);
 
         if(clickCoords.overlaps(confirmBtn.getRect())) {
-            MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
-            buttonPressed=1;
-            if(overlapN==1)
-                wm.popPopUp();
-            else
-                wm.popPopUp2();
+            if(gameOverMillis != -1) {
+                if(TimeUtils.timeSinceMillis(gameOverMillis) > 2000) {
+                    MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
+                    buttonPressed = 1;
+                    if (overlapN == 1)
+                        wm.popPopUp();
+                    else
+                        wm.popPopUp2();
+                }
+            }
+            else {
+                MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
+                buttonPressed=1;
+                if(overlapN==1)
+                    wm.popPopUp();
+                else
+                    wm.popPopUp2();
+            }
         }
         else if (clickCoords.overlaps(backBtn.getRect())) {
             MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
