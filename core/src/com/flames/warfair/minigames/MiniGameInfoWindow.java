@@ -141,7 +141,7 @@ public class MiniGameInfoWindow extends Window {
         sb.draw(background, 0, 0, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
         sb.end();
 
-        sr.setColor(Color.RED);
+        sr.setColor(Color.CYAN);
         if (!chosenSides) {
             if (timerMillis % 200 < 100) {
                 timerMillis = 0;
@@ -150,6 +150,7 @@ public class MiniGameInfoWindow extends Window {
                 sr.end();
             }
         } else { //draw game start button
+            sr.setColor(Color.RED);
             if (timerMillis % 200 < 100) {
                 timerMillis = 0;
                 sr.begin(ShapeRenderer.ShapeType.Line);
@@ -175,8 +176,17 @@ public class MiniGameInfoWindow extends Window {
                 leftBtn.drawShape(sr);
                 rightBtn.drawShape(sr);
                 if (chosenSides) {
-                    sr.setColor(Color.RED);
-                    sr.rect(MyGdxGame.WIDTH / 2 - 250, stantardY - 180, 500, 140);
+                    sr.setColor(BoardGameWindow.players.get(challengerPtr).getColor());
+                    if(leftBtn.getRect().x >= MyGdxGame.WIDTH/2) {
+                        sr.rect(MyGdxGame.WIDTH / 2, stantardY - 180, 250, 140);
+                        sr.setColor(BoardGameWindow.players.get(opponentPtr).getColor());
+                        sr.rect(MyGdxGame.WIDTH / 2 - 251, stantardY - 180, 250, 140);
+                    }
+                    else {
+                        sr.rect(MyGdxGame.WIDTH / 2 - 251, stantardY - 180, 250, 140);
+                        sr.setColor(BoardGameWindow.players.get(opponentPtr).getColor());
+                        sr.rect(MyGdxGame.WIDTH / 2, stantardY - 180, 250, 140);
+                    }
                 }
                 sr.end();
                 sb.begin();
@@ -198,22 +208,112 @@ public class MiniGameInfoWindow extends Window {
                 MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(opponentPtr).getColor());
                 MyGdxGame.smallFont.draw(sb, strings.get(3), player2X, stantardY - 40);
                 sb.end();
+                sr.begin(ShapeRenderer.ShapeType.Line);
+                sr.setColor(BoardGameWindow.players.get(opponentPtr).getColor());
+                sr.rect(MyGdxGame.WIDTH/2 - 250, stantardY - 85, 500, 70);
+                sr.setColor(BoardGameWindow.players.get(challengerPtr).getColor());
+                sr.rect(MyGdxGame.WIDTH/2 - 250, stantardY - 85 - 81, 500, 80);
+                sr.end();
             }
-            else if(miniGame.equals("lastManStanding") || miniGame.equals("skillshot")) {
+            else if(miniGame.equals("lastManStanding") ) {
                 sb.begin();
-                MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(0).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(2), player1X, stantardY);
-                MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(1).getColor());
-                MyGdxGame.smallFont.draw(sb, strings.get(3), player1X, stantardY - 60);
-                if(miniGameMode || BoardGameWindow.players.size()>=3) {
-                    MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(2).getColor());
-                    MyGdxGame.smallFont.draw(sb, strings.get(4), player1X, stantardY - 120);
-                    if(miniGameMode || BoardGameWindow.players.size()>=4) {
-                        MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(3).getColor());
-                        MyGdxGame.smallFont.draw(sb, strings.get(5), player1X, stantardY - 180);
+                if(BoardGameWindow.players.get(0).isAlive()) {
+                    MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(0).getColor());
+                    MyGdxGame.smallFont.draw(sb, strings.get(2), player1X - 125, stantardY - 40);
+                }
+                if(BoardGameWindow.players.get(1).isAlive()) {
+                    MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(1).getColor());
+                    MyGdxGame.smallFont.draw(sb, strings.get(3), player1X - 125, stantardY - 110);
+                }
+                if(BoardGameWindow.players.size()>=3) {
+                    if(BoardGameWindow.players.get(2).isAlive()) {
+                        MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(2).getColor());
+                        MyGdxGame.smallFont.draw(sb, strings.get(4), player1X + 125, stantardY - 40);
+                    }
+                    if(BoardGameWindow.players.size()>=4) {
+                        if(BoardGameWindow.players.get(3).isAlive()) {
+                            MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(3).getColor());
+                            MyGdxGame.smallFont.draw(sb, strings.get(5), player1X + 125, stantardY - 110);
+                        }
                     }
                 }
                 sb.end();
+                sr.begin(ShapeRenderer.ShapeType.Line);
+                if(numOfPlayers==2) {
+                    sr.setColor(BoardGameWindow.players.get(0).getColor());
+                    sr.rect(MyGdxGame.WIDTH/2 - 250, stantardY - 85, 500, 70);
+                    sr.setColor(BoardGameWindow.players.get(1).getColor());
+                    sr.rect(MyGdxGame.WIDTH/2 - 250, stantardY - 85 - 71, 500, 70);
+                }
+                else {
+                    if(BoardGameWindow.players.get(0).isAlive()) {
+                        sr.setColor(BoardGameWindow.players.get(0).getColor());
+                        sr.rect(MyGdxGame.WIDTH / 2 - 251, stantardY - 85, 250, 70);
+                    }
+                    if(BoardGameWindow.players.get(1).isAlive()) {
+                        sr.setColor(BoardGameWindow.players.get(1).getColor());
+                        sr.rect(MyGdxGame.WIDTH / 2 - 251, stantardY - 85 - 71, 250, 70);
+                    }
+                    if (BoardGameWindow.players.size() >= 3) {
+                        if(BoardGameWindow.players.get(2).isAlive()) {
+                            sr.setColor(BoardGameWindow.players.get(2).getColor());
+                            sr.rect(MyGdxGame.WIDTH / 2, stantardY - 85, 250, 70);
+                        }
+                        if (BoardGameWindow.players.size() >= 4) {
+                            if(BoardGameWindow.players.get(3).isAlive()) {
+                                sr.setColor(BoardGameWindow.players.get(3).getColor());
+                                sr.rect(MyGdxGame.WIDTH / 2, stantardY - 85 - 71, 250, 70);
+                            }
+                        }
+                    }
+                }
+                sr.end();
+            }
+            else if(miniGame.equals("skillshot")) {
+                sb.begin();
+                if(BoardGameWindow.players.get(0).isAlive()) {
+                    MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(0).getColor());
+                    MyGdxGame.smallFont.draw(sb, strings.get(2), player1X - 200, stantardY - 90);
+                }
+                if(BoardGameWindow.players.get(1).isAlive()) {
+                    MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(1).getColor());
+                    MyGdxGame.smallFont.draw(sb, strings.get(3), player1X, stantardY - 90);
+                }
+                if(BoardGameWindow.players.size()>=3) {
+                    if(BoardGameWindow.players.get(2).isAlive()) {
+                        MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(2).getColor());
+                        MyGdxGame.smallFont.draw(sb, strings.get(4), player1X + 200, stantardY - 90);
+                    }
+                    if(BoardGameWindow.players.size()>=4) {
+                        if(BoardGameWindow.players.get(3).isAlive()) {
+                            MyGdxGame.smallFont.setColor(BoardGameWindow.players.get(3).getColor());
+                            MyGdxGame.smallFont.draw(sb, strings.get(5), player1X + 400, stantardY - 90);
+                        }
+                    }
+                }
+                sb.end();
+                sr.begin(ShapeRenderer.ShapeType.Line);
+                if(BoardGameWindow.players.get(0).isAlive()) {
+                    sr.setColor(BoardGameWindow.players.get(0).getColor());
+                    sr.rect(MyGdxGame.WIDTH / 2 - 300, stantardY - 145, 200, 150);
+                }
+                if(BoardGameWindow.players.get(1).isAlive()) {
+                    sr.setColor(BoardGameWindow.players.get(1).getColor());
+                    sr.rect(MyGdxGame.WIDTH / 2 - 100, stantardY - 145, 200, 150);
+                }
+                if(BoardGameWindow.players.size()>=3) {
+                    if(BoardGameWindow.players.get(2).isAlive()) {
+                        sr.setColor(BoardGameWindow.players.get(2).getColor());
+                        sr.rect(MyGdxGame.WIDTH / 2 + 100, stantardY - 145, 200, 150);
+                    }
+                    if(BoardGameWindow.players.size()>=4) {
+                        if(BoardGameWindow.players.get(3).isAlive()) {
+                            sr.setColor(BoardGameWindow.players.get(3).getColor());
+                            sr.rect(MyGdxGame.WIDTH / 2 + 300, stantardY - 145, 200, 150);
+                        }
+                    }
+                }
+                sr.end();
             }
         }
 

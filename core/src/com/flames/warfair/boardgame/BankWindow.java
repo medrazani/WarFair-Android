@@ -103,7 +103,7 @@ class BankWindow extends Window {
         if(exitPopUp!=null) {
             if(exitPopUp.getButtonPressed()==1) {
                 wm.popPopUp();
-                BoardGameWindow.setNextPlayersTurn();
+                BoardGameWindow.startNextPlayersTurnTimer();
             }
         }
     }
@@ -145,6 +145,8 @@ class BankWindow extends Window {
                 player.setPointsInBank(0);
                 transactionMade = true;
                 changeString(1, "current points in bank: "+ player.getPointsInBank(), 2);
+                wm.popPopUp();
+                BoardGameWindow.startNextPlayersTurnTimer();
             }
         }
         else if(clickCoords.overlaps(depositBtn.getRect())) {
@@ -159,7 +161,7 @@ class BankWindow extends Window {
             }
             else {
                 wm.popPopUp();
-                BoardGameWindow.setNextPlayersTurn();
+                BoardGameWindow.startNextPlayersTurnTimer();
             }
         }
 

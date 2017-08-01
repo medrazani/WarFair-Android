@@ -95,6 +95,11 @@ public class Announcer {
         }
         else
             strings.add("[" + sdf.format(calendar.getTime()) + "]: " + s);
+
+        yScrolls.set(yScrolls.size()-1, 0); //scroll to last announcement
+        for(int i=strings.size()-2; i>=0; i--) {
+            yScrolls.set(i, yScrolls.get(i+1) + 45);
+        }
     }
 
     /**

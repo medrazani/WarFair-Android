@@ -33,7 +33,7 @@ class Block extends Button {
     void startBlockEvent(Player player) {
         switch (id) {
             case 0: //start
-                BoardGameWindow.setNextPlayersTurn();
+                BoardGameWindow.startNextPlayersTurnTimer();
                 break;
             case 1: //property
                 if (propertyOwnerID == -1) {
@@ -47,7 +47,7 @@ class Block extends Button {
                         propertyOwnerID = player.getID();
                     }
                 }
-                BoardGameWindow.setNextPlayersTurn();
+                BoardGameWindow.startNextPlayersTurnTimer();
                 break;
             case 2: //drawCard
                 BoardGameWindow.card.startAnimation(player);
@@ -59,10 +59,10 @@ class Block extends Button {
             case 4: //losePoints
                 player.alterPoints(-200);
                 BoardGameWindow.announcer.addAnnouncement(player.getName() + " has landed on a Lose Points block and lost 200 points");
-                BoardGameWindow.setNextPlayersTurn();
+                BoardGameWindow.startNextPlayersTurnTimer();
                 break;
             case 5: //skillshot
-                wm.set(new MiniGameInfoWindow("skillshot", -1, -1, BoardGameWindow.players.size(), 0, false, wm));
+                wm.set(new MiniGameInfoWindow("skillshot", -1, -1, 0, BoardGameWindow.players.size(), false, wm));
                 break;
             case 6: //bank
                 wm.setPopUp(new BankWindow(player, wm));
@@ -93,7 +93,7 @@ class Block extends Button {
                 BoardGameWindow.setPlayerReroll();
                 break;
             case 13: //lastManStanding
-                wm.set(new MiniGameInfoWindow("lastManStanding", -1, -1, BoardGameWindow.players.size(), 0, false, wm));
+                wm.set(new MiniGameInfoWindow("lastManStanding", -1, -1, 0, BoardGameWindow.players.size(), false, wm));
                 break;
             case 14: //pingVpong
                 chooseOpponentWindow = new ChooseOpponentWindow("pingVpong", player.getID(), wm);
@@ -103,7 +103,7 @@ class Block extends Button {
                 BoardGameWindow.card.startAnimation(player);
                 break;
             case 16: //skillshot
-                wm.set(new MiniGameInfoWindow("skillshot", -1, -1, BoardGameWindow.players.size(), 0, false, wm));
+                wm.set(new MiniGameInfoWindow("skillshot", -1, -1, 0, BoardGameWindow.players.size(), false, wm));
                 break;
             case 17: //joker
                 jokerWindow = new JokerWindow(wm);
@@ -121,7 +121,7 @@ class Block extends Button {
                 wm.setPopUp(chooseOpponentWindow);
                 break;
             case 21: //lastManStanding
-                wm.set(new MiniGameInfoWindow("lastManStanding", -1, -1, BoardGameWindow.players.size(), 0, false, wm));
+                wm.set(new MiniGameInfoWindow("lastManStanding", -1, -1, 0, BoardGameWindow.players.size(), false, wm));
                 break;
             default:
                 System.out.println("error in block id");

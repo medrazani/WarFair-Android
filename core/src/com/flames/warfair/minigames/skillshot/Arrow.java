@@ -87,7 +87,7 @@ class Arrow extends Button {
             return 2;
         else if(impactXdist<=240 - (float)0/20 * 240)
             return 1;
-        return 0;
+        return 1;
     }
 
     float getImpactXdist() {

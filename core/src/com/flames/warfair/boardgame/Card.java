@@ -89,7 +89,7 @@ class Card extends Button {
                                 break;
                         }
                         if(randomN==4 || randomN==5 || randomN==6)
-                            BoardGameWindow.setNextPlayersTurn();
+                            BoardGameWindow.startNextPlayersTurnTimer();
                         cycle = -1;
                         currentTR = cardTR;
                         animation.setFrame(0);
@@ -107,22 +107,22 @@ class Card extends Button {
     private void announceCard() {
         switch (randomN) {
             case 0: //goToBank
-                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a goToBank card.");
+                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a goToBank card");
                 break;
             case 1: //goToPit
-                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a goToPit card.");
+                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a goToPit card");
                 break;
             case 2: //goToStart
-                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a goToStart card.");
+                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a goToStart card");
                 break;
             case 3: //joker
-                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a goToJoker card.");
+                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a goToJoker card");
                 break;
             case 4: //losePoints
-                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a LosePoints card and loses 200 points.");
+                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a LosePoints card and loses 200 points");
                 break;
             case 5: //reroll
-                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a Reroll card and gets to roll again.");
+                BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a Reroll card and gets to roll again");
                 break;
             case 6: //winPoints
                 BoardGameWindow.announcer.addAnnouncement(player.getName()+" has drawn a WinPoints card and wins 200 points!");

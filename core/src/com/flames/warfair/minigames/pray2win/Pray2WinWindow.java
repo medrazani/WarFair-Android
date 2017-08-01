@@ -67,7 +67,7 @@ public class Pray2WinWindow extends Window {
                 player1.setPrays(3);
         }
         player1.setTouchRect(new Rectangle(1, 1, MyGdxGame.WIDTH / 2 -1, MyGdxGame.HEIGHT-1));
-        player2.setTouchRect(new Rectangle(MyGdxGame.WIDTH / 2 +1, 1, MyGdxGame.WIDTH / 2, MyGdxGame.HEIGHT-1));
+        player2.setTouchRect(new Rectangle(MyGdxGame.WIDTH / 2 +1, 1, MyGdxGame.WIDTH / 2 -1, MyGdxGame.HEIGHT-1));
 
         secCounter = GAMETIME;
         startCounter = 4;
@@ -85,7 +85,7 @@ public class Pray2WinWindow extends Window {
                 if (challengerID != -1) {
                     StartMenuWindow.startMenuSound.play();
                     BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has forfeited a match of Pray2Win against " + BoardGameWindow.players.get(opponentID - 1).getName());
-                    BoardGameWindow.setNextPlayersTurn();
+                    BoardGameWindow.startNextPlayersTurnTimer();
                 }
                 wm.pop();
                 wm.pop();
@@ -166,7 +166,7 @@ public class Pray2WinWindow extends Window {
                                 }
                             }
 
-                            BoardGameWindow.setNextPlayersTurn();
+                            BoardGameWindow.startNextPlayersTurnTimer();
                         } else
                             StartMenuWindow.startMenuSound.play();
                         wm.pop();

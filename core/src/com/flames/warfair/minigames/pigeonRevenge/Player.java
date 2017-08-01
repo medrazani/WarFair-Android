@@ -30,7 +30,7 @@ public class Player extends Button {
         animation = new Animation(Loader.getPlayerWalkT(), 7, 0.6f);
         playStandingTexture = new TextureRegion(Loader.getPlayerStandT());
         collisonRect = new Rectangle(rect.x + 35, rect.y, rect.width-60, rect.height);
-        lineRect = new Rectangle(rect.x + 35, 0, rect.width-60, MyGdxGame.HEIGHT - MyGdxGame.HEIGHT/2 - 51);
+        lineRect = new Rectangle(rect.x + 35, 0, rect.width-60, MyGdxGame.HEIGHT/2 + 51);
         score = 400;
         dir = false;
         left = false;

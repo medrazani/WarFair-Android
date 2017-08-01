@@ -81,6 +81,7 @@ public class BankDepositWindow extends Window {
 
         sb.begin();
         MyGdxGame.smallFont.setColor(Color.WHITE);
+        MyGdxGame.mediumFont.setColor(player.getColor());
         MyGdxGame.smallFont.draw(sb, strings.get(0), xZero + WIDTH / 2 - glyphLayouts.get(0).width / 2, yZero + HEIGHT - 30);
         confirmBtn.drawFont(sb);
         backBtn.drawFont(sb);
@@ -104,8 +105,9 @@ public class BankDepositWindow extends Window {
             clickCoords.set(clickVector.x, clickVector.y, 1, 1);
 
             if (clickCoords.overlaps(confirmBtn.getRect())) {
-
                 wm.popPopUp2();
+                wm.popPopUp();
+                BoardGameWindow.startNextPlayersTurnTimer();
             } else if (clickCoords.overlaps(backBtn.getRect())) {
                 wm.popPopUp2();
             }

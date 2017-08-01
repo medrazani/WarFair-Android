@@ -77,7 +77,7 @@ public class SkillshotWindow extends Window {
                 BoardGameWindow.announcer.addAnnouncement("A match of Skillshot has been forfeited");
                 if (!miniGameMode) {
                     StartMenuWindow.startMenuSound.play();
-                    BoardGameWindow.setNextPlayersTurn();
+                    BoardGameWindow.startNextPlayersTurnTimer();
                 }
                 wm.pop();
                 wm.pop();
@@ -108,7 +108,7 @@ public class SkillshotWindow extends Window {
                     if (winPopUpMsg.getButtonPressed() != 0) {
                         if (!miniGameMode) {
                             StartMenuWindow.startMenuSound.play();
-                            BoardGameWindow.setNextPlayersTurn();
+                            BoardGameWindow.startNextPlayersTurnTimer();
                             for (Player player : players) {
                                 if (player.getScore() >= 100) {
                                     BoardGameWindow.players.get(player.getID() - 1).alterPoints(200);
@@ -239,27 +239,27 @@ public class SkillshotWindow extends Window {
         if (!miniGameMode) {
             if (numOfPlayers == 2)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(450 + 284 * i, 20, 182, 200)));
+                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(450 + 310 * i, 20, 182, 200)));
             else if (numOfPlayers == 3)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(200 + 284 * i, 20, 182, 200)));
+                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(270 + 265 * i, 20, 182, 200)));
             else if (numOfPlayers == 4)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(140 + 225 * i, 20, 182, 200)));
+                    players.add(new Player(i, BoardGameWindow.players.get(i - 1).isAlive(), new Rectangle(135 + 235 * i, 20, 182, 200)));
         } else {
             if (numOfPlayers == 2)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, true, new Rectangle(450 + 284 * i, 20, 182, 200)));
+                    players.add(new Player(i, true, new Rectangle(450 + 310 * i, 20, 182, 200)));
             else if (numOfPlayers == 3)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, true, new Rectangle(200 + 284 * i, 20, 182, 200)));
+                    players.add(new Player(i, true, new Rectangle(270 + 265 * i, 20, 182, 200)));
             else if (numOfPlayers == 4)
                 for (int i = 1; i <= numOfPlayers; i++)
-                    players.add(new Player(i, true, new Rectangle(140 + 225 * i, 20, 182, 200)));
+                    players.add(new Player(i, true, new Rectangle(135 + 235 * i, 20, 182, 200)));
         }
         for(Player player: players) {
             if(player.isAlive())
-                player.setTouchRect(new Rectangle(player.getRect().x - 15, -2, player.getRect().width+30, MyGdxGame.HEIGHT+2));
+                player.setTouchRect(new Rectangle(player.getRect().x - 30, -2, player.getRect().width+45, MyGdxGame.HEIGHT+2));
         }
     }
 

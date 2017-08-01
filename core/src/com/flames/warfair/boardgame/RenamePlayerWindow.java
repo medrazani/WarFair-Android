@@ -13,6 +13,7 @@ import com.flames.warfair.PopUpMessage;
 import com.flames.warfair.Window;
 import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
+import com.flames.warfair.buttons.Toast;
 
 /**
  * The 'Rename Player' pop-up window.
@@ -30,6 +31,7 @@ class RenamePlayerWindow extends Window {
     private long cursorTimer;
     private Button nameBtn;
     private PopUpMessage confirmConfirmationMsg;
+    private Toast latinToast;
 
     RenamePlayerWindow(int playerPtr, Button nameBtn, WindowManager wm) {
         this.wm = wm;
@@ -39,8 +41,9 @@ class RenamePlayerWindow extends Window {
         yZero = MyGdxGame.HEIGHT/2 - HEIGHT/2 + 160;
         this.playerPtr = playerPtr;
         this.nameBtn = nameBtn;
+        latinToast = new Toast("please use latin characters!");
 
-        addString("please give a name for " + nameBtn.getText()+".", 1);
+        addString("please give a name for " + nameBtn.getText(), 1);
 
         confirmBtn = new Button("confirm", new Rectangle(xZero + WIDTH/2 - 170 - 20, yZero + 10, 170, 60));
         backBtn = new Button("back", new Rectangle(xZero + WIDTH/2 + 20, yZero + 10, 170, 60));
@@ -111,6 +114,8 @@ class RenamePlayerWindow extends Window {
                 wm.popPopUp();
             }
         }
+
+        latinToast.renderForLimitedTime(sb);
     }
 
     @Override
@@ -166,6 +171,9 @@ class RenamePlayerWindow extends Window {
                 nameField.setText(nameField.getText() + character);
                 cursorX += inputCharGlyphLayout.width;
             }
+        }
+        else {
+            latinToast.setShow();
         }
         return false;
     }

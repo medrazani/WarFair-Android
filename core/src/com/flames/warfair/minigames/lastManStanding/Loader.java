@@ -18,6 +18,8 @@ public class Loader {
     private static Music backgroundS;
     private static Sound collideS;
     private static Sound victoryS;
+    private static Sound beepS;
+    private static Sound gongS;
 
     /**
      * Load the assets. (images and sounds)
@@ -31,6 +33,8 @@ public class Loader {
         backgroundS = Gdx.audio.newMusic(Gdx.files.internal("sounds/miniGameBackground.wav"));
         collideS = Gdx.audio.newSound(Gdx.files.internal("sounds/lastManStanding/collide.wav"));
         victoryS = Gdx.audio.newSound(Gdx.files.internal("sounds/victory.wav"));
+        beepS = Gdx.audio.newSound(Gdx.files.internal("sounds/pray2Win/beep.wav"));
+        gongS = Gdx.audio.newSound(Gdx.files.internal("sounds/pray2Win/gong.ogg"));
     }
 
     /**
@@ -45,6 +49,8 @@ public class Loader {
         backgroundS.dispose();
         collideS.dispose();
         victoryS.dispose();
+        beepS.dispose();
+        gongS.dispose();
     }
 
     static Texture getPlayerT() {
@@ -77,5 +83,13 @@ public class Loader {
 
     static Sound getVictoryS() {
         return victoryS;
+    }
+
+    public static Sound getBeepS() {
+        return beepS;
+    }
+
+    public static Sound getGongS() {
+        return gongS;
     }
 }

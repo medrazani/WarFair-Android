@@ -115,12 +115,12 @@ class JokerWindow extends Window {
             if (clickCoords.overlaps(lastManStandingBtn.getRect())) {
                 MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
                 wm.popPopUp();
-                wm.set(new MiniGameInfoWindow("lastManStanding", -1, -1, BoardGameWindow.players.size(), 0, false, wm));
+                wm.set(new MiniGameInfoWindow("lastManStanding", -1, -1, 0, BoardGameWindow.players.size(), false, wm));
             }
             else if (clickCoords.overlaps(skillshotBtn.getRect())) {
                 MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);
                 wm.popPopUp();
-                wm.set(new MiniGameInfoWindow("skillshot", -1, -1, BoardGameWindow.players.size(), 0, false, wm));
+                wm.set(new MiniGameInfoWindow("skillshot", -1, -1, 0, BoardGameWindow.players.size(), false, wm));
             }
             else if (clickCoords.overlaps(pingVpongBtn.getRect())) {
                 MyGdxGame.hoverSound.play(MyGdxGame.soundVolume);

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Player extends Button {
 
     private final static int WALLSPEED = 350;
-    private final static int JUMPSPEED = 1150;
+    private final static int JUMPSPEED = 1500;
     private int id;
     static int nextRank;
     private int rank;
@@ -31,6 +31,7 @@ public class Player extends Button {
     private Color color;
     private Texture playerIcon;
     private Rectangle touchRect;
+    private int infoX;
 
     public Player(int id, boolean alive, Rectangle rect) {
         super(Loader.getPlayerT(), rect);
@@ -50,18 +51,26 @@ public class Player extends Button {
         if(id==1) {
             color = Color.RED;
             playerIcon = Loader.getPlayer1T();
+            infoX = MyGdxGame.WIDTH/2 - 200;
         }
         else if(id==2) {
             color = Color.BLUE;
             playerIcon = Loader.getPlayer2T();
+            infoX = MyGdxGame.WIDTH/2 - 200;
         }
         else if(id==3) {
             color = Color.GREEN;
             playerIcon = Loader.getPlayer3T();
+            infoX = MyGdxGame.WIDTH/2 + 10;
+            for(TextureRegion frame : animation.getFrames())
+                frame.flip(true, false);
         }
         else if(id==4) {
             color = Color.ORANGE;
             playerIcon = Loader.getPlayer4T();
+            infoX = MyGdxGame.WIDTH/2 + 10;
+            for(TextureRegion frame : animation.getFrames())
+                frame.flip(true, false);
         }
     }
 
@@ -69,17 +78,33 @@ public class Player extends Button {
         if(alive) {
             if (lives > 0) {
                 animation.update(dt);
-                for (Rectangle rect : walls)
-                    rect.x -= dt * WALLSPEED;
+                for (Rectangle wallRect : walls) {
+                    if(id <= 2) {
+                        wallRect.x -= dt * WALLSPEED;
+                        if(wallRect.x + wallRect.width < touchRect.x)
+                            wallRect.x = -100;
+                        if (rect.overlaps(wallRect)) { //hits wall
+                            Loader.getCollideS().play(MyGdxGame.soundVolume);
+                            wallRect.x = -100;
+                            lives--;
+                        }
+                    }
+                    else {
+                        wallRect.x += dt * WALLSPEED;
+                        if(wallRect.x > touchRect.x + touchRect.width)
+                            wallRect.x = MyGdxGame.WIDTH+100;
+                        if (rect.overlaps(wallRect)) { //hits wall
+                            Loader.getCollideS().play(MyGdxGame.soundVolume);
+                            wallRect.x = -100;
+                            wallRect.x = MyGdxGame.WIDTH + 100;
+                            lives--;
+                        }
+                    }
+                }
                 if (!canJump) {
                     jump(dt);
                 }
-                for (Rectangle wallRect : walls)
-                    if (rect.overlaps(wallRect)) {
-                        Loader.getCollideS().play(MyGdxGame.soundVolume);
-                        wallRect.x = -100;
-                        lives--;
-                    }
+
             } else {
                 if (doOnce) {
                     doOnce = false;
@@ -116,13 +141,16 @@ public class Player extends Button {
      * @param width -> width of the wall
      * @param height -> height of the wall
      */
-    void spawnWall(int width, int height) {
+    void spawnWall(int width, int height, int numOfPlayers) {
         if(walls.size()>0) {
-            walls.get(wallSpawnPointer).setX(MyGdxGame.WIDTH + 0f);
+            if(numOfPlayers == 2)
+                walls.get(wallSpawnPointer).setX(MyGdxGame.WIDTH - width*10 + 0f);
+            else
+                walls.get(wallSpawnPointer).setX(MyGdxGame.WIDTH/2 - width*10 + 0f);
             walls.get(wallSpawnPointer).setHeight(height * 16);
             walls.get(wallSpawnPointer).setWidth(width * 10);
             wallSpawnPointer++;
-            if (wallSpawnPointer == 4)
+            if (wallSpawnPointer == 5)
                 wallSpawnPointer = 0;
         }
     }
@@ -184,7 +212,21 @@ public class Player extends Button {
         rect.y = y;
         rect.width = width;
         rect.height = height;
-        for (int i = 0; i < 4; i++)
-            walls.add(new Rectangle(-100, rect.y, 20, 50));
+        if(id<=2) {
+            for (int i = 0; i < 5; i++)
+                walls.add(new Rectangle(-100, rect.y, 20, 50));
+        }
+        else {
+            for (int i = 0; i < 5; i++)
+                walls.add(new Rectangle(MyGdxGame.WIDTH + 100, rect.y, 20, 50));
+        }
+    }
+
+    int getInfoX() {
+        return infoX;
+    }
+
+    void setInfoX(int x) {
+        infoX = x;
     }
 }

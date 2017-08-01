@@ -11,9 +11,11 @@ import java.util.Random;
  */
 class Target extends Button {
 
-    private static final int MAXSPEED = 440;
-    private static final int MINSPEED = 280;
+    private static final int MAXSPEED = 500;
+    private static final int MINSPEED = 260;
     private static int SPEED = 300;
+    private static final int MAXY = MyGdxGame.HEIGHT - 240;
+    private static final int MINY = MyGdxGame.HEIGHT/2 + 40;
     private Random rand = new Random();
 
     Target(Rectangle rect) {
@@ -25,6 +27,7 @@ class Target extends Button {
         if (rect.x > MyGdxGame.WIDTH + 20) {
             rect.x = -rect.width;
             SPEED = rand.nextInt((MAXSPEED - MINSPEED) + 1) + MINSPEED;
+            rect.y = rand.nextInt((MAXY - MINY) + 1) + MINY;
         }
     }
 

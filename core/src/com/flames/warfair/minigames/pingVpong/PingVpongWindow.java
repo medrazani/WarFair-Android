@@ -72,7 +72,7 @@ public class PingVpongWindow extends Window {
         }
 
         player1.setTouchRect(new Rectangle(1, 1, MyGdxGame.WIDTH / 2 -1, MyGdxGame.HEIGHT-1));
-        player2.setTouchRect(new Rectangle(MyGdxGame.WIDTH / 2 +1, 1, MyGdxGame.WIDTH / 2, MyGdxGame.HEIGHT-1));
+        player2.setTouchRect(new Rectangle(MyGdxGame.WIDTH / 2 +1, 1, MyGdxGame.WIDTH / 2 - 1, MyGdxGame.HEIGHT-1));
         ball = new Ball(new Circle(MyGdxGame.WIDTH/2, MyGdxGame.HEIGHT/2, 33));
 
         addString("TAP TO BEGIN!", 3);
@@ -85,7 +85,7 @@ public class PingVpongWindow extends Window {
                 if (challengerID != -1) {
                     StartMenuWindow.startMenuSound.play();
                     BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID - 1).getName() + " has forfeited a match of pingVpong against " + BoardGameWindow.players.get(opponentID - 1).getName());
-                    BoardGameWindow.setNextPlayersTurn();
+                    BoardGameWindow.startNextPlayersTurnTimer();
                 }
                 wm.pop();
                 wm.pop();
@@ -101,7 +101,7 @@ public class PingVpongWindow extends Window {
                 if (player1.getRect().overlaps(ball.getRectangle())) { //player1 hits the ball
                     Loader.getTouchS().play(MyGdxGame.soundVolume);
                     ball.setDirX(1);
-                    if(ball.getRectangle().y + ball.getRectangle().height > player1.getRect().y + player1.getRect().height)
+                    if(ball.getRectangle().y + ball.getRectangle().height/2 > player1.getRect().y + player1.getRect().height/2)
                         ball.setDirY(1);
                     else
                         ball.setDirY(-1);
@@ -110,7 +110,7 @@ public class PingVpongWindow extends Window {
                 } else if (player2.getRect().overlaps(ball.getRectangle())) { //player2 hits the ball
                     Loader.getTouchS().play(MyGdxGame.soundVolume);
                     ball.setDirX(-1);
-                    if(ball.getRectangle().y + ball.getRectangle().height > player2.getRect().y + player2.getRect().height)
+                    if(ball.getRectangle().y + ball.getRectangle().height/2 > player2.getRect().y + player2.getRect().height/2)
                         ball.setDirY(1);
                     else
                         ball.setDirY(-1);
@@ -177,7 +177,7 @@ public class PingVpongWindow extends Window {
                             }
                         }
 
-                        BoardGameWindow.setNextPlayersTurn();
+                        BoardGameWindow.startNextPlayersTurnTimer();
                     } else
                         StartMenuWindow.startMenuSound.play();
                     wm.pop();

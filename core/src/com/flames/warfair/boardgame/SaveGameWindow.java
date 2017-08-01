@@ -14,6 +14,7 @@ import com.flames.warfair.PopUpMessage;
 import com.flames.warfair.Window;
 import com.flames.warfair.WindowManager;
 import com.flames.warfair.buttons.Button;
+import com.flames.warfair.buttons.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -33,6 +34,7 @@ class SaveGameWindow extends Window {
     private long cursorTimer;
     private PopUpMessage overwriteSaveMsg;
     private boolean saved;
+    private Toast latinToast;
 
     SaveGameWindow(WindowManager wm) {
         this.wm = wm;
@@ -40,6 +42,7 @@ class SaveGameWindow extends Window {
         HEIGHT = 240;
         xZero = MyGdxGame.WIDTH / 2 - WIDTH / 2;
         yZero = MyGdxGame.HEIGHT / 2 - HEIGHT / 2 + 160;
+        latinToast = new Toast("please use latin characters!");
 
         addString("please give a name for the match:", 1);
 
@@ -102,6 +105,8 @@ class SaveGameWindow extends Window {
         MyGdxGame.smallFont.setColor(Color.BLACK);
         nameField.drawFieldFont(sb);
         sb.end();
+
+        latinToast.renderForLimitedTime(sb);
     }
 
     @Override
@@ -155,6 +160,9 @@ class SaveGameWindow extends Window {
                 cursorX += inputGlyphLayout.width;
             }
         }
+        else {
+            latinToast.setShow();
+        }
         return false;
     }
 
@@ -177,8 +185,9 @@ class SaveGameWindow extends Window {
      * @return -> true if file exists
      */
     private boolean saveExists() {
+
         File f = new File("saves/" + nameField.getText() + ".ser");
-        System.out.println();
+        System.out.println(f.exists());
         return(f.exists() && !f.isDirectory());
     }
 

@@ -44,6 +44,7 @@ public class BoardGameWindow extends Window {
     private ArrayList<Button> playerBtns;
     private Dice dice;
     private long timerMillis;
+    private static long nextPlayersTurnMillis = 0;
     private int goalPoints;
     private String goalString;
     private PauseMenuWindow pauseMenuWindow;
@@ -97,6 +98,13 @@ public class BoardGameWindow extends Window {
                 players.get(BoardGameWindow.playerTurn).update(dt);
             }
             handleDicer();
+            if(nextPlayersTurnMillis != 0) {
+                if(TimeUtils.timeSinceMillis(nextPlayersTurnMillis) > 2250) {
+                    nextPlayersTurnMillis = 0;
+                    setNextPlayersTurn();
+                }
+
+            }
         } else {
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getPoints() >= goalPoints) {
@@ -141,13 +149,18 @@ public class BoardGameWindow extends Window {
                     announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " has run out of luck and lost 300 points on the Dicer");
                     players.get(BoardGameWindow.playerTurn).alterPoints(-300);
                 }
-                setNextPlayersTurn();
+                startNextPlayersTurnTimer();
             } else if (Block.dicerPopUpMsg.getButtonPressed() == 2) {
                 Block.dicerPopUpMsg = null;
                 announcer.addAnnouncement(players.get(BoardGameWindow.playerTurn).getName() + " has chickened out of the Dicer!");
-                setNextPlayersTurn();
+                startNextPlayersTurnTimer();
             }
         }
+    }
+
+
+    public static void startNextPlayersTurnTimer() {
+        nextPlayersTurnMillis = TimeUtils.millis();
     }
 
     /**
@@ -255,16 +268,32 @@ public class BoardGameWindow extends Window {
         MyGdxGame.smallFont.setColor(Color.GRAY);
         for (int i = 0; i < announcer.getStrings().size() - 1; i++) {
             if (announcer.getyScrolls().get(i) < announcer.getRect().height - 50 && announcer.getRect().y + 5 + announcer.getyScrolls().get(i) > announcer.getRect().y) {// announcer previous lines
-                if (i == announcer.getStrings().size() - 2 && announcer.getChangeLinePtr() == -1) //last entry is 2 lines long
-                    MyGdxGame.smallFont.setColor(Color.WHITE);
-                if (i == announcer.getStrings().size() - 3 && announcer.getChangeLinePtr2() == -1) //last entry is 3 lines long
-                    MyGdxGame.smallFont.setColor(Color.WHITE);
-                MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(i));
+                if(nextPlayersTurnMillis!=0) {
+                    if (i == announcer.getStrings().size() - 2 && announcer.getChangeLinePtr() == -1          //last entry is 2 lines long
+                            || i == announcer.getStrings().size() - 3 && announcer.getChangeLinePtr2() == -1) {//last entry is 3 lines long)
+                        MyGdxGame.smallFont.setColor(Color.WHITE);
+                        if (TimeUtils.millis() % 500 < 250)
+                            MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(i));
+                    }
+                    else
+                        MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(i));
+                }
+                else {
+                    if (i == announcer.getStrings().size() - 2 && announcer.getChangeLinePtr() == -1          //last entry is 2 lines long
+                            || i == announcer.getStrings().size() - 3 && announcer.getChangeLinePtr2() == -1) //last entry is 3 lines long)
+                        MyGdxGame.smallFont.setColor(Color.WHITE);
+                    MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(i), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(i));
+                }
             }
         }
         if (announcer.getRect().y + 5 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1) > announcer.getRect().y) { //announcer last line
             MyGdxGame.smallFont.setColor(Color.WHITE);
-            MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(announcer.getStrings().size() - 1), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1));
+            if(nextPlayersTurnMillis!=0) {
+                if(TimeUtils.millis() % 500 < 250)
+                    MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(announcer.getStrings().size() - 1), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1));
+            }
+            else
+                MyGdxGame.smallFont.draw(sb, announcer.getStrings().get(announcer.getStrings().size() - 1), announcer.getRect().x + 8, announcer.getRect().y + 40 + announcer.getyScrolls().get(announcer.getyScrolls().size() - 1));
         }
         for(int i=0; i<playerBtns.size(); i++) {
             MyGdxGame.mediumFont.setColor(players.get(i).getColor());

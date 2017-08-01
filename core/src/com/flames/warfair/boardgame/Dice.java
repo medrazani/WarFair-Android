@@ -49,7 +49,7 @@ class Dice extends Button {
                 currentFrame = diceHover.get(randomNumber);
                 if(TimeUtils.timeSinceMillis(timerMillis) > 1500) {
                     roll = randomNumber + 1;
-                    //roll = 6; //DEBUGGING
+                    //roll = 5; //DEBUGGING
                     clicked = false;
                     randomNumber = Math.abs(BoardGameWindow.random.nextInt()%6);
                 }

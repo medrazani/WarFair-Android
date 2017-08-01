@@ -96,11 +96,11 @@ public class WindowManager {
         windows.peek().render(sb); //draw only top window
 
         if(popUp!=null) {
-            popUp.render(sb);
             if(popUp2!=null) {
                 popUp2.render(sb);
             }
-
+            else
+                popUp.render(sb);
         }
     }
 

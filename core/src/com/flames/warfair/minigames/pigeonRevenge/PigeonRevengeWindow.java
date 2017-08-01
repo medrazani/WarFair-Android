@@ -54,7 +54,7 @@ public class PigeonRevengeWindow extends Window {
             oppColor = Color.BLUE;
         pigeons = new ArrayList<Pigeon>();
         pigeonPointer = 0;
-        seconds = 40;
+        seconds = 30;
         timerMillis = TimeUtils.millis();
         for (int i = 0; i < 20; i++)
             pigeons.add(new Pigeon(new Rectangle(-100, -100, 70, 70)));
@@ -81,7 +81,7 @@ public class PigeonRevengeWindow extends Window {
                 if(challengerID!=-1) {
                     StartMenuWindow.startMenuSound.play();
                     BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has forfeited a match of PigeonRevenge against "+BoardGameWindow.players.get(opponentID-1).getName());
-                    BoardGameWindow.setNextPlayersTurn();
+                    BoardGameWindow.startNextPlayersTurnTimer();
                 }
                 wm.pop();
                 wm.pop();
@@ -143,7 +143,7 @@ public class PigeonRevengeWindow extends Window {
                             StartMenuWindow.startMenuSound.play();
                             BoardGameWindow.announcer.addAnnouncement(BoardGameWindow.players.get(challengerID-1).getName() + " has scored " + player.getScore() + " points against " + BoardGameWindow.players.get(opponentID-1).getName() + " on a match of PigeonRevenge!");
                             BoardGameWindow.players.get(challengerID-1).alterPoints(player.getScore());
-                            BoardGameWindow.setNextPlayersTurn();
+                            BoardGameWindow.startNextPlayersTurnTimer();
                         }
                         else
                             StartMenuWindow.startMenuSound.play();

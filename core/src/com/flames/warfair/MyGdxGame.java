@@ -15,6 +15,9 @@ import com.flames.warfair.startmenu.StartMenuWindow;
 //TODO: check sound on other devices. na to allaksw an einai etsi se ola as mhn kanei gia pc
 //TODO: sto android overwrite save de pianei
 
+//TODO: add pewVpew
+//TODO: allo hxo otan xaneis lefta??
+
 //TODO:GRAPHICS
 //4 figoures
 //START MENU
@@ -22,6 +25,7 @@ import com.flames.warfair.startmenu.StartMenuWindow;
 //Pray2Win: monk, background?
 //PigeonRevenge: pigeon, man, background?
 //Skillshot: bow?, arrow?, target?
+//pewVpew: background, player1stand, player1run, player1jump, player1sit, IDIA gia player2
 
 
 /**

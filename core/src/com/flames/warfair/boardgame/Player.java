@@ -158,7 +158,7 @@ public class Player extends Button implements java.io.Serializable {
         }
         if(onThaPit!=-1) {
             Dice.roll = -1;
-            BoardGameWindow.setNextPlayersTurn();
+            BoardGameWindow.startNextPlayersTurnTimer();
         }
     }
 
